@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "exnihilosequentia",
+  "key": {
+    "-": {
+      "item": "tfc:wood/planks/pine_slab"
+    },
+    "x": {
+      "item": "tfc:wood/planks/pine"
+    }
+  },
+  "pattern": [
+    "x x",
+    "x x",
+    "x-x"
+  ],
+  "result": {
+    "item": "exnihiloadditions:pine_barrel"
+  },
+  "show_notification": true
+}

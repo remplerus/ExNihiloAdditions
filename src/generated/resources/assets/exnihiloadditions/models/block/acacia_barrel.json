@@ -1,0 +1,8 @@
+{
+  "parent": "exnihilosequentia:block/barrel_base",
+  "render_type": "minecraft:cutout_mipped",
+  "textures": {
+    "particle": "exnihiloadditions:block/tfc/acacia_barrel",
+    "texture": "exnihiloadditions:block/tfc/acacia_barrel"
+  }
+}

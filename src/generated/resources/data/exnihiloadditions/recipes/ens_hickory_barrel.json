@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "exnihilosequentia",
+  "key": {
+    "-": {
+      "item": "tfc:wood/planks/hickory_slab"
+    },
+    "x": {
+      "item": "tfc:wood/planks/hickory"
+    }
+  },
+  "pattern": [
+    "x x",
+    "x x",
+    "x-x"
+  ],
+  "result": {
+    "item": "exnihiloadditions:hickory_barrel"
+  },
+  "show_notification": true
+}

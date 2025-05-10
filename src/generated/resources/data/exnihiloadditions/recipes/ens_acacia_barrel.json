@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "exnihilosequentia",
+  "key": {
+    "-": {
+      "item": "tfc:wood/planks/acacia_slab"
+    },
+    "x": {
+      "item": "tfc:wood/planks/acacia"
+    }
+  },
+  "pattern": [
+    "x x",
+    "x x",
+    "x-x"
+  ],
+  "result": {
+    "item": "exnihiloadditions:acacia_barrel"
+  },
+  "show_notification": true
+}

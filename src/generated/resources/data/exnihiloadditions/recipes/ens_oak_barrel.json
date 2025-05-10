@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "exnihilosequentia",
+  "key": {
+    "-": {
+      "item": "tfc:wood/planks/oak_slab"
+    },
+    "x": {
+      "item": "tfc:wood/planks/oak"
+    }
+  },
+  "pattern": [
+    "x x",
+    "x x",
+    "x-x"
+  ],
+  "result": {
+    "item": "exnihiloadditions:oak_barrel"
+  },
+  "show_notification": true
+}

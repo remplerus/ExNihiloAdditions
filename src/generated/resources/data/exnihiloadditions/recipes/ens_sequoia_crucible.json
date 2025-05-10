@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "exnihilosequentia",
+  "key": {
+    "c": {
+      "item": "tfc:wood/lumber/sequoia"
+    },
+    "l": {
+      "item": "tfc:wood/planks/sequoia_slab"
+    },
+    "s": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "pattern": [
+    "c c",
+    "clc",
+    "s s"
+  ],
+  "result": {
+    "item": "exnihiloadditions:sequoia_crucible"
+  },
+  "show_notification": true
+}

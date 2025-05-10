@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "exnihilosequentia",
+  "key": {
+    "c": {
+      "item": "tfc:wood/lumber/aspen"
+    },
+    "l": {
+      "item": "tfc:wood/planks/aspen_slab"
+    },
+    "s": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "pattern": [
+    "c c",
+    "clc",
+    "s s"
+  ],
+  "result": {
+    "item": "exnihiloadditions:aspen_crucible"
+  },
+  "show_notification": true
+}
