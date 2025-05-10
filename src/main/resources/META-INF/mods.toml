@@ -25,3 +25,15 @@ mandatory = true
 versionRange = "[1,)"
 ordering = "NONE"
 side = "BOTH"
+[[dependencies.${mod_id}]]
+modId = "tfc"
+mandatory = false
+versionRange = "[1,)"
+ordering = "NONE"
+side = "BOTH"
+[[dependencies.${mod_id}]]
+modId = "emi"
+mandatory = false
+versionRange = "[1.1.22,)"
+ordering = "NONE"
+side = "BOTH"

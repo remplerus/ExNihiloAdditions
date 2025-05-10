@@ -59,5 +59,14 @@
   "block.exnihiloadditions.willow_barrel": "Willow Barrel",
   "block.exnihiloadditions.willow_crucible": "Willow Crucible",
   "block.exnihiloadditions.willow_sieve": "Willow Sieve",
+  "emi.category.exnihiloadditions.composting": "Composting",
+  "emi.category.exnihiloadditions.crushing": "Crushing",
+  "emi.category.exnihiloadditions.harvesting": "Harvesting",
+  "emi.category.exnihiloadditions.heating": "Heating",
+  "emi.category.exnihiloadditions.melting": "Melting",
+  "emi.category.exnihiloadditions.precipitating": "Precipitate",
+  "emi.category.exnihiloadditions.sifting": "Sifting",
+  "emi.category.exnihiloadditions.solidifying": "Solidifying",
+  "emi.category.exnihiloadditions.transition": "Transition",
   "itemGroup.exnihiloadditions": "Ex Nihilo: Additions"
 }

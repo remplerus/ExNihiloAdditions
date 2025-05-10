@@ -77,6 +77,9 @@ mixin {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+    flatDir {
+        dir 'libs'
+    }
     maven {
         url 'https://maven.blamejared.com'
     }
@@ -110,6 +113,10 @@ repositories {
             releasesOnly()
         }
     }
+    maven {
+        name = "TerraformersMC"
+        url = "https://maven.terraformersmc.com/"
+    }
 }
 
 dependencies {
@@ -119,7 +126,10 @@ dependencies {
     implementation fg.deobf(project.dependencies.create("novamachina.novacore:novacore:1.20.1-1.0.0-build.3") {
         transitive = false
     })
-    implementation fg.deobf(project.dependencies.create("novamachina.exnihilosequentia:exnihilosequentia:1.20.1-5.0.0-build.6") {
+    //implementation fg.deobf(project.dependencies.create("novamachina.exnihilosequentia:exnihilosequentia:1.20.1-5.0.0-build.6") {
+    //    transitive = false
+    //})
+    implementation fg.deobf(project.dependencies.create("blank:exnihilosequentia:1.20.1-5.0.0-build.SNAPSHOT") {
         transitive = false
     })
 
@@ -130,7 +140,9 @@ dependencies {
     implementation fg.deobf("curse.maven:tfc-302973:6187491")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-84.1-FORGE")
 
-
+    //EMI
+    compileOnly fg.deobf("dev.emi:emi-forge:1.1.22+${minecraft_version}:api")
+    runtimeOnly fg.deobf("dev.emi:emi-forge:1.1.22+${minecraft_version}")
 
 }
 
