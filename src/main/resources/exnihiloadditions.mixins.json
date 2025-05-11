@@ -10,5 +10,6 @@
   "injectors": {
     "defaultRequire": 1,
     "maxShiftBy": 2
-  }
+  },
+  "refmap": "exnihiloadditions.mixins.refmap.json"
 }

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_plank": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tfc:wood/planks/blackwood"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "exnihiloadditions:tfc/sieves/blackwood_sieve"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_plank",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "exnihiloadditions:tfc/sieves/blackwood_sieve"
+    ]
+  },
+  "sends_telemetry_event": false
+}

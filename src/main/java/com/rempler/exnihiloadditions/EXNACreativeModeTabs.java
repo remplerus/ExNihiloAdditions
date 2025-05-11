@@ -1,6 +1,7 @@
 package com.rempler.exnihiloadditions;
 
 import com.rempler.exnihiloadditions.compat.tfc.EXNATFCBlocks;
+import com.rempler.exnihiloadditions.compat.tfc.EXNATFCItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.DyeColor;
@@ -24,6 +25,7 @@ public class EXNACreativeModeTabs {
     public static final CreativeModeTabDefinition EXN = CREATIVE_MODE_TABS.creativeModeTab("creative_tab", CreativeModeTab.builder().icon(EXNItems.HAMMER_NETHERITE::itemStack).title(Component.literal("Ex Nihilo: Additions")).displayItems((parameters, output) -> {
         if (ModList.get().isLoaded("tfc")) {
             EXNATFCBlocks.getDefinitions().forEach(output::accept);
+            EXNATFCItems.getDefinitions().forEach(output::accept);
         }
     }).build());
 }

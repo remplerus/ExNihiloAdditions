@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_sandpaper": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tfc:sandpaper"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "exnihiloadditions:tfc/sandpaper/vanilla_to_tfc_lapis_lazuli"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_sandpaper",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "exnihiloadditions:tfc/sandpaper/vanilla_to_tfc_lapis_lazuli"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -2,6 +2,7 @@ package com.rempler.exnihiloadditions;
 
 import com.rempler.exnihiloadditions.compat.tfc.EXNATFCBlockEntites;
 import com.rempler.exnihiloadditions.compat.tfc.EXNATFCBlocks;
+import com.rempler.exnihiloadditions.compat.tfc.EXNATFCItems;
 import com.rempler.exnihiloadditions.compat.tfc.client.EXNATFCClientSetup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -15,6 +16,7 @@ import novamachina.novacore.bootstrap.ForgeBlockRegistry;
 import novamachina.novacore.bootstrap.ForgeCreativeModeTabRegistry;
 import novamachina.novacore.bootstrap.ForgeItemRegistry;
 import novamachina.novacore.world.item.CreativeModeTabDefinition;
+import novamachina.novacore.world.item.ItemDefinition;
 import novamachina.novacore.world.level.block.BlockDefinition;
 import novamachina.novacore.world.level.block.BlockEntityTypeDefinition;
 import org.slf4j.Logger;
@@ -61,6 +63,9 @@ public class ExNihiloAdditions {
                         ForgeItemRegistry registry = new ForgeItemRegistry();
                         if (isTFCLoaded) {
                             for (BlockDefinition<?> definition : EXNATFCBlocks.getDefinitions()) {
+                                registry.register(definition);
+                            }
+                            for (ItemDefinition<?> definition : EXNATFCItems.getDefinitions()) {
                                 registry.register(definition);
                             }
                         }

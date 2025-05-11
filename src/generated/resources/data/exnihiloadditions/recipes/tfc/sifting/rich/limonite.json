@@ -1,0 +1,15 @@
+{
+  "type": "exnihilosequentia:sifting",
+  "input": {
+    "item": "exnihilosequentia:dust"
+  },
+  "result": {
+    "item": "tfc:ore/rich_limonite"
+  },
+  "rolls": [
+    {
+      "chance": 0.1,
+      "mesh": "flint"
+    }
+  ]
+}

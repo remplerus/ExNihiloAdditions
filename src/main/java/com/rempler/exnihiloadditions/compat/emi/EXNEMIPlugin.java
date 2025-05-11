@@ -29,7 +29,7 @@ import novamachina.exnihilosequentia.world.item.crafting.SiftingRecipe;
 import novamachina.exnihilosequentia.world.item.crafting.SolidifyingRecipe;
 import novamachina.exnihilosequentia.world.item.crafting.TransitionRecipe;
 
-@EmiEntrypoint
+//@EmiEntrypoint
 public class EXNEMIPlugin implements EmiPlugin {
     public static final ResourceLocation JEI_MID_SHEET = new ResourceLocation("exnihilosequentia", "textures/gui/jei_mid.png");
     public static final ResourceLocation HEATING_SHEET = new ResourceLocation("emi", "textures/gui/background.png");

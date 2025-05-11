@@ -1,0 +1,15 @@
+{
+  "type": "exnihilosequentia:sifting",
+  "input": {
+    "item": "minecraft:gravel"
+  },
+  "result": {
+    "item": "tfc:ore/bituminous_coal"
+  },
+  "rolls": [
+    {
+      "chance": 0.1,
+      "mesh": "flint"
+    }
+  ]
+}
