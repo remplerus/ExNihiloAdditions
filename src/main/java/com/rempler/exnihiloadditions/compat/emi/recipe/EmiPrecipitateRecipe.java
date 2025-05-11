@@ -2,14 +2,17 @@ package com.rempler.exnihiloadditions.compat.emi.recipe;
 
 import com.rempler.exnihiloadditions.compat.emi.EXNEMIPlugin;
 import dev.emi.emi.api.recipe.BasicEmiRecipe;
+import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 import novamachina.exnihilosequentia.world.item.crafting.PrecipitateRecipe;
 
 public class EmiPrecipitateRecipe extends BasicEmiRecipe {
+    public static final EmiTexture PRECIPITATING_TEXTURE = new EmiTexture(EXNEMIPlugin.PRECIPITATING_SHEET, 0, 0, 166, 63);
+
     public EmiPrecipitateRecipe(PrecipitateRecipe recipe) {
-        super(EXNEMIPlugin.SIFTING, recipe.getId(), 70, 18);
+        super(EXNEMIPlugin.PRECIPITATING, recipe.getId(), 166, 63);
         this.inputs.add(EmiIngredient.of(recipe.getInput()));
         this.catalysts.add(EmiStack.of(recipe.getFluid().getFluid()));
         this.outputs.add(EmiStack.of(recipe.getOutput()));

@@ -2,6 +2,7 @@ package com.rempler.exnihiloadditions.compat.emi.recipe;
 
 import com.rempler.exnihiloadditions.compat.emi.EXNEMIPlugin;
 import dev.emi.emi.api.recipe.BasicEmiRecipe;
+import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
@@ -12,8 +13,10 @@ import novamachina.novacore.util.StringUtils;
 import java.util.Collection;
 
 public class EmiCrushingRecipe extends BasicEmiRecipe {
+    public static final EmiTexture CRUSHING_TEXTURE = new EmiTexture(EXNEMIPlugin.JEI_MID_SHEET, 0, 56, 166, 58);
+
     public EmiCrushingRecipe(CrushingRecipe recipe) {
-        super(EXNEMIPlugin.SIFTING, recipe.getId(), 70, 18);
+        super(EXNEMIPlugin.CRUSHING, recipe.getId(), 166, 58);
         this.inputs.add(EmiIngredient.of(recipe.getInput()));
         Collection<EmiStack> outputs = recipe.getOutputsWithoutChance().stream()
                 .map(EmiStack::of)

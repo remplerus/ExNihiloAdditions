@@ -2,14 +2,17 @@ package com.rempler.exnihiloadditions.compat.emi.recipe;
 
 import com.rempler.exnihiloadditions.compat.emi.EXNEMIPlugin;
 import dev.emi.emi.api.recipe.BasicEmiRecipe;
+import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 import novamachina.exnihilosequentia.world.item.crafting.TransitionRecipe;
 
 public class EmiTransitionRecipe extends BasicEmiRecipe {
+    public static final EmiTexture TRANSITION_TEXTURE = new EmiTexture(EXNEMIPlugin.TRANSITION_SHEET, 0, 0, 166, 63);
+
     public EmiTransitionRecipe(TransitionRecipe recipe) {
-        super(EXNEMIPlugin.SIFTING, recipe.getId(), 70, 18);
+        super(EXNEMIPlugin.TRANSITION, recipe.getId(), 166, 63);
         this.inputs.add(EmiStack.of(recipe.getFluidInTank().getFluid()));
         this.catalysts.add(EmiIngredient.of(recipe.getCatalyst()));
         this.outputs.add(EmiStack.of(recipe.getResult().getFluid()));

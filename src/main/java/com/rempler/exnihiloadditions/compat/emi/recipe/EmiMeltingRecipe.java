@@ -2,6 +2,7 @@ package com.rempler.exnihiloadditions.compat.emi.recipe;
 
 import com.rempler.exnihiloadditions.compat.emi.EXNEMIPlugin;
 import dev.emi.emi.api.recipe.BasicEmiRecipe;
+import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
@@ -9,9 +10,11 @@ import net.minecraft.network.chat.Component;
 import novamachina.exnihilosequentia.world.item.crafting.MeltingRecipe;
 
 public class EmiMeltingRecipe extends BasicEmiRecipe {
+    public static final EmiTexture MELTING_TEXTURE = new EmiTexture(EXNEMIPlugin.JEI_MID_SHEET, 0, 168, 166, 63);
     private int amount;
+
     public EmiMeltingRecipe(MeltingRecipe recipe) {
-        super(EXNEMIPlugin.MELTING, recipe.getId(), 70, 18);
+        super(EXNEMIPlugin.MELTING, recipe.getId(), 166, 63);
         this.inputs.add(EmiIngredient.of(recipe.getInput()));
         this.outputs.add(EmiStack.of(recipe.getResultFluid().getFluid()));
         this.amount = recipe.getResultFluid().getAmount();

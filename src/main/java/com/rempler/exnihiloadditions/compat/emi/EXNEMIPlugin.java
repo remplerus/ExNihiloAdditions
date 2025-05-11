@@ -1,5 +1,6 @@
 package com.rempler.exnihiloadditions.compat.emi;
 
+import com.rempler.exnihiloadditions.ExNihiloAdditions;
 import com.rempler.exnihiloadditions.compat.emi.recipe.EmiCompostRecipe;
 import com.rempler.exnihiloadditions.compat.emi.recipe.EmiCrushingRecipe;
 import com.rempler.exnihiloadditions.compat.emi.recipe.EmiHarvestingRecipe;
@@ -12,13 +13,23 @@ import com.rempler.exnihiloadditions.compat.emi.recipe.EmiTransitionRecipe;
 import dev.emi.emi.api.EmiEntrypoint;
 import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
+import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeType;
 import novamachina.exnihilosequentia.tags.ExNihiloTags;
+import novamachina.exnihilosequentia.world.item.EXNItems;
 import novamachina.exnihilosequentia.world.item.crafting.CompostRecipe;
 import novamachina.exnihilosequentia.world.item.crafting.CrushingRecipe;
 import novamachina.exnihilosequentia.world.item.crafting.EXNRecipeTypes;
@@ -29,6 +40,11 @@ import novamachina.exnihilosequentia.world.item.crafting.PrecipitateRecipe;
 import novamachina.exnihilosequentia.world.item.crafting.SiftingRecipe;
 import novamachina.exnihilosequentia.world.item.crafting.SolidifyingRecipe;
 import novamachina.exnihilosequentia.world.item.crafting.TransitionRecipe;
+import novamachina.exnihilosequentia.world.level.block.EXNBlocks;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Supplier;
 
 @EmiEntrypoint
 public class EXNEMIPlugin implements EmiPlugin {
@@ -38,31 +54,21 @@ public class EXNEMIPlugin implements EmiPlugin {
     public static final ResourceLocation SOLIDIFYING_SHEET = new ResourceLocation("exnihilosequentia", "textures/gui/jei_fluid_on_top.png");
     public static final ResourceLocation TRANSITION_SHEET = new ResourceLocation("exnihilosequentia", "textures/gui/jei_fluid_transform.png");
 
-    public static final EmiIngredient CRUCIBLE = EmiIngredient.of(ExNihiloTags.CRUCIBLE);
-    public static final EmiIngredient BARREL = EmiIngredient.of(ExNihiloTags.BARREL);
-    public static final EmiIngredient SIEVE = EmiIngredient.of(ExNihiloTags.SIEVE);
-    public static final EmiIngredient CROOK = EmiIngredient.of(ExNihiloTags.CROOK);
-    public static final EmiIngredient HAMMER = EmiIngredient.of(ExNihiloTags.HAMMER);
+    public static final EmiIngredient CRUCIBLE = EmiStack.of(EXNBlocks.ACACIA_CRUCIBLE);
+    public static final EmiIngredient BARREL = EmiStack.of(EXNBlocks.ACACIA_BARREL);
+    public static final EmiIngredient SIEVE = EmiStack.of(EXNBlocks.ACACIA_SIEVE);
+    public static final EmiIngredient CROOK = EmiStack.of(EXNItems.CROOK_WOOD);
+    public static final EmiIngredient HAMMER = EmiStack.of(EXNItems.HAMMER_WOOD);
 
-    public static final EmiTexture COMPOSTING_TEXTURE = new EmiTexture(JEI_MID_SHEET, 0, 168, 166, 63);
-    public static final EmiTexture CRUSHING_TEXTURE = new EmiTexture(JEI_MID_SHEET, 0, 56, 166, 58);
-    public static final EmiTexture HARVESTING_TEXTURE = new EmiTexture(JEI_MID_SHEET, 0, 112, 166, 58);
-    public static final EmiTexture HEATING_TEXTURE = new EmiTexture(HEATING_SHEET, 0, 134, 18, 34);
-    public static final EmiTexture MELTING_TEXTURE = new EmiTexture(JEI_MID_SHEET, 0, 168, 166, 63);
-    public static final EmiTexture PRECIPITATING_TEXTURE = new EmiTexture(PRECIPITATING_SHEET, 0, 0, 166, 63);
-    public static final EmiTexture SIFTING_TEXTURE = new EmiTexture(JEI_MID_SHEET, 0, 0, 166, 58);
-    public static final EmiTexture SOLIDIFYING_TEXTURE = new EmiTexture(SOLIDIFYING_SHEET, 0, 0, 166, 63);
-    public static final EmiTexture TRANSITION_TEXTURE = new EmiTexture(TRANSITION_SHEET, 0, 0, 166, 63);
-
-    public static final EmiRecipeCategory COMPOSTING = new EmiRecipeCategory(new ResourceLocation("exnihiloadditions:composting"), BARREL, COMPOSTING_TEXTURE);
-    public static final EmiRecipeCategory CRUSHING = new EmiRecipeCategory(new ResourceLocation("exnihiloadditions:crushing"), HAMMER, CRUSHING_TEXTURE);
-    public static final EmiRecipeCategory HARVESTING = new EmiRecipeCategory(new ResourceLocation("exnihiloadditions:harvesting"), CROOK, HARVESTING_TEXTURE);
-    public static final EmiRecipeCategory HEATING = new EmiRecipeCategory(new ResourceLocation("exnihiloadditions:heating"), CRUCIBLE, HEATING_TEXTURE);
-    public static final EmiRecipeCategory MELTING = new EmiRecipeCategory(new ResourceLocation("exnihiloadditions:melting"), CRUCIBLE, MELTING_TEXTURE);
-    public static final EmiRecipeCategory PRECIPITATING = new EmiRecipeCategory(new ResourceLocation("exnihiloadditions:precipitating"), BARREL, PRECIPITATING_TEXTURE);
-    public static final EmiRecipeCategory SIFTING = new EmiRecipeCategory(new ResourceLocation("exnihiloadditions:sifting"), SIEVE, SIFTING_TEXTURE);
-    public static final EmiRecipeCategory SOLIDIFYING = new EmiRecipeCategory(new ResourceLocation("exnihiloadditions:solidifying"), BARREL, SOLIDIFYING_TEXTURE);
-    public static final EmiRecipeCategory TRANSITION = new EmiRecipeCategory(new ResourceLocation("exnihiloadditions:transition"), BARREL, TRANSITION_TEXTURE);
+    public static final EmiRecipeCategory COMPOSTING = new EmiRecipeCategory(new ResourceLocation("exnihiloadditions:composting"), BARREL);
+    public static final EmiRecipeCategory CRUSHING = new EmiRecipeCategory(new ResourceLocation("exnihiloadditions:crushing"), HAMMER);
+    public static final EmiRecipeCategory HARVESTING = new EmiRecipeCategory(new ResourceLocation("exnihiloadditions:harvesting"), CROOK);
+    public static final EmiRecipeCategory HEATING = new EmiRecipeCategory(new ResourceLocation("exnihiloadditions:heating"), CRUCIBLE);
+    public static final EmiRecipeCategory MELTING = new EmiRecipeCategory(new ResourceLocation("exnihiloadditions:melting"), CRUCIBLE);
+    public static final EmiRecipeCategory PRECIPITATING = new EmiRecipeCategory(new ResourceLocation("exnihiloadditions:precipitating"), BARREL);
+    public static final EmiRecipeCategory SIFTING = new EmiRecipeCategory(new ResourceLocation("exnihiloadditions:sifting"), SIEVE);
+    public static final EmiRecipeCategory SOLIDIFYING = new EmiRecipeCategory(new ResourceLocation("exnihiloadditions:solidifying"), BARREL);
+    public static final EmiRecipeCategory TRANSITION = new EmiRecipeCategory(new ResourceLocation("exnihiloadditions:transition"), BARREL);
 
     @Override
     public void register(EmiRegistry emiRegistry) {
@@ -84,27 +90,27 @@ public class EXNEMIPlugin implements EmiPlugin {
     }
 
     private void registerWorkstations(EmiRegistry emiRegistry) {
-        for (EmiStack stack : BARREL.getEmiStacks()) {
+        for (EmiStack stack : getRawValues(ExNihiloTags.BARREL)) {
             emiRegistry.addWorkstation(COMPOSTING, stack);
             emiRegistry.addWorkstation(PRECIPITATING, stack);
             emiRegistry.addWorkstation(SOLIDIFYING, stack);
             emiRegistry.addWorkstation(TRANSITION, stack);
         }
 
-        for (EmiStack stack : CRUCIBLE.getEmiStacks()) {
+        for (EmiStack stack : getRawValues(ExNihiloTags.CRUCIBLE)) {
             emiRegistry.addWorkstation(HEATING, stack);
             emiRegistry.addWorkstation(MELTING, stack);
         }
 
-        for (EmiStack stack : SIEVE.getEmiStacks()) {
+        for (EmiStack stack : getRawValues(ExNihiloTags.SIEVE)) {
             emiRegistry.addWorkstation(SIFTING, stack);
         }
 
-        for (EmiStack stack : CROOK.getEmiStacks()) {
+        for (EmiStack stack : getRawValues(ExNihiloTags.CROOK)) {
             emiRegistry.addWorkstation(HARVESTING, stack);
         }
 
-        for (EmiStack stack : HAMMER.getEmiStacks()) {
+        for (EmiStack stack : getRawValues(ExNihiloTags.HAMMER)) {
             emiRegistry.addWorkstation(CRUSHING, stack);
         }
     }
@@ -112,32 +118,58 @@ public class EXNEMIPlugin implements EmiPlugin {
     private void registerRecipeManagers(EmiRegistry emiRegistry) {
         RecipeManager manager = emiRegistry.getRecipeManager();
 
-        for (CompostRecipe recipe : manager.getAllRecipesFor(EXNRecipeTypes.COMPOST)) {
-            emiRegistry.addRecipe(new EmiCompostRecipe(recipe));
+        for (CompostRecipe recipe : getRecipes(emiRegistry, EXNRecipeTypes.COMPOST)) {
+            addRecipeSafe(emiRegistry, () -> new EmiCompostRecipe(recipe), recipe);
         }
-        for (CrushingRecipe recipe : manager.getAllRecipesFor(EXNRecipeTypes.CRUSHING)) {
-            emiRegistry.addRecipe(new EmiCrushingRecipe(recipe));
+        for (CrushingRecipe recipe : getRecipes(emiRegistry, EXNRecipeTypes.CRUSHING)) {
+            addRecipeSafe(emiRegistry, () -> new EmiCrushingRecipe(recipe), recipe);
         }
-        for (HarvestRecipe recipe : manager.getAllRecipesFor(EXNRecipeTypes.HARVEST)) {
-            emiRegistry.addRecipe(new EmiHarvestingRecipe(recipe));
+        for (HarvestRecipe recipe : getRecipes(emiRegistry, EXNRecipeTypes.HARVEST)) {
+            addRecipeSafe(emiRegistry, () -> new EmiHarvestingRecipe(recipe), recipe);
         }
-        for (HeatRecipe recipe : manager.getAllRecipesFor(EXNRecipeTypes.HEAT)) {
-            emiRegistry.addRecipe(new EmiHeatRecipe(recipe));
+        for (HeatRecipe recipe : getRecipes(emiRegistry, EXNRecipeTypes.HEAT)) {
+            addRecipeSafe(emiRegistry, () -> new EmiHeatRecipe(recipe), recipe);
         }
-        for (MeltingRecipe recipe : manager.getAllRecipesFor(EXNRecipeTypes.MELTING)) {
-            emiRegistry.addRecipe(new EmiMeltingRecipe(recipe));
+        for (MeltingRecipe recipe : getRecipes(emiRegistry, EXNRecipeTypes.MELTING)) {
+            addRecipeSafe(emiRegistry, () -> new EmiMeltingRecipe(recipe), recipe);
         }
-        for (PrecipitateRecipe recipe : manager.getAllRecipesFor(EXNRecipeTypes.PRECIPITATE)) {
-            emiRegistry.addRecipe(new EmiPrecipitateRecipe(recipe));
+        for (PrecipitateRecipe recipe : getRecipes(emiRegistry, EXNRecipeTypes.PRECIPITATE)) {
+            addRecipeSafe(emiRegistry, () -> new EmiPrecipitateRecipe(recipe), recipe);
         }
-        for (SiftingRecipe recipe : manager.getAllRecipesFor(EXNRecipeTypes.SIFTING)) {
-            emiRegistry.addRecipe(new EmiSiftingRecipe(recipe));
+        for (SiftingRecipe recipe : getRecipes(emiRegistry, EXNRecipeTypes.SIFTING)) {
+            addRecipeSafe(emiRegistry, () -> new EmiSiftingRecipe(recipe), recipe);
         }
-        for (SolidifyingRecipe recipe : manager.getAllRecipesFor(EXNRecipeTypes.SOLIDIFYING)) {
-            emiRegistry.addRecipe(new EmiSolidifyingRecipe(recipe));
+        for (SolidifyingRecipe recipe : getRecipes(emiRegistry, EXNRecipeTypes.SOLIDIFYING)) {
+            addRecipeSafe(emiRegistry, () -> new EmiSolidifyingRecipe(recipe), recipe);
         }
-        for (TransitionRecipe recipe : manager.getAllRecipesFor(EXNRecipeTypes.TRANSITION)) {
-            emiRegistry.addRecipe(new EmiTransitionRecipe(recipe));
+        for (TransitionRecipe recipe : getRecipes(emiRegistry, EXNRecipeTypes.TRANSITION)) {
+            addRecipeSafe(emiRegistry, () -> new EmiTransitionRecipe(recipe), recipe);
         }
+    }
+
+    private static <C extends Container, T extends Recipe<C>> Iterable<T> getRecipes(EmiRegistry registry, RecipeType<T> type) {
+        return registry.getRecipeManager().getAllRecipesFor(type).stream()::iterator;
+    }
+
+    private static void addRecipeSafe(EmiRegistry registry, Supplier<EmiRecipe> supplier, Recipe<?> recipe) {
+        try {
+            registry.addRecipe(supplier.get());
+        } catch (Throwable e) {
+            ExNihiloAdditions.LOGGER.warn("Exception thrown when parsing vanilla recipe " + recipe.getId(), e);
+        }
+    }
+
+    private static List<EmiStack> getRawValues(TagKey<Item> key) {
+        List<EmiStack> list = new ArrayList<>();
+        List<Holder<Item>> collection = BuiltInRegistries.ITEM.getTag(key).stream()
+                .flatMap(HolderSet.ListBacked::stream)
+                .toList();
+        for (Holder<Item> item : collection) {
+            EmiStack stack = EmiStack.of(item.get());
+            if (stack != null) {
+                list.add(stack);
+            }
+        }
+        return list;
     }
 }

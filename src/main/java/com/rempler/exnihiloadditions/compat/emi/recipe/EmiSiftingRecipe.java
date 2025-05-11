@@ -4,6 +4,7 @@ import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
 import com.rempler.exnihiloadditions.compat.emi.EXNEMIPlugin;
 import dev.emi.emi.api.recipe.BasicEmiRecipe;
+import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.SlotWidget;
@@ -21,9 +22,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmiSiftingRecipe extends BasicEmiRecipe {
+    public static final EmiTexture SIFTING_TEXTURE = new EmiTexture(EXNEMIPlugin.JEI_MID_SHEET, 0, 0, 166, 58);
     private final boolean isWaterlogged;
+
     public EmiSiftingRecipe(SiftingRecipe recipe) {
-        super(EXNEMIPlugin.SIFTING, recipe.getId(), 70, 18);
+        super(EXNEMIPlugin.SIFTING, recipe.getId(), 166, 58);
         this.inputs.add(EmiIngredient.of(recipe.getInput()));
         this.outputs.add(EmiStack.of(recipe.getDrop()));
         this.isWaterlogged = recipe.isWaterlogged();
