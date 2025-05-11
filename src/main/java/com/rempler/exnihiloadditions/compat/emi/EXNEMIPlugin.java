@@ -15,6 +15,7 @@ import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
+import dev.emi.emi.api.stack.EmiStack;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeManager;
 import novamachina.exnihilosequentia.tags.ExNihiloTags;
@@ -29,7 +30,7 @@ import novamachina.exnihilosequentia.world.item.crafting.SiftingRecipe;
 import novamachina.exnihilosequentia.world.item.crafting.SolidifyingRecipe;
 import novamachina.exnihilosequentia.world.item.crafting.TransitionRecipe;
 
-//@EmiEntrypoint
+@EmiEntrypoint
 public class EXNEMIPlugin implements EmiPlugin {
     public static final ResourceLocation JEI_MID_SHEET = new ResourceLocation("exnihilosequentia", "textures/gui/jei_mid.png");
     public static final ResourceLocation HEATING_SHEET = new ResourceLocation("emi", "textures/gui/background.png");
@@ -65,25 +66,50 @@ public class EXNEMIPlugin implements EmiPlugin {
 
     @Override
     public void register(EmiRegistry emiRegistry) {
-        emiRegistry.addCategory(COMPOSTING);
-        emiRegistry.addWorkstation(COMPOSTING, BARREL);
-        emiRegistry.addCategory(CRUSHING);
-        emiRegistry.addWorkstation(CRUSHING, HAMMER);
-        emiRegistry.addCategory(HARVESTING);
-        emiRegistry.addWorkstation(HARVESTING, CROOK);
-        emiRegistry.addCategory(HEATING);
-        emiRegistry.addWorkstation(HEATING, CRUCIBLE);
-        emiRegistry.addCategory(MELTING);
-        emiRegistry.addWorkstation(MELTING, CRUCIBLE);
-        emiRegistry.addCategory(PRECIPITATING);
-        emiRegistry.addWorkstation(PRECIPITATING, BARREL);
-        emiRegistry.addCategory(SIFTING);
-        emiRegistry.addWorkstation(SIFTING, SIEVE);
-        emiRegistry.addCategory(SOLIDIFYING);
-        emiRegistry.addWorkstation(SOLIDIFYING, BARREL);
-        emiRegistry.addCategory(TRANSITION);
-        emiRegistry.addWorkstation(TRANSITION, BARREL);
+        registerCategories(emiRegistry);
+        registerWorkstations(emiRegistry);
+        registerRecipeManagers(emiRegistry);
+    }
 
+    private void registerCategories(EmiRegistry emiRegistry) {
+        emiRegistry.addCategory(COMPOSTING);
+        emiRegistry.addCategory(CRUSHING);
+        emiRegistry.addCategory(HARVESTING);
+        emiRegistry.addCategory(HEATING);
+        emiRegistry.addCategory(MELTING);
+        emiRegistry.addCategory(PRECIPITATING);
+        emiRegistry.addCategory(SIFTING);
+        emiRegistry.addCategory(SOLIDIFYING);
+        emiRegistry.addCategory(TRANSITION);
+    }
+
+    private void registerWorkstations(EmiRegistry emiRegistry) {
+        for (EmiStack stack : BARREL.getEmiStacks()) {
+            emiRegistry.addWorkstation(COMPOSTING, stack);
+            emiRegistry.addWorkstation(PRECIPITATING, stack);
+            emiRegistry.addWorkstation(SOLIDIFYING, stack);
+            emiRegistry.addWorkstation(TRANSITION, stack);
+        }
+
+        for (EmiStack stack : CRUCIBLE.getEmiStacks()) {
+            emiRegistry.addWorkstation(HEATING, stack);
+            emiRegistry.addWorkstation(MELTING, stack);
+        }
+
+        for (EmiStack stack : SIEVE.getEmiStacks()) {
+            emiRegistry.addWorkstation(SIFTING, stack);
+        }
+
+        for (EmiStack stack : CROOK.getEmiStacks()) {
+            emiRegistry.addWorkstation(HARVESTING, stack);
+        }
+
+        for (EmiStack stack : HAMMER.getEmiStacks()) {
+            emiRegistry.addWorkstation(CRUSHING, stack);
+        }
+    }
+
+    private void registerRecipeManagers(EmiRegistry emiRegistry) {
         RecipeManager manager = emiRegistry.getRecipeManager();
 
         for (CompostRecipe recipe : manager.getAllRecipesFor(EXNRecipeTypes.COMPOST)) {
