@@ -15,7 +15,6 @@ import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
-import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import net.minecraft.core.Holder;
@@ -26,7 +25,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import novamachina.exnihilosequentia.tags.ExNihiloTags;
 import novamachina.exnihilosequentia.world.item.EXNItems;
@@ -48,6 +46,7 @@ import java.util.function.Supplier;
 
 @EmiEntrypoint
 public class EXNEMIPlugin implements EmiPlugin {
+    public static final ResourceLocation COMPOSTING_MODEL = ExNihiloAdditions.rl("item/barrel_composting");
     public static final ResourceLocation JEI_MID_SHEET = new ResourceLocation("exnihilosequentia", "textures/gui/jei_mid.png");
     public static final ResourceLocation HEATING_SHEET = new ResourceLocation("emi", "textures/gui/background.png");
     public static final ResourceLocation PRECIPITATING_SHEET = new ResourceLocation("exnihilosequentia", "textures/gui/jei_fluid_block_transform.png");
@@ -60,15 +59,15 @@ public class EXNEMIPlugin implements EmiPlugin {
     public static final EmiIngredient CROOK = EmiStack.of(EXNItems.CROOK_WOOD);
     public static final EmiIngredient HAMMER = EmiStack.of(EXNItems.HAMMER_WOOD);
 
-    public static final EmiRecipeCategory COMPOSTING = new EmiRecipeCategory(new ResourceLocation("exnihiloadditions:composting"), BARREL);
-    public static final EmiRecipeCategory CRUSHING = new EmiRecipeCategory(new ResourceLocation("exnihiloadditions:crushing"), HAMMER);
-    public static final EmiRecipeCategory HARVESTING = new EmiRecipeCategory(new ResourceLocation("exnihiloadditions:harvesting"), CROOK);
-    public static final EmiRecipeCategory HEATING = new EmiRecipeCategory(new ResourceLocation("exnihiloadditions:heating"), CRUCIBLE);
-    public static final EmiRecipeCategory MELTING = new EmiRecipeCategory(new ResourceLocation("exnihiloadditions:melting"), CRUCIBLE);
-    public static final EmiRecipeCategory PRECIPITATING = new EmiRecipeCategory(new ResourceLocation("exnihiloadditions:precipitating"), BARREL);
-    public static final EmiRecipeCategory SIFTING = new EmiRecipeCategory(new ResourceLocation("exnihiloadditions:sifting"), SIEVE);
-    public static final EmiRecipeCategory SOLIDIFYING = new EmiRecipeCategory(new ResourceLocation("exnihiloadditions:solidifying"), BARREL);
-    public static final EmiRecipeCategory TRANSITION = new EmiRecipeCategory(new ResourceLocation("exnihiloadditions:transition"), BARREL);
+    public static final EmiRecipeCategory COMPOSTING = new EmiRecipeCategory(ExNihiloAdditions.rl("composting"), BARREL);
+    public static final EmiRecipeCategory CRUSHING = new EmiRecipeCategory(ExNihiloAdditions.rl("crushing"), HAMMER);
+    public static final EmiRecipeCategory HARVESTING = new EmiRecipeCategory(ExNihiloAdditions.rl("harvesting"), CROOK);
+    public static final EmiRecipeCategory HEATING = new EmiRecipeCategory(ExNihiloAdditions.rl("heating"), CRUCIBLE);
+    public static final EmiRecipeCategory MELTING = new EmiRecipeCategory(ExNihiloAdditions.rl("melting"), CRUCIBLE);
+    public static final EmiRecipeCategory PRECIPITATING = new EmiRecipeCategory(ExNihiloAdditions.rl("precipitating"), BARREL);
+    public static final EmiRecipeCategory SIFTING = new EmiRecipeCategory(ExNihiloAdditions.rl("sifting"), SIEVE);
+    public static final EmiRecipeCategory SOLIDIFYING = new EmiRecipeCategory(ExNihiloAdditions.rl("solidifying"), BARREL);
+    public static final EmiRecipeCategory TRANSITION = new EmiRecipeCategory(ExNihiloAdditions.rl("transition"), BARREL);
 
     @Override
     public void register(EmiRegistry emiRegistry) {
@@ -116,8 +115,6 @@ public class EXNEMIPlugin implements EmiPlugin {
     }
 
     private void registerRecipeManagers(EmiRegistry emiRegistry) {
-        RecipeManager manager = emiRegistry.getRecipeManager();
-
         for (CompostRecipe recipe : getRecipes(emiRegistry, EXNRecipeTypes.COMPOST)) {
             addRecipeSafe(emiRegistry, () -> new EmiCompostRecipe(recipe), recipe);
         }

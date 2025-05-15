@@ -1,5 +1,6 @@
 package com.rempler.exnihiloadditions;
 
+import com.rempler.exnihiloadditions.compat.emi.client.EXAEMIClientSetup;
 import com.rempler.exnihiloadditions.compat.tfc.EXNATFCBlockEntites;
 import com.rempler.exnihiloadditions.compat.tfc.EXNATFCBlocks;
 import com.rempler.exnihiloadditions.compat.tfc.EXNATFCItems;
@@ -27,6 +28,7 @@ public class ExNihiloAdditions {
     public static final Logger LOGGER = LoggerFactory.getLogger("ExNihiloAdditions");
     public static final String MODID = "exnihiloadditions";
     public static boolean isTFCLoaded = ModList.get().isLoaded("tfc");
+    public static boolean isEMILoaded = ModList.get().isLoaded("emi");
 
     public static ResourceLocation rl(String path) {
         return new ResourceLocation(MODID, path);
@@ -38,7 +40,10 @@ public class ExNihiloAdditions {
             LOGGER.info("TFC is loaded, registering TFC compat");
             eventBus.addListener(EXNATFCClientSetup::init);
         }
-
+        if (isEMILoaded) {
+            LOGGER.info("EMI is loaded, registering EMI compat");
+            EXAEMIClientSetup.register(eventBus);
+        }
 
         FMLJavaModLoadingContext.get()
                 .getModEventBus()
