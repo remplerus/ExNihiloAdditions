@@ -16,13 +16,13 @@ public class EmiMeltingRecipe extends BasicEmiRecipe {
     public EmiMeltingRecipe(MeltingRecipe recipe) {
         super(EXNEMIPlugin.MELTING, recipe.getId(), 166, 63);
         this.inputs.add(EmiIngredient.of(recipe.getInput()));
-        this.outputs.add(EmiStack.of(recipe.getResultFluid().getFluid()));
+        this.outputs.add(EmiStack.of(recipe.getResultFluid().getFluid()).setAmount(recipe.getResultFluid().getAmount()));
         this.amount = recipe.getResultFluid().getAmount();
     }
 
     @Override
     public boolean supportsRecipeTree() {
-        return false;
+        return true;
     }
 
     @Override
