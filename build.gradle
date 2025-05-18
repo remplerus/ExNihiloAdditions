@@ -15,6 +15,8 @@ plugins {
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
 }
 
+boolean enableJEI = false
+
 apply plugin: 'org.spongepowered.mixin'
 
 group = mod_group_id
@@ -35,7 +37,7 @@ minecraft {
     copyIdeResources = true
     generateRunFolders = true
 
-    // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     runs {
         configureEach {
@@ -133,8 +135,10 @@ dependencies {
         transitive = false
     })
 
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
-    implementation fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+    if (enableJEI) {
+        compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
+        implementation fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+    }
 
     //TFC
     implementation fg.deobf("curse.maven:tfc-302973:6187491")

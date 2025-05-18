@@ -1,35 +1,66 @@
 package com.rempler.exnihiloadditions.compat.emi.recipe;
 
 import com.rempler.exnihiloadditions.compat.emi.EXNEMIPlugin;
-import dev.emi.emi.api.recipe.BasicEmiRecipe;
+import dev.emi.emi.api.recipe.EmiRecipeCategory;
+import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
-import net.minecraft.network.chat.Component;
 import novamachina.exnihilosequentia.world.item.crafting.MeltingRecipe;
+import novamachina.exnihilosequentia.world.level.block.entity.CrucibleBlockEntity;
 
-public class EmiMeltingRecipe extends BasicEmiRecipe {
-    private int amount;
-    public EmiMeltingRecipe(MeltingRecipe recipe) {
-        super(EXNEMIPlugin.MELTING, recipe.getId(), 70, 18);
+import java.util.ArrayList;
+import java.util.List;
+
+public class EmiMeltingRecipe extends AbstractEmiRecipe {
+    private final List<EmiIngredient> inputs = new ArrayList<>();
+    private final List<EmiStack> outputs = new ArrayList<>();
+    private final CrucibleBlockEntity.CrucibleType crucibleType;
+    public EmiMeltingRecipe(MeltingRecipe recipe, CrucibleBlockEntity.CrucibleType crucibleType) {
+        super(recipe);
         this.inputs.add(EmiIngredient.of(recipe.getInput()));
-        this.outputs.add(EmiStack.of(recipe.getResultFluid().getFluid()));
-        this.amount = recipe.getResultFluid().getAmount();
+        this.outputs.add(EmiStack.of(recipe.getResultFluid().getFluid()).setAmount(recipe.getResultFluid().getAmount()));
+        this.crucibleType = crucibleType;
     }
 
     @Override
     public boolean supportsRecipeTree() {
-        return false;
+        return true;
+    }
+
+    @Override
+    public EmiRecipeCategory getCategory() {
+        if (crucibleType == CrucibleBlockEntity.CrucibleType.WOOD) {
+            return EXNEMIPlugin.MELTING;
+        } else {
+            return EXNEMIPlugin.FIRED_MELTING;
+        }
+    }
+
+    @Override
+    public List<EmiIngredient> getInputs() {
+        return inputs;
+    }
+
+    @Override
+    public List<EmiStack> getOutputs() {
+        return outputs;
+    }
+
+    @Override
+    public int getDisplayWidth() {
+        return 70;
+    }
+
+    @Override
+    public int getDisplayHeight() {
+        return 20;
     }
 
     @Override
     public void addWidgets(WidgetHolder widgetHolder) {
-        widgetHolder.addTank(outputs.get(0), 3, 21, 16, 16, 1000).recipeContext(this)
-                .appendTooltip(Component.literal("Fluid Amount: " + amount + "mB"));
-        for(int i = 0; i < inputs.size(); ++i) {
-            int slotX = 39 + i % 7 * 18;
-            int slotY = 3 + i / 7 * 18;
-            widgetHolder.addSlot(inputs.get(i), slotX, slotY);
-        }
+        widgetHolder.addSlot(inputs.get(0), 0, 0);
+        widgetHolder.addTexture(EmiTexture.EMPTY_ARROW, 19, 1);
+        widgetHolder.addTank(outputs.get(0), 43, 0, 18, 18, 1000).recipeContext(this);
     }
 }
