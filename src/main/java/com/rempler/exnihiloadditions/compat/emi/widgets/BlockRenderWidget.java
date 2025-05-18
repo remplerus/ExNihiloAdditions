@@ -11,6 +11,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
@@ -58,6 +59,9 @@ public class BlockRenderWidget extends Widget {
         int yOff = (height - 16) / 2;
         draw.pose().pushPose();
 
+        if (states.isEmpty()) {
+            states.add(Blocks.AIR.defaultBlockState());
+        }
         int index = (int) (System.currentTimeMillis() / 1000 % states.size());
         BlockState current = this.states.get(index);
         if (!(properties == StatePropertiesPredicate.ANY) && current.getBlock() instanceof AbstractFurnaceBlock) {

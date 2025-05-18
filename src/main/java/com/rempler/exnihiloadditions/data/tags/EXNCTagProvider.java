@@ -10,6 +10,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import novamachina.exnihilosequentia.tags.ExNihiloTags;
 import novamachina.exnihilosequentia.world.level.block.BarrelBlock;
 import novamachina.exnihilosequentia.world.level.block.CrucibleBlock;
+import novamachina.exnihilosequentia.world.level.block.EXNBlocks;
 import novamachina.exnihilosequentia.world.level.block.SieveBlock;
 import novamachina.novacore.data.tags.TagProvider;
 import novamachina.novacore.world.level.block.BlockDefinition;
@@ -29,6 +30,9 @@ public class EXNCTagProvider extends TagProvider {
             addToTag(ExNihiloTags.SIEVE, EXNATFCBlocks.getDefinitions().stream().map(BlockDefinition::block).filter(block -> block instanceof SieveBlock).toArray(Block[]::new));
             addToTag(BlockTags.MINEABLE_WITH_AXE, EXNATFCBlocks.getDefinitions().stream().map(BlockDefinition::block).toArray(Block[]::new));
         }
+        addToTag(ExNihiloTags.CRUCIBLE, EXNBlocks.getDefinitions().stream().map(BlockDefinition::block).filter(block -> block instanceof CrucibleBlock).toArray(Block[]::new));
+        addToTag(ExNihiloTags.BARREL, EXNBlocks.getDefinitions().stream().map(BlockDefinition::block).filter(block -> block instanceof BarrelBlock).toArray(Block[]::new));
+        addToTag(ExNihiloTags.SIEVE, EXNBlocks.getDefinitions().stream().map(BlockDefinition::block).filter(block -> block instanceof SieveBlock).toArray(Block[]::new));
     }
 
 }

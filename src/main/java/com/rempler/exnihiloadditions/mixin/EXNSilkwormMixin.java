@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(targets = "novamachina/exnihilosequentia/world/item/SilkwormItem")
 public class EXNSilkwormMixin {
-    @Inject(method = "useOn(Lnet/minecraft/world/item/context/UseOnContext;)Lnet/minecraft/world/InteractionResult;", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "useOn(Lnet/minecraft/world/item/context/UseOnContext;)Lnet/minecraft/world/InteractionResult;", at = @At("HEAD"))
     private void exna$useOn(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
         BlockState state = context.getLevel().getBlockState(context.getClickedPos());
         // Checks agains TFC leaves
