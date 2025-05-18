@@ -32,7 +32,7 @@ public class SiftingRecipeCategory implements DisplayCategory<SimpleBasicDisplay
     @Nonnull
   public static final ResourceLocation UID =
           new ResourceLocation(ExNihiloConstants.ModIds.EX_NIHILO_SEQUENTIA, "wet_sifting");
-  public static final CategoryIdentifier<novamachina.exnihilorei.rei.sifting.SiftingRecipeDisplay> SIFTING = CategoryIdentifier.of(UID);
+  public static final CategoryIdentifier<SiftingRecipeDisplay> SIFTING = CategoryIdentifier.of(UID);
 
   @Nonnull
   protected static final ResourceLocation texture =

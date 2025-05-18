@@ -4,7 +4,6 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import com.rempler.exnihiloadditions.compat.rei.SimpleBasicDisplay;
 import novamachina.exnihilosequentia.world.item.crafting.MeltingRecipe;
 
@@ -13,8 +12,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class MeltingRecipeDisplay extends SimpleBasicDisplay {
-    public MeltingRecipeDisplay(RecipeHolder<MeltingRecipe> recipe) {
-        super(getIngredients(recipe.value()), Collections.singletonList(EntryIngredient.of(EntryStacks.of(recipe.value().getResultFluid().getFluid()))));
+    public MeltingRecipeDisplay(MeltingRecipe recipe) {
+        super(getIngredients(recipe), Collections.singletonList(EntryIngredient.of(EntryStacks.of(recipe.getResultFluid().getFluid()))));
     }
 
     private static List<EntryIngredient> getIngredients(MeltingRecipe recipe) {

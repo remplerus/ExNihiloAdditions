@@ -29,7 +29,7 @@ public class SolidifyingRecipeCategory implements DisplayCategory<SimpleBasicDis
       new ResourceLocation(
           ExNihiloConstants.ModIds.EX_NIHILO_SEQUENTIA, "textures/gui/jei_fluid_on_top.png");
 
-  public static final CategoryIdentifier<novamachina.exnihilorei.rei.solidifying.SolidifyingRecipeDisplay> SOLIDIFY = CategoryIdentifier.of(UID);
+  public static final CategoryIdentifier<SolidifyingRecipeDisplay> SOLIDIFY = CategoryIdentifier.of(UID);
 
   @Override
   public CategoryIdentifier<? extends SimpleBasicDisplay> getCategoryIdentifier() {

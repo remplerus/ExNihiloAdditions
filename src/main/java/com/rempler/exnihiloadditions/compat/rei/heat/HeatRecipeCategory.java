@@ -35,7 +35,7 @@ public class HeatRecipeCategory implements DisplayCategory<SimpleBasicDisplay> {
       new ResourceLocation(ExNihiloConstants.ModIds.EX_NIHILO_SEQUENTIA, "heat");
   public static final ResourceLocation texture = new ResourceLocation(
           "roughlyenoughitems", "textures/gui/display.png");
-  public static final CategoryIdentifier<novamachina.exnihilorei.rei.heat.HeatRecipeDisplay> HEATING = CategoryIdentifier.of(UID);
+  public static final CategoryIdentifier<HeatRecipeDisplay> HEATING = CategoryIdentifier.of(UID);
 
   @Nullable
   @Override

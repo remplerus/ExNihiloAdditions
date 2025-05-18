@@ -3,7 +3,6 @@ package com.rempler.exnihiloadditions.compat.rei.sifting;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import com.rempler.exnihiloadditions.compat.rei.SimpleBasicDisplay;
 import novamachina.exnihilosequentia.world.item.crafting.SiftingRecipe;
 
@@ -11,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SiftingRecipeDisplay extends SimpleBasicDisplay {
-    public SiftingRecipeDisplay(RecipeHolder<SiftingRecipe> recipe) {
-        super(getInputs(recipe.value()), getIngredients(recipe.value()));
+    public SiftingRecipeDisplay(SiftingRecipe recipe) {
+        super(getInputs(recipe), getIngredients(recipe));
     }
 
     private static List<EntryIngredient> getInputs(SiftingRecipe recipe) {

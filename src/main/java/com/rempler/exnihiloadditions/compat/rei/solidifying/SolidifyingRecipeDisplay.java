@@ -4,7 +4,6 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import com.rempler.exnihiloadditions.compat.rei.SimpleBasicDisplay;
 import novamachina.exnihilosequentia.world.item.crafting.SolidifyingRecipe;
 
@@ -13,8 +12,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class SolidifyingRecipeDisplay extends SimpleBasicDisplay {
-    public SolidifyingRecipeDisplay(RecipeHolder<SolidifyingRecipe> recipe) {
-        super(getIngredients(recipe.value()), Collections.singletonList(EntryIngredient.of(EntryStacks.of(recipe.value().getResult()))));
+    public SolidifyingRecipeDisplay(SolidifyingRecipe recipe) {
+        super(getIngredients(recipe), Collections.singletonList(EntryIngredient.of(EntryStacks.of(recipe.getResult()))));
     }
 
     private static List<EntryIngredient> getIngredients(SolidifyingRecipe recipe) {

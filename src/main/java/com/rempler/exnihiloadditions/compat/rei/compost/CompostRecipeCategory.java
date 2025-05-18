@@ -33,7 +33,7 @@ public class CompostRecipeCategory implements DisplayCategory<SimpleBasicDisplay
   @Nonnull
   private static final ResourceLocation texture =
       new ResourceLocation(ExNihiloConstants.ModIds.EX_NIHILO_SEQUENTIA, "textures/gui/jei_mid.png");
-  public static final CategoryIdentifier<novamachina.exnihilorei.rei.compost.CompostRecipeDisplay> COMPOSTING = CategoryIdentifier.of(UID);
+  public static final CategoryIdentifier<CompostRecipeDisplay> COMPOSTING = CategoryIdentifier.of(UID);
 
   @Override
   public CategoryIdentifier<? extends SimpleBasicDisplay> getCategoryIdentifier() {

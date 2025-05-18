@@ -5,7 +5,6 @@ import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import com.rempler.exnihiloadditions.compat.rei.SimpleBasicDisplay;
 import novamachina.exnihilosequentia.world.item.crafting.CompostRecipe;
 
@@ -14,9 +13,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class CompostRecipeDisplay extends SimpleBasicDisplay {
-    public CompostRecipeDisplay(RecipeHolder<CompostRecipe> recipe) {
-        //TODO: should be changed too if compost recipe will have different outputs!
-        super(getIngredients(recipe.value()), Collections.singletonList(EntryIngredient.of(EntryStacks.of(Items.DIRT))));
+    public CompostRecipeDisplay(CompostRecipe recipe) {
+        //TODO: should be changed if compost recipe will have different outputs!
+        super(getIngredients(recipe), Collections.singletonList(EntryIngredient.of(EntryStacks.of(Items.DIRT))));
     }
 
     private static List<EntryIngredient> getIngredients(CompostRecipe recipe) {

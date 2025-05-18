@@ -29,7 +29,7 @@ public class PrecipitateRecipeCategory implements DisplayCategory<SimpleBasicDis
       new ResourceLocation(
           ExNihiloConstants.ModIds.EX_NIHILO_SEQUENTIA,
           "textures/gui/jei_fluid_block_transform.png");
-  public static final CategoryIdentifier<novamachina.exnihilorei.rei.precipitate.PrecipitateRecipeDisplay> PRECIPITATE = CategoryIdentifier.of(UID);
+  public static final CategoryIdentifier<PrecipitateRecipeDisplay> PRECIPITATE = CategoryIdentifier.of(UID);
 
   @Override
   public CategoryIdentifier<? extends SimpleBasicDisplay> getCategoryIdentifier() {

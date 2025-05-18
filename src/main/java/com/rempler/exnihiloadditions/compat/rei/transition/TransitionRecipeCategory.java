@@ -29,7 +29,7 @@ public class TransitionRecipeCategory implements DisplayCategory<SimpleBasicDisp
       new ResourceLocation(
           ExNihiloConstants.ModIds.EX_NIHILO_SEQUENTIA, "textures/gui/jei_fluid_transform.png");
 
-  public static final CategoryIdentifier<novamachina.exnihilorei.rei.transition.TransitionRecipeDisplay> TRANSITION = CategoryIdentifier.of(UID);
+  public static final CategoryIdentifier<TransitionRecipeDisplay> TRANSITION = CategoryIdentifier.of(UID);
 
   @Override
   public CategoryIdentifier<? extends SimpleBasicDisplay> getCategoryIdentifier() {

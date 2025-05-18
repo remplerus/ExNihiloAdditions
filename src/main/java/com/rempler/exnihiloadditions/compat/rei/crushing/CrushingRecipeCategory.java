@@ -31,7 +31,7 @@ public class CrushingRecipeCategory implements DisplayCategory<SimpleBasicDispla
   @Nonnull
   private static final ResourceLocation texture =
       new ResourceLocation(ExNihiloConstants.ModIds.EX_NIHILO_SEQUENTIA, "textures/gui/jei_mid.png");
-  public static final CategoryIdentifier<novamachina.exnihilorei.rei.crushing.CrushingRecipeDisplay> CRUSHING = CategoryIdentifier.of(UID);
+  public static final CategoryIdentifier<CrushingRecipeDisplay> CRUSHING = CategoryIdentifier.of(UID);
 
   @Override
   public CategoryIdentifier<? extends SimpleBasicDisplay> getCategoryIdentifier() {
