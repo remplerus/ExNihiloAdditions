@@ -21,22 +21,24 @@ public class JEIPlugin implements IModPlugin {
 
      @Override
      public void registerRecipeCatalysts(@Nonnull final IRecipeCatalystRegistration registration) {
-         EXNATFCBlocks.TFC_CRUCIBLES.values().stream().forEach(blockDefinition -> {
-             registration.addRecipeCatalyst(blockDefinition.itemStack(), RecipeTypes.MELTING, RecipeTypes.HEAT);
-         });
+         if (!ExNihiloAdditions.isEMILoaded) {
+             EXNATFCBlocks.TFC_CRUCIBLES.values().stream().forEach(blockDefinition -> {
+                 registration.addRecipeCatalyst(blockDefinition.itemStack(), RecipeTypes.MELTING, RecipeTypes.HEAT);
+             });
 
-         EXNATFCBlocks.TFC_BARRELS.values().stream().forEach(blockDefinition -> {
-             registration.addRecipeCatalyst(
-                     blockDefinition.itemStack(),
-                     RecipeTypes.SOLIDIFYING,
-                     RecipeTypes.TRANSITION,
-                     RecipeTypes.PRECIPITATE,
-                     RecipeTypes.COMPOST);
-         });
+             EXNATFCBlocks.TFC_BARRELS.values().stream().forEach(blockDefinition -> {
+                 registration.addRecipeCatalyst(
+                         blockDefinition.itemStack(),
+                         RecipeTypes.SOLIDIFYING,
+                         RecipeTypes.TRANSITION,
+                         RecipeTypes.PRECIPITATE,
+                         RecipeTypes.COMPOST);
+             });
 
-         EXNATFCBlocks.TFC_SIEVES.values().stream().forEach(blockDefinition -> {
-             registration.addRecipeCatalyst(blockDefinition.itemStack(), RecipeTypes.DRY_SIFTING, RecipeTypes.WET_SIFTING);
-         });
+             EXNATFCBlocks.TFC_SIEVES.values().stream().forEach(blockDefinition -> {
+                 registration.addRecipeCatalyst(blockDefinition.itemStack(), RecipeTypes.DRY_SIFTING, RecipeTypes.WET_SIFTING);
+             });
+         }
     }
 
 }
