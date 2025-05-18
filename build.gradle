@@ -158,9 +158,11 @@ dependencies {
 
     compileOnly fg.deobf("dev.architectury:architectury-forge:9.2.14")
     compileOnly fg.deobf("me.shedaniel:RoughlyEnoughItems-forge:12.1.785")
+    compileOnly fg.deobf("me.shedaniel.cloth:cloth-config-forge:11.1.136")
     if (enableREI) {
         runtimeOnly fg.deobf("dev.architectury:architectury-forge:9.2.14")
         runtimeOnly fg.deobf("me.shedaniel:RoughlyEnoughItems-forge:12.1.785")
+        runtimeOnly fg.deobf("me.shedaniel.cloth:cloth-config-forge:11.1.136")
     }
 }
 

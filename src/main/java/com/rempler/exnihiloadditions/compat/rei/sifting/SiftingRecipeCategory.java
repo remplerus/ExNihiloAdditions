@@ -11,13 +11,14 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import com.rempler.exnihiloadditions.compat.rei.SimpleBasicDisplay;
-import novamachina.exnihilosequentia.common.registries.ExNihiloRegistries;
 import novamachina.exnihilosequentia.common.utility.ExNihiloConstants;
 import novamachina.exnihilosequentia.world.item.MeshItem;
 import novamachina.exnihilosequentia.world.item.MeshType;
+import novamachina.exnihilosequentia.world.item.crafting.EXNRecipeTypes;
 import novamachina.exnihilosequentia.world.item.crafting.SiftingRecipe;
 import novamachina.exnihilosequentia.world.level.block.EXNBlocks;
 import novamachina.novacore.util.StringUtils;
@@ -29,15 +30,14 @@ import java.util.List;
 
 public class SiftingRecipeCategory implements DisplayCategory<SimpleBasicDisplay> {
   private static final List<SiftingRecipe> removah = new ArrayList<>();
-    @Nonnull
-  public static final ResourceLocation UID =
-          new ResourceLocation(ExNihiloConstants.ModIds.EX_NIHILO_SEQUENTIA, "wet_sifting");
-  public static final CategoryIdentifier<SiftingRecipeDisplay> SIFTING = CategoryIdentifier.of(UID);
-
   @Nonnull
-  protected static final ResourceLocation texture =
-      new ResourceLocation(
-          ExNihiloConstants.ModIds.EX_NIHILO_SEQUENTIA, "textures/gui/jei_mid.png");
+  public static final ResourceLocation UID = new ResourceLocation(ExNihiloConstants.ModIds.EX_NIHILO_SEQUENTIA, "dry_sifting");
+  public static final CategoryIdentifier<SiftingRecipeDisplay> SIFTING = CategoryIdentifier.of(UID);
+  @Nonnull
+  public static final ResourceLocation WET_UID = new ResourceLocation(ExNihiloConstants.ModIds.EX_NIHILO_SEQUENTIA, "wet_sifting");
+  public static final CategoryIdentifier<SiftingRecipeDisplay> WET_SIFTING = CategoryIdentifier.of(WET_UID);
+  @Nonnull
+  protected static final ResourceLocation texture = new ResourceLocation(ExNihiloConstants.ModIds.EX_NIHILO_SEQUENTIA, "textures/gui/jei_mid.png");
 
   public SiftingRecipeCategory() {
 
@@ -55,7 +55,7 @@ public class SiftingRecipeCategory implements DisplayCategory<SimpleBasicDisplay
     widgets.add(Widgets.createSlot(new Point(startPoint.x + 11, startPoint.y + 3))
             .entries(display.getInputEntries().get(0)).markInput());
     widgets.add(Widgets.createTexturedWidget(texture, startPoint.x, startPoint.y, 0, 0, 166, 54));
-    List<SiftingRecipe> recipes = ExNihiloRegistries.SIEVE_REGISTRY.getRecipeList();
+    List<SiftingRecipe> recipes = Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(EXNRecipeTypes.SIFTING);
     recipes.removeAll(removah);
     Iterator<SiftingRecipe> recipeIterator = recipes.iterator();
     while (recipeIterator.hasNext()) {

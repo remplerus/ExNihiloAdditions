@@ -38,8 +38,8 @@ import novamachina.exnihilosequentia.world.item.crafting.TransitionRecipe;
 import novamachina.exnihilosequentia.world.level.block.EXNBlocks;
 import novamachina.novacore.world.item.ItemDefinition;
 
-@REIPluginClient
-public class EXNREIClientPlugin implements REIClientPlugin {
+//@REIPluginClient
+public class EXAREIClientPlugin implements REIClientPlugin {
 
     public void registerCategories(CategoryRegistry registry) {
         registry.add(new CompostRecipeCategory());
