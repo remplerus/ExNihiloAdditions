@@ -8,11 +8,19 @@
   },
   "rolls": [
     {
-      "chance": 0.1,
+      "chance": 1.0,
+      "mesh": "string"
+    },
+    {
+      "chance": 1.0,
       "mesh": "string"
     },
     {
       "chance": 0.5,
+      "mesh": "string"
+    },
+    {
+      "chance": 0.1,
       "mesh": "string"
     }
   ]

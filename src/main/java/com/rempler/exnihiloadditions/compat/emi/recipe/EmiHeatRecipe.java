@@ -1,20 +1,17 @@
 package com.rempler.exnihiloadditions.compat.emi.recipe;
 
 import com.rempler.exnihiloadditions.compat.emi.EXNEMIPlugin;
-import com.rempler.exnihiloadditions.compat.emi.widgets.HeatWidget;
+import com.rempler.exnihiloadditions.compat.emi.widgets.BlockRenderWidget;
 import dev.emi.emi.api.recipe.BasicEmiRecipe;
-import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.SlotWidget;
 import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.ChatFormatting;
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.FireBlock;
-import net.minecraft.world.level.block.WallTorchBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import novamachina.exnihilosequentia.world.item.crafting.HeatRecipe;
@@ -24,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmiHeatRecipe extends BasicEmiRecipe {
+    private StatePropertiesPredicate properties = StatePropertiesPredicate.ANY;
     private final List<BlockState> inputStates;
     public EmiHeatRecipe(HeatRecipe recipe) {
         super(EXNEMIPlugin.HEATING, recipe.getId(), 70, 40);
@@ -32,6 +30,9 @@ public class EmiHeatRecipe extends BasicEmiRecipe {
         states.add(EXNBlocks.FIRED_CRUCIBLE.block().defaultBlockState());
         states.add(recipe.getInputBlock().defaultBlockState());
         this.inputStates = states;
+        if (!(recipe.getProperties() == properties)) {
+            this.properties = recipe.getProperties();
+        }
     }
 
     @Override
@@ -47,6 +48,8 @@ public class EmiHeatRecipe extends BasicEmiRecipe {
         } else if (inputStates.get(1).getBlock() == Blocks.WALL_TORCH || inputStates.get(1).getBlock() == Blocks.REDSTONE_WALL_TORCH || inputStates.get(1).getBlock() == Blocks.SOUL_WALL_TORCH) {
             input = EmiStack.of(inputStates.get(1).getBlock()).setAmount(amount);
             tooltips.add(Component.translatable(inputStates.get(1).getBlock().getDescriptionId().replace("torch", "wall_torch")).withStyle(ChatFormatting.DARK_RED));
+        } else if (inputStates.get(1).getBlock() == Blocks.LAVA_CAULDRON) {
+            tooltips.add(Component.translatable(inputStates.get(1).getBlock().getDescriptionId()).withStyle(ChatFormatting.DARK_RED));
         }
         SlotWidget slot;
         if (!isFluid) {
@@ -62,7 +65,7 @@ public class EmiHeatRecipe extends BasicEmiRecipe {
         for (int i = 0; i < inputStates.size(); i++) {
             List<BlockState> tempStates = new ArrayList<>();
             tempStates.add(inputStates.get(i));
-            widgetHolder.add(new HeatWidget(55, 18*i + 6, tempStates, List.of(), 15f));
+            widgetHolder.add(new BlockRenderWidget(55, 18*i + 6, tempStates, List.of(), 15f, properties));
         }
     }
 

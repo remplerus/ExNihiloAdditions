@@ -41,19 +41,19 @@ public class EXNARecipeGenerator extends RecipeProvider {
     }
 
     private void createSiftingRecipes(Consumer<FinishedRecipe> consumer) {
-        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_ANDESITE.block(), EXNItems.PEBBLE_ANDESITE.asItem());
-        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_BASALT.block(), EXNItems.PEBBLE_BASALT.asItem());
-        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_BLACKSTONE.block(), EXNItems.PEBBLE_BLACKSTONE.asItem());
-        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_CALCITE.block(), EXNItems.PEBBLE_CALCITE.asItem());
-        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_DEEPSLATE.block(), EXNItems.PEBBLE_DEEPSLATE.asItem());
-        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_DIORITE.block(), EXNItems.PEBBLE_DIORITE.asItem());
-        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_DRIPSTONE.block(), EXNItems.PEBBLE_DRIPSTONE.asItem());
-        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_END_STONE.block(), EXNItems.PEBBLE_END_STONE.asItem());
-        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_GRANITE.block(), EXNItems.PEBBLE_GRANITE.asItem());
-        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_NETHERRACK.block(), EXNItems.PEBBLE_NETHERRACK.asItem());
-        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_NETHERRACK.block(), EXNItems.PEBBLE_BASALT.asItem(), ExNihiloSequentia.makeId("sifting/ens_pebble_basalt"));
-        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_NETHERRACK.block(), EXNItems.PEBBLE_BLACKSTONE.asItem(), ExNihiloSequentia.makeId("sifting/ens_pebble_blackstone"));
-        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_TUFF.block(), EXNItems.PEBBLE_TUFF.asItem());
+        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_ANDESITE.block(), EXNItems.PEBBLE_ANDESITE.asItem(), true);
+        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_BASALT.block(), EXNItems.PEBBLE_BASALT.asItem(), true);
+        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_BLACKSTONE.block(), EXNItems.PEBBLE_BLACKSTONE.asItem(), true);
+        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_CALCITE.block(), EXNItems.PEBBLE_CALCITE.asItem(), true);
+        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_DEEPSLATE.block(), EXNItems.PEBBLE_DEEPSLATE.asItem(), true);
+        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_DIORITE.block(), EXNItems.PEBBLE_DIORITE.asItem(), true);
+        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_DRIPSTONE.block(), EXNItems.PEBBLE_DRIPSTONE.asItem(), true);
+        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_END_STONE.block(), EXNItems.PEBBLE_END_STONE.asItem(), true);
+        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_GRANITE.block(), EXNItems.PEBBLE_GRANITE.asItem(), true);
+        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_NETHERRACK.block(), EXNItems.PEBBLE_NETHERRACK.asItem(), true);
+        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_NETHERRACK.block(), EXNItems.PEBBLE_BASALT.asItem(), ExNihiloSequentia.makeId("sifting/ens_pebble_basalt"), false);
+        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_NETHERRACK.block(), EXNItems.PEBBLE_BLACKSTONE.asItem(), ExNihiloSequentia.makeId("sifting/ens_pebble_blackstone"), false);
+        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_TUFF.block(), EXNItems.PEBBLE_TUFF.asItem(), true);
     }
 
     private void createHeatRecipes(Consumer<FinishedRecipe> consumer) {
@@ -70,14 +70,23 @@ public class EXNARecipeGenerator extends RecipeProvider {
                 .build(consumer, ExNihiloAdditions.rl("heat/smoker"));
     }
 
-    private void easySiftingRecipe(Consumer<FinishedRecipe> consumer, Block block, Item item, ResourceLocation rl) {
-        SiftingRecipeBuilder.sifting(block, item)
-                .addRoll(new MeshWithChance(MeshType.STRING, 0.1F))
-                .addRoll(new MeshWithChance(MeshType.STRING, 0.5F))
-                .build(consumer, rl);
+    private void easySiftingRecipe(Consumer<FinishedRecipe> consumer, Block block, Item item, ResourceLocation rl, boolean rich) {
+        if (rich) {
+            SiftingRecipeBuilder.sifting(block, item)
+                    .addRoll(new MeshWithChance(MeshType.STRING, 1F))
+                    .addRoll(new MeshWithChance(MeshType.STRING, 1F))
+                    .addRoll(new MeshWithChance(MeshType.STRING, 0.5F))
+                    .addRoll(new MeshWithChance(MeshType.STRING, 0.1F))
+                    .build(consumer, rl);
+        } else {
+            SiftingRecipeBuilder.sifting(block, item)
+                    .addRoll(new MeshWithChance(MeshType.STRING, 0.5F))
+                    .addRoll(new MeshWithChance(MeshType.STRING, 0.1F))
+                    .build(consumer, rl);
+        }
     }
 
-    private void easySiftingRecipe(Consumer<FinishedRecipe> consumer, Block block, Item item) {
-        easySiftingRecipe(consumer, block, item, ExNihiloAdditions.rl("sifting/"+block.getName().getString().replace("block.exnihilosequentia.", "")+"_to_"+item.getDescription().getString().replace("item.exnihilosequentia.", "")));
+    private void easySiftingRecipe(Consumer<FinishedRecipe> consumer, Block block, Item item, boolean rich) {
+        easySiftingRecipe(consumer, block, item, ExNihiloAdditions.rl("sifting/"+block.getName().getString().replace("block.exnihilosequentia.", "")+"_to_"+item.getDescription().getString().replace("item.exnihilosequentia.", "")), rich);
     }
 }

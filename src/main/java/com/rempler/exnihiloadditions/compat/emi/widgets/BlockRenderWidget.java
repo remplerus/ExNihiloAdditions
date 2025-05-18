@@ -1,32 +1,39 @@
 package com.rempler.exnihiloadditions.compat.emi.widgets;
 
 import com.rempler.exnihiloadditions.compat.emi.client.EXAClientUtils;
+import dev.emi.emi.api.render.EmiRender;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.Bounds;
 import dev.emi.emi.api.widget.SlotWidget;
 import dev.emi.emi.api.widget.Widget;
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import java.util.List;
 import java.util.function.Predicate;
 
-public class HeatWidget extends Widget {
+public class BlockRenderWidget extends Widget {
     private final List<BlockState> states;
     private final List<Component> tooltips;
     private final int x;
     private final int y;
     private final float scale;
     private final Bounds bounds;
+    private final StatePropertiesPredicate properties;
+    private boolean catalyst = false;
 
-    public HeatWidget(int x, int y, List<BlockState> states, List<Component> tooltips, float scale) {
+    public BlockRenderWidget(int x, int y, List<BlockState> states, List<Component> tooltips, float scale, StatePropertiesPredicate properties) {
         this.x = x;
         this.y = y;
         this.states = states;
         this.tooltips = tooltips;
         this.scale = scale;
+        this.properties = properties;
 
         int size = (int) (1.5 * scale);
         this.bounds = new Bounds(x - size / 2, y - size / 4, size, size);
@@ -37,12 +44,28 @@ public class HeatWidget extends Widget {
         return bounds;
     }
 
+    public BlockRenderWidget catalyst(boolean catalyst) {
+        this.catalyst = catalyst;
+        return this;
+    }
+
     @Override
     public void render(GuiGraphics draw, int mouseX, int mouseY, float delta) {
+        Bounds bounds = getBounds();
+        int width = bounds.width();
+        int height = bounds.height();
+        int xOff = (width - 16) / 2;
+        int yOff = (height - 16) / 2;
         draw.pose().pushPose();
 
         int index = (int) (System.currentTimeMillis() / 1000 % states.size());
         BlockState current = this.states.get(index);
+        if (!(properties == StatePropertiesPredicate.ANY) && current.getBlock() instanceof AbstractFurnaceBlock) {
+            current = current.setValue(BlockStateProperties.LIT, true);
+        }
+        if (catalyst) {
+            EmiRender.renderCatalystIcon(EmiStack.of(current.getBlock()), draw, this.x + xOff, this.y + yOff);
+        }
 
         EXAClientUtils.renderBlock(draw, current, this.x, this.y, 0, this.scale);
 
