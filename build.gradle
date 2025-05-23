@@ -13,6 +13,7 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id "me.shedaniel.unified-publishing" version "0.1.+"
 }
 
 boolean enableJEI = true
@@ -171,6 +172,7 @@ tasks.named('processResources', ProcessResources).configure {
             loader_version_range: loader_version_range,
             mod_id              : mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
             mod_authors         : mod_authors, mod_description: mod_description,
+            update_url          : update_url,
     ]
 
     inputs.properties replaceProperties
@@ -198,4 +200,41 @@ tasks.named('jar', Jar).configure {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+unifiedPublishing {
+    project {
+        gameVersions = ["1.20.1"]
+        gameLoaders = ["forge"]
+
+//        mainPublication tasks.reobfJar // Declares the publicated jar
+
+        var cfToken = System.getenv("CURSEFORGE_KEY")
+        if (cfToken != null) {
+            curseforge {
+                token = cfToken
+                id = "1263595" // Required, must be a string, ID of CurseForge project
+                relations {
+                    depends "exnihilosequentia"
+                    optional "emi"
+                    optional "jei"
+                    optional "terrafirmacraft"
+                }
+            }
+        }
+
+        var mrToken = System.getenv("MODRINTH_KEY")
+        if (mrToken != null) {
+            modrinth {
+                token = mrToken
+                id = "DkBT4izI" // Required, must be a string, ID of Modrinth project
+                relations {
+                    depends "WhVa4xyw" //exnihilosequentia
+                    optional "JaCEZUhg" //tfc
+                    optional "u6dRKJwZ" //jei
+                    optional "fRiHVvU7" //emi
+                }
+            }
+        }
+    }
 }
