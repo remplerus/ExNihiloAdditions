@@ -25,7 +25,7 @@ import novamachina.novacore.world.level.block.BlockDefinition;
 import java.util.function.Consumer;
 
 public class EXNATFCRecipes {
-    private static String modid = "tfc";
+    private static final String modid = "tfc";
 
     public static void init(Consumer<FinishedRecipe> consumer) {
         createOreRecipes(consumer);

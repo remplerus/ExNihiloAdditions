@@ -61,6 +61,7 @@
   "block.exnihiloadditions.willow_sieve": "Willow Sieve",
   "emi.category.exnihiloadditions.composting": "Composting",
   "emi.category.exnihiloadditions.crushing": "Crushing",
+  "emi.category.exnihiloadditions.fired_melting": "Fired Melting",
   "emi.category.exnihiloadditions.harvesting": "Harvesting",
   "emi.category.exnihiloadditions.heating": "Heating",
   "emi.category.exnihiloadditions.melting": "Melting",
@@ -68,5 +69,7 @@
   "emi.category.exnihiloadditions.sifting": "Sifting",
   "emi.category.exnihiloadditions.solidifying": "Solidifying",
   "emi.category.exnihiloadditions.transition": "Transition",
+  "emi.category.exnihiloadditions.water_sifting": "Water Sifting",
+  "exnihilosequentia.barrels": "Barrels",
   "itemGroup.exnihiloadditions": "Ex Nihilo: Additions"
 }

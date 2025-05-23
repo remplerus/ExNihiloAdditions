@@ -1,0 +1,37 @@
+{
+  "filters": [
+    {
+      "category": "exnihilosequentia:harvest"
+    },
+    {
+      "category": "exnihilosequentia:compost"
+    },
+    {
+      "category": "exnihilosequentia:crushing"
+    },
+    {
+      "category": "exnihilosequentia:heat"
+    },
+    {
+      "category": "exnihilosequentia:melting"
+    },
+    {
+      "category": "exnihilosequentia:fired_melting"
+    },
+    {
+      "category": "exnihilosequentia:precipitate"
+    },
+    {
+      "category": "exnihilosequentia:dry_sifting"
+    },
+    {
+      "category": "exnihilosequentia:wet_sifting"
+    },
+    {
+      "category": "exnihilosequentia:solidifying"
+    },
+    {
+      "category": "exnihilosequentia:transition"
+    }
+  ]
+}
