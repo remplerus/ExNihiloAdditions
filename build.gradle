@@ -13,6 +13,7 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id "me.modmuss50.mod-publish-plugin" version "0.8.4"
 }
 
 boolean enableJEI = true
@@ -171,6 +172,7 @@ tasks.named('processResources', ProcessResources).configure {
             loader_version_range: loader_version_range,
             mod_id              : mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
             mod_authors         : mod_authors, mod_description: mod_description,
+            update_url          : update_url,
     ]
 
     inputs.properties replaceProperties
@@ -198,4 +200,36 @@ tasks.named('jar', Jar).configure {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+publishMods {
+    file = jar.archiveFile
+    type = STABLE
+    modLoaders.add("forge")
+    displayName = "${mod_name} ${mod_version}"
+    changelog = ""
+
+    modrinth {
+        projectId = "DkBT4izI"
+        accessToken = System.getenv("MODRINTH_KEY")
+        minecraftVersions.add("1.20.1")
+        requires{
+            id = "WhVa4xyw"
+        }
+        optional {
+            id = "JaCEZUhg"
+            id = "u6dRKJwZ"
+            id = "fRiHVvU7"
+        }
+    }
+
+    curseforge {
+        projectId = "1263595"
+        accessToken = System.getenv("CURSEFORGE_KEY")
+        minecraftVersions.add("1.20.1")
+        clientRequired = true
+        serverRequired = true
+        requires("exnihilosequentia")
+        optional("emi", "jei", "terrafirmacraft")
+    }
 }
