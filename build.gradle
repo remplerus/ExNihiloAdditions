@@ -221,6 +221,7 @@ publishMods {
             id = "fRiHVvU7"
         }
     }
+
     curseforge {
         projectId = "1263595"
         accessToken = providers.environmentVariable("CURSEFORGE_KEY")
