@@ -16,7 +16,7 @@ public class JEIPlugin implements IModPlugin {
      @Nonnull
      @Override
      public ResourceLocation getPluginUid() {
-         return ExNihiloAdditions.rl("builtin");
+         return ExNihiloAdditions.rl("tfc");
      }
 
      @Override
