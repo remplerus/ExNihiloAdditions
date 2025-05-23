@@ -207,10 +207,11 @@ publishMods {
     type = STABLE
     modLoaders.add("forge")
     displayName = "${mod_name} ${mod_version}"
+    changelog = ""
 
     modrinth {
         projectId = "DkBT4izI"
-        accessToken = providers.environmentVariable("MODRINTH_KEY")
+        accessToken = System.getenv("MODRINTH_KEY")
         minecraftVersions.add("1.20.1")
         requires{
             id = "WhVa4xyw"
@@ -224,7 +225,7 @@ publishMods {
 
     curseforge {
         projectId = "1263595"
-        accessToken = providers.environmentVariable("CURSEFORGE_KEY")
+        accessToken = System.getenv("CURSEFORGE_KEY")
         minecraftVersions.add("1.20.1")
         clientRequired = true
         serverRequired = true
