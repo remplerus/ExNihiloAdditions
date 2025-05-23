@@ -13,7 +13,7 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
-    id "me.shedaniel.unified-publishing" version "0.1.+"
+    id "me.modmuss50.mod-publish-plugin" version "0.8.4"
 }
 
 boolean enableJEI = true
@@ -202,39 +202,32 @@ tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }
 
-unifiedPublishing {
-    project {
-        gameVersions = ["1.20.1"]
-        gameLoaders = ["forge"]
+publishMods {
+    file = jar.archiveFile
+    type = STABLE
+    modLoaders.add("forge")
+    displayName = "${mod_name} ${mod_version}"
 
-//        mainPublication tasks.reobfJar // Declares the publicated jar
-
-        var cfToken = System.getenv("CURSEFORGE_KEY")
-        if (cfToken != null) {
-            curseforge {
-                token = cfToken
-                id = "1263595" // Required, must be a string, ID of CurseForge project
-                relations {
-                    depends "exnihilosequentia"
-                    optional "emi"
-                    optional "jei"
-                    optional "terrafirmacraft"
-                }
-            }
+    modrinth {
+        projectId = "DkBT4izI"
+        accessToken = providers.environmentVariable("MODRINTH_KEY")
+        minecraftVersions.add("1.20.1")
+        requires{
+            id = "WhVa4xyw"
         }
-
-        var mrToken = System.getenv("MODRINTH_KEY")
-        if (mrToken != null) {
-            modrinth {
-                token = mrToken
-                id = "DkBT4izI" // Required, must be a string, ID of Modrinth project
-                relations {
-                    depends "WhVa4xyw" //exnihilosequentia
-                    optional "JaCEZUhg" //tfc
-                    optional "u6dRKJwZ" //jei
-                    optional "fRiHVvU7" //emi
-                }
-            }
+        optional {
+            id = "JaCEZUhg"
+            id = "u6dRKJwZ"
+            id = "fRiHVvU7"
         }
+    }
+    curseforge {
+        projectId = "1263595"
+        accessToken = providers.environmentVariable("CURSEFORGE_KEY")
+        minecraftVersions.add("1.20.1")
+        clientRequired = true
+        serverRequired = true
+        requires("exnihilosequentia")
+        optional("emi", "jei", "terrafirmacraft")
     }
 }
