@@ -12,7 +12,7 @@ import novamachina.exnihilosequentia.client.render.SieveRender;
 import javax.annotation.Nonnull;
 
 @Mod.EventBusSubscriber(
-        modid = ExNihiloAdditions.MODID,
+        modid = ExNihiloAdditions.ModIds.MODID,
         value = Dist.CLIENT,
         bus = Mod.EventBusSubscriber.Bus.MOD)
 public class EXNATFCClientSetup {

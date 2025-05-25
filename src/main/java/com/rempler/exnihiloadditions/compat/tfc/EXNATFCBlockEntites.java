@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class EXNATFCBlockEntites {
-    public static final BlockEntityTypeRegistry BLOCK_ENTITY_TYPES = new BlockEntityTypeRegistry(ExNihiloAdditions.MODID);
+    public static final BlockEntityTypeRegistry BLOCK_ENTITY_TYPES = new BlockEntityTypeRegistry(ExNihiloAdditions.ModIds.MODID);
 
     private EXNATFCBlockEntites() {
     }

@@ -19,7 +19,7 @@ import javax.annotation.Nonnull;
 public class EXNCBlockStateGenerator extends AbstractBlockStateGenerator {
 
     public EXNCBlockStateGenerator(@Nonnull final PackOutput output, @Nonnull final ExistingFileHelper exFileHelper) {
-        super(output, ExNihiloAdditions.MODID, exFileHelper);
+        super(output, ExNihiloAdditions.ModIds.MODID, exFileHelper);
     }
 
     protected void createCrucible(Block block, ResourceLocation texture, ResourceLocation particle) {

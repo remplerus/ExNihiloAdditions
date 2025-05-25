@@ -8,12 +8,12 @@ import novamachina.novacore.data.AbstractLangGenerator;
 public class EXNALangProvider extends AbstractLangGenerator {
 
     public EXNALangProvider(PackOutput output, String locale) {
-        super(output, ExNihiloAdditions.MODID, locale);
+        super(output, ExNihiloAdditions.ModIds.MODID, locale);
     }
 
     @Override
     protected void addTranslations() {
-        add("itemGroup." + ExNihiloAdditions.MODID, "Ex Nihilo: Additions");
+        add("itemGroup." + ExNihiloAdditions.ModIds.MODID, "Ex Nihilo: Additions");
         add("emi.category.exnihiloadditions.composting", "Composting");
         add("emi.category.exnihiloadditions.crushing", "Crushing");
         add("emi.category.exnihiloadditions.harvesting", "Harvesting");

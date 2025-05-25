@@ -24,7 +24,7 @@ import java.util.function.Consumer;
 
 public class EXNARecipeGenerator extends RecipeProvider {
     public EXNARecipeGenerator(PackOutput output, ExistingFileHelper existingFileHelper) {
-        super(output, existingFileHelper, ExNihiloAdditions.MODID);
+        super(output, existingFileHelper, ExNihiloAdditions.ModIds.MODID);
     }
 
     @Override

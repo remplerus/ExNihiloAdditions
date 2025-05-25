@@ -19,7 +19,7 @@ import com.google.common.collect.ImmutableMap;
 import static com.rempler.exnihiloadditions.EXNABlocksHelper.titleCase;
 
 public class EXNATFCBlocks {
-    public static BlockRegistry BLOCKS = new BlockRegistry(ExNihiloAdditions.MODID);
+    public static BlockRegistry BLOCKS = new BlockRegistry(ExNihiloAdditions.ModIds.MODID);
 
     public static final Map<Wood, BlockDefinition<CrucibleBlock>> TFC_CRUCIBLES = Util.make(() -> {
         ImmutableMap.Builder<Wood, BlockDefinition<CrucibleBlock>> builder = ImmutableMap.builder();

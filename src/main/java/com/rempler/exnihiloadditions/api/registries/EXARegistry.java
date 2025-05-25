@@ -1,14 +1,19 @@
-package com.rempler.exnihiloadditions.api;
+package com.rempler.exnihiloadditions.api.registries;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.rempler.exnihiloadditions.ExNihiloAdditions;
+import com.rempler.exnihiloadditions.registers.EXABlocks;
+import com.rempler.exnihiloadditions.registers.EXAItems;
+import com.rempler.exnihiloadditions.api.EXAJsonParser;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.data.loading.DatagenModLoader;
+import novamachina.novacore.world.item.ItemDefinition;
+import org.apache.commons.lang3.text.WordUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -39,7 +44,7 @@ public class EXARegistry<I extends AbstractItemLike> implements Iterable<I> {
     }
 
     public void search(Function<EXAJsonParser, I> registrar) {
-        Path configPath = Paths.get("config/"+ ExNihiloAdditions.MODID + "/"+configFolder+"/marerials");
+        Path configPath = Paths.get("config/"+ ExNihiloAdditions.ModIds.MODID + "/"+configFolder+"/marerials");
 
         if (!DatagenModLoader.isRunningDataGen()) {
             if (createConfigFolder(configPath)) {
@@ -74,8 +79,8 @@ public class EXARegistry<I extends AbstractItemLike> implements Iterable<I> {
             throw new IllegalStateException(configFolder + "item with name " + name + " already registered: duplicate item");
         }
 
-        item.block = EXABlocks.register(id, item.createBlock());
-        item.item = EXAItems.register(id, () -> item.createBlockItem(item.block.block()));
+        item.block = EXABlocks.BLOCKS.block(WordUtils.capitalizeFully(id.replace("_", " ")), id, item::createBlock);
+        item.item = EXAItems.ITEMS.item(WordUtils.capitalizeFully(id.replace("_", " ")), id, () -> item.createBlockItem(item.block.block()), ItemDefinition.ItemType.OTHER);
         values.add(item);
     }
 

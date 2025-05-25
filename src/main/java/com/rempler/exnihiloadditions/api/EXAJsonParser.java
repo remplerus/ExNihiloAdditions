@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.rempler.exnihiloadditions.ExNihiloAdditions;
+import com.rempler.exnihiloadditions.api.registries.EXARegistry;
 import net.minecraft.world.level.block.SoundType;
 
 import java.nio.file.Path;
@@ -14,12 +15,16 @@ public class EXAJsonParser {
     private final Path jsonPath;
 
     private final EXARegistry<?> registry;
-    boolean error;
+    private boolean error;
 
     public EXAJsonParser(JsonObject json, Path jsonPath, EXARegistry<?> registry) {
         this.json = json;
         this.jsonPath = jsonPath;
         this.registry = registry;
+    }
+
+    public boolean isError() {
+        return error;
     }
 
     public SoundType getSoundType() {
@@ -73,7 +78,7 @@ public class EXAJsonParser {
         } else {
             ExNihiloAdditions.LOGGER.error("Missing required mod ID for item {}", jsonPath);
             error = true;
-            return ExNihiloAdditions.MODID; // Default value
+            return ExNihiloAdditions.ModIds.MODID; // Default value
         }
     }
 

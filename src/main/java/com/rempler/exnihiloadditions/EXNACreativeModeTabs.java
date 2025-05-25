@@ -15,7 +15,7 @@ import java.util.List;
 
 public class EXNACreativeModeTabs {
 
-    private static final CreativeModeTabRegistry CREATIVE_MODE_TABS = new CreativeModeTabRegistry(ExNihiloAdditions.MODID);
+    private static final CreativeModeTabRegistry CREATIVE_MODE_TABS = new CreativeModeTabRegistry(ExNihiloAdditions.ModIds.MODID);
 
     public static List<CreativeModeTabDefinition> getDefinitions() {
         return CREATIVE_MODE_TABS.getRegistry();

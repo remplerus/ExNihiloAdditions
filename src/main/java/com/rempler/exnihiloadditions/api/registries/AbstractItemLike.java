@@ -1,4 +1,4 @@
-package com.rempler.exnihiloadditions.api;
+package com.rempler.exnihiloadditions.api.registries;
 
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;

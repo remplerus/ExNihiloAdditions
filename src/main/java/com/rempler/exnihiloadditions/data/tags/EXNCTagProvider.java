@@ -19,7 +19,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class EXNCTagProvider extends TagProvider {
     public EXNCTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
-        super(output, lookupProvider, ExNihiloAdditions.MODID, existingFileHelper);
+        super(output, lookupProvider, ExNihiloAdditions.ModIds.MODID, existingFileHelper);
     }
 
     @Override
