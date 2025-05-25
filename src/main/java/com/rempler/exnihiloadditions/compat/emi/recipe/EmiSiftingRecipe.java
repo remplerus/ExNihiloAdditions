@@ -6,8 +6,6 @@ import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.crafting.Ingredient;
 import novamachina.exnihilosequentia.common.Config;
 import novamachina.exnihilosequentia.world.item.MeshItem;
 import novamachina.exnihilosequentia.world.item.MeshType;
@@ -43,9 +41,11 @@ public class EmiSiftingRecipe extends AbstractEmiRecipe {
 
         for (MeshType mesh : meshOrder) {
             if (groupedDrops.containsKey(mesh)) {
+                float chance = 0f;
                 for (MeshWithChance drop : groupedDrops.get(mesh)) {
-                    outputs.add(EmiStack.of(recipe.getDrop()).setChance(drop.getChance()));
+                    chance += drop.getChance();
                 }
+                outputs.add(EmiStack.of(recipe.getDrop()).setChance(chance));
                 meshTypes.add(mesh);
             }
         }
