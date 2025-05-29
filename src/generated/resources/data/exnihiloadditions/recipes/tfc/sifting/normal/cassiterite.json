@@ -1,15 +1,28 @@
 {
-  "type": "exnihilosequentia:sifting",
-  "input": {
-    "item": "minecraft:sand"
-  },
-  "result": {
-    "item": "tfc:ore/normal_cassiterite"
-  },
-  "rolls": [
+  "type": "forge:conditional",
+  "recipes": [
     {
-      "chance": 0.1,
-      "mesh": "flint"
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "tfc"
+        }
+      ],
+      "recipe": {
+        "type": "exnihilosequentia:sifting",
+        "input": {
+          "item": "minecraft:sand"
+        },
+        "result": {
+          "item": "tfc:ore/normal_cassiterite"
+        },
+        "rolls": [
+          {
+            "chance": 0.1,
+            "mesh": "flint"
+          }
+        ]
+      }
     }
   ]
 }

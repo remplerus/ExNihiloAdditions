@@ -120,3 +120,4 @@ run-data/
 /libs/
 /src/generated/resources/.cache/
 /.env
+/.env

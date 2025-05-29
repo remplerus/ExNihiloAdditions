@@ -13,6 +13,8 @@ import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraftforge.common.crafting.ConditionalRecipe;
+import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 import novamachina.exnihilosequentia.data.recipes.SiftingRecipeBuilder;
 import novamachina.exnihilosequentia.world.item.MeshType;
 import novamachina.exnihilosequentia.world.item.crafting.MeshWithChance;
@@ -23,6 +25,8 @@ import novamachina.exnihilosequentia.world.level.block.SieveBlock;
 import novamachina.novacore.world.level.block.BlockDefinition;
 
 import java.util.function.Consumer;
+
+import static com.rempler.exnihiloadditions.data.recipe.EXNARecipeHelper.modLoaded;
 
 public class EXNATFCRecipes {
     private static final String modid = "tfc";
@@ -74,34 +78,55 @@ public class EXNATFCRecipes {
             } else if (ore.name().equals("AMETHYST")) {
                 createOreToTFC(consumer, ore, Items.AMETHYST_SHARD);
             } else {
-                Item input = Items.GRAVEL;
                 if (ore.isGraded()) {
-                    SiftingRecipeBuilder.sifting(input, BuiltInRegistries.ITEM.get(new ResourceLocation(modid, "ore/poor_" + ore.name().toLowerCase())))
-                            .addRoll(new MeshWithChance(MeshType.FLINT, 0.1f))
-                            .build(consumer, ExNihiloAdditions.rl(modid+"/sifting/poor/" + ore.name().toLowerCase()));
-                    input = Items.SAND;
-                    SiftingRecipeBuilder.sifting(input, BuiltInRegistries.ITEM.get(new ResourceLocation(modid, "ore/normal_" + ore.name().toLowerCase())))
-                            .addRoll(new MeshWithChance(MeshType.FLINT, 0.1f))
-                            .build(consumer, ExNihiloAdditions.rl(modid+"/sifting/normal/" + ore.name().toLowerCase()));
-                    input = EXNBlocks.DUST.asItem();
-                    SiftingRecipeBuilder.sifting(input, BuiltInRegistries.ITEM.get(new ResourceLocation(modid, "ore/rich_" + ore.name().toLowerCase())))
-                            .addRoll(new MeshWithChance(MeshType.FLINT, 0.1f))
-                            .build(consumer, ExNihiloAdditions.rl(modid+"/sifting/rich/" + ore.name().toLowerCase()));
+                    ConditionalRecipe.builder().addCondition(modLoaded(modid))
+                        .addRecipe(recipe ->
+                            SiftingRecipeBuilder.sifting(Items.GRAVEL, BuiltInRegistries.ITEM.get(new ResourceLocation(modid, "ore/poor_" + ore.name().toLowerCase())))
+                                .addRoll(new MeshWithChance(MeshType.FLINT, 0.1f))
+                                .build(recipe, ExNihiloAdditions.rl(modid+"/sifting/poor/" + ore.name().toLowerCase()))
+                        )
+                        .generateAdvancement()
+                        .build(consumer, ExNihiloAdditions.rl(modid+"/sifting/poor/" + ore.name().toLowerCase()));
+                    ConditionalRecipe.builder().addCondition(modLoaded(modid))
+                        .addRecipe(recipe ->
+                            SiftingRecipeBuilder.sifting(Items.SAND, BuiltInRegistries.ITEM.get(new ResourceLocation(modid, "ore/normal_" + ore.name().toLowerCase())))
+                                .addRoll(new MeshWithChance(MeshType.FLINT, 0.1f))
+                                .build(recipe, ExNihiloAdditions.rl(modid+"/sifting/normal/" + ore.name().toLowerCase()))
+                        )
+                        .generateAdvancement()
+                        .build(consumer, ExNihiloAdditions.rl(modid+"/sifting/normal/" + ore.name().toLowerCase()));
+                    ConditionalRecipe.builder().addCondition(modLoaded(modid))
+                        .addRecipe(recipe ->
+                            SiftingRecipeBuilder.sifting(EXNBlocks.DUST.asItem(), BuiltInRegistries.ITEM.get(new ResourceLocation(modid, "ore/rich_" + ore.name().toLowerCase())))
+                                .addRoll(new MeshWithChance(MeshType.FLINT, 0.1f))
+                                .build(recipe, ExNihiloAdditions.rl(modid+"/sifting/rich/" + ore.name().toLowerCase()))
+                        )
+                        .generateAdvancement()
+                        .build(consumer, ExNihiloAdditions.rl(modid+"/sifting/rich/" + ore.name().toLowerCase()));
                 } else {
-                    SiftingRecipeBuilder.sifting(input, BuiltInRegistries.ITEM.get(new ResourceLocation(modid, "ore/" + ore.name().toLowerCase())))
-                            .addRoll(new MeshWithChance(MeshType.FLINT, 0.1f))
-                            .build(consumer, ExNihiloAdditions.rl(modid+"/sifting/" + ore.name().toLowerCase()));
+                    ConditionalRecipe.builder().addCondition(modLoaded(modid))
+                        .addRecipe(recipe ->
+                            SiftingRecipeBuilder.sifting(Items.GRAVEL, BuiltInRegistries.ITEM.get(new ResourceLocation(modid, "ore/" + ore.name().toLowerCase())))
+                                .addRoll(new MeshWithChance(MeshType.FLINT, 0.1f))
+                                .build(recipe, ExNihiloAdditions.rl(modid+"/sifting/" + ore.name().toLowerCase()))
+                        )
+                        .generateAdvancement()
+                        .build(consumer, ExNihiloAdditions.rl(modid+"/sifting/" + ore.name().toLowerCase()));
                 }
             }
         }
     }
 
     private static void createOreToTFC(Consumer<FinishedRecipe> consumer, Ore ore, Item item) {
-        ExNihiloAdditions.LOGGER.info(ore.name().toLowerCase());
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BuiltInRegistries.ITEM.get(new ResourceLocation(modid, "gem/" + ore.name().toLowerCase())))
-                .requires(item)
-                .requires(TFCItems.SANDPAPER.get())
-                .unlockedBy("has_sandpaper", InventoryChangeTrigger.TriggerInstance.hasItems(TFCItems.SANDPAPER.get()))
-                .save(consumer, new ResourceLocation(ExNihiloAdditions.MODID, modid+"/sandpaper/vanilla_to_tfc_"+ore.name().toLowerCase()));
+        ConditionalRecipe.builder().addCondition(modLoaded(modid))
+            .addRecipe(recipe ->
+                ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BuiltInRegistries.ITEM.get(new ResourceLocation(modid, "gem/" + ore.name().toLowerCase())))
+                    .requires(item)
+                    .requires(TFCItems.SANDPAPER.get())
+                    .unlockedBy("has_sandpaper", InventoryChangeTrigger.TriggerInstance.hasItems(TFCItems.SANDPAPER.get()))
+                    .save(recipe, new ResourceLocation(ExNihiloAdditions.MODID, modid+"/sandpaper/vanilla_to_tfc_"+ore.name().toLowerCase()))
+            )
+            .generateAdvancement()
+            .build(consumer, new ResourceLocation(ExNihiloAdditions.MODID, modid+"/sandpaper/vanilla_to_tfc_"+ore.name().toLowerCase()));
     }
 }

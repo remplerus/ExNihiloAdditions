@@ -1,22 +1,35 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "group": "exnihilosequentia",
-  "key": {
-    "-": {
-      "item": "tfc:wood/planks/kapok_slab"
-    },
-    "x": {
-      "item": "tfc:wood/planks/kapok"
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "tfc"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "misc",
+        "group": "exnihilosequentia",
+        "key": {
+          "-": {
+            "item": "tfc:wood/planks/kapok_slab"
+          },
+          "x": {
+            "item": "tfc:wood/planks/kapok"
+          }
+        },
+        "pattern": [
+          "x x",
+          "x x",
+          "x-x"
+        ],
+        "result": {
+          "item": "exnihiloadditions:kapok_barrel"
+        },
+        "show_notification": true
+      }
     }
-  },
-  "pattern": [
-    "x x",
-    "x x",
-    "x-x"
-  ],
-  "result": {
-    "item": "exnihiloadditions:kapok_barrel"
-  },
-  "show_notification": true
+  ]
 }
