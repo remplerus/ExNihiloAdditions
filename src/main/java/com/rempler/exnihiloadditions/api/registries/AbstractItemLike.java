@@ -6,6 +6,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraftforge.registries.RegistryObject;
 import novamachina.novacore.world.item.ItemDefinition;
 import novamachina.novacore.world.level.block.BlockDefinition;
 
@@ -15,8 +16,8 @@ public abstract class AbstractItemLike implements ItemLike {
     public final boolean requiresCorrectTool;
     public final String requiredModId;
 
-    ItemDefinition<?> item;
-    BlockDefinition<?> block;
+    RegistryObject<Item> item;
+    RegistryObject<Block> block;
 
     public AbstractItemLike(SoundType soundType, float strength, boolean requiresCorrectTool, String requiredModId) {
         this.soundType = soundType;
@@ -38,11 +39,11 @@ public abstract class AbstractItemLike implements ItemLike {
     }
 
     public Item getItem() {
-        return this.item.asItem();
+        return this.item.get();
     }
 
     public Block getBlock() {
-        return this.block.block();
+        return this.block.get();
     }
 
     @Override

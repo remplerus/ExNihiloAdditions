@@ -2,7 +2,6 @@ package com.rempler.exnihiloadditions;
 
 import com.rempler.exnihiloadditions.api.DefaultItems;
 import com.rempler.exnihiloadditions.compat.emi.client.EXAEMIClientSetup;
-import com.rempler.exnihiloadditions.compat.tfc.EXNATFCBlockEntites;
 import com.rempler.exnihiloadditions.compat.tfc.EXNATFCBlocks;
 import com.rempler.exnihiloadditions.compat.tfc.EXNATFCItems;
 import com.rempler.exnihiloadditions.compat.tfc.client.EXNATFCClientSetup;
@@ -15,16 +14,13 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.GameData;
 import net.minecraftforge.registries.RegisterEvent;
-import novamachina.novacore.bootstrap.ForgeBlockEntityTypeRegistry;
 import novamachina.novacore.bootstrap.ForgeBlockRegistry;
 import novamachina.novacore.bootstrap.ForgeCreativeModeTabRegistry;
 import novamachina.novacore.bootstrap.ForgeItemRegistry;
 import novamachina.novacore.world.item.CreativeModeTabDefinition;
 import novamachina.novacore.world.item.ItemDefinition;
 import novamachina.novacore.world.level.block.BlockDefinition;
-import novamachina.novacore.world.level.block.BlockEntityTypeDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,8 +35,6 @@ public class ExNihiloAdditions {
     }
 
     public ExNihiloAdditions() {
-        GameData.unfreezeData();
-        DefaultItems.registerItems();
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         if (isTFCLoaded) {
             LOGGER.info("TFC is loaded, registering TFC compat");
@@ -50,57 +44,60 @@ public class ExNihiloAdditions {
             LOGGER.info("EMI is loaded, registering EMI compat");
             EXAEMIClientSetup.register(eventBus);
         }
+        EXAItems.ITEMS.register(eventBus);
+        EXABlocks.BLOCKS.register(eventBus);
+        EXABlockEntities.BLOCK_ENTITIES.register(eventBus);
 
         FMLJavaModLoadingContext.get()
-                .getModEventBus()
-                .addListener((RegisterEvent event) -> {
-                    if (event.getRegistryKey().equals(BuiltInRegistries.BLOCK.key())) {
-                        ForgeBlockRegistry registry = new ForgeBlockRegistry();
-                        if (isTFCLoaded) {
-                            for (BlockDefinition<?> definition : EXNATFCBlocks.getDefinitions()) {
-                                registry.register(definition);
-                            }
-                        }
-                        for (BlockDefinition<?> definition : EXABlocks.getDefinitions()) {
+            .getModEventBus()
+            .addListener((RegisterEvent event) -> {
+                DefaultItems.registerItems();
+                if (event.getRegistryKey().equals(BuiltInRegistries.BLOCK.key())) {
+                    ForgeBlockRegistry registry = new ForgeBlockRegistry();
+                    if (isTFCLoaded) {
+                        for (BlockDefinition<?> definition : EXNATFCBlocks.getDefinitions()) {
                             registry.register(definition);
                         }
                     }
-                    if (event.getRegistryKey().equals(BuiltInRegistries.BLOCK_ENTITY_TYPE.key())) {
-                        ForgeBlockEntityTypeRegistry registry = new ForgeBlockEntityTypeRegistry();
-                        if (isTFCLoaded) {
-                            for (BlockEntityTypeDefinition<?> definition : EXNATFCBlockEntites.getDefinitions()) {
-                                registry.register(definition);
-                            }
+                    //for (BlockDefinition<?> definition : EXABlocks.getDefinitions()) {
+                    //    registry.register(definition);
+                    //}
+                }
+                //if (event.getRegistryKey().equals(BuiltInRegistries.BLOCK_ENTITY_TYPE.key())) {
+                //    ForgeBlockEntityTypeRegistry registry = new ForgeBlockEntityTypeRegistry();
+                //    if (isTFCLoaded) {
+                //        for (BlockEntityTypeDefinition<?> definition : EXNATFCBlockEntites.getDefinitions()) {
+                //            registry.register(definition);
+                //        }
+                //    }
+                //    for (BlockEntityTypeDefinition<?> definition : EXABlockEntities.getDefinitions()) {
+                //        registry.register(definition);
+                //    }
+                //}
+                if (event.getRegistryKey().equals(BuiltInRegistries.ITEM.key())) {
+                    ForgeItemRegistry registry = new ForgeItemRegistry();
+                    if (isTFCLoaded) {
+                        for (BlockDefinition<?> definition : EXNATFCBlocks.getDefinitions()) {
+                            registry.register(definition);
                         }
-                        for (BlockEntityTypeDefinition<?> definition : EXABlockEntities.getDefinitions()) {
+                        for (ItemDefinition<?> definition : EXNATFCItems.getDefinitions()) {
                             registry.register(definition);
                         }
                     }
-                    if (event.getRegistryKey().equals(BuiltInRegistries.ITEM.key())) {
-                        ForgeItemRegistry registry = new ForgeItemRegistry();
-                        if (isTFCLoaded) {
-                            for (BlockDefinition<?> definition : EXNATFCBlocks.getDefinitions()) {
-                                registry.register(definition);
-                            }
-                            for (ItemDefinition<?> definition : EXNATFCItems.getDefinitions()) {
-                                registry.register(definition);
-                            }
-                        }
-                        for (BlockDefinition<?> definition : EXABlocks.getDefinitions()) {
-                            registry.register(definition);
-                        }
-                        for (ItemDefinition<?> definition : EXAItems.getDefinitions()) {
-                            registry.register(definition);
-                        }
+                    //for (BlockDefinition<?> definition : EXABlocks.getDefinitions()) {
+                    //    registry.register(definition);
+                    //}
+                    //for (ItemDefinition<?> definition : EXAItems.getDefinitions()) {
+                    //    registry.register(definition);
+                    //}
+                }
+                if (event.getRegistryKey().equals(BuiltInRegistries.CREATIVE_MODE_TAB.key())) {
+                    ForgeCreativeModeTabRegistry registry = new ForgeCreativeModeTabRegistry();
+                    for (CreativeModeTabDefinition definition : EXNACreativeModeTabs.getDefinitions()) {
+                        registry.register(definition);
                     }
-                    if (event.getRegistryKey().equals(BuiltInRegistries.CREATIVE_MODE_TAB.key())) {
-                        ForgeCreativeModeTabRegistry registry = new ForgeCreativeModeTabRegistry();
-                        for (CreativeModeTabDefinition definition : EXNACreativeModeTabs.getDefinitions()) {
-                            registry.register(definition);
-                        }
-                    }
-                });
-        GameData.freezeData();
+                }
+            });
     }
 
     public static class ModIds {

@@ -18,7 +18,7 @@ public class AbstractStoneBarrelBlock extends BarrelBlock implements EntityBlock
     }
 
     public BlockEntity newBlockEntity(@NonNull BlockPos pos, @NonNull BlockState state) {
-        return new StoneBarrelBlockEntity(EXABlockEntities.STONE_BARREL_ENTITY.getType(), pos, state);
+        return new StoneBarrelBlockEntity(EXABlockEntities.STONE_BARREL_ENTITY.get(), pos, state);
     }
 
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NonNull BlockState state, @NonNull BlockEntityType<T> type) {

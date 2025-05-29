@@ -7,6 +7,6 @@ import novamachina.exnihilosequentia.world.level.block.entity.WoodBarrelBlockEnt
 
 public class AbstractWoodBarrelBlockEntity extends WoodBarrelBlockEntity {
     public AbstractWoodBarrelBlockEntity(BlockPos pos, BlockState state) {
-        super(EXABlockEntities.WOODEN_BARREL_ENTITY.getType(), pos, state);
+        super(EXABlockEntities.WOODEN_BARREL_ENTITY.get(), pos, state);
     }
 }

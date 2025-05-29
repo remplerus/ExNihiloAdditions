@@ -7,6 +7,6 @@ import novamachina.exnihilosequentia.world.level.block.entity.WoodCrucibleBlockE
 
 public class AbstractWoodCrucibleBlockEntity extends WoodCrucibleBlockEntity {
     public AbstractWoodCrucibleBlockEntity(BlockPos pos, BlockState state) {
-        super(EXABlockEntities.WOODEN_CRUCIBLE_ENTITY.getType(), pos, state);
+        super(EXABlockEntities.WOODEN_CRUCIBLE_ENTITY.get(), pos, state);
     }
 }

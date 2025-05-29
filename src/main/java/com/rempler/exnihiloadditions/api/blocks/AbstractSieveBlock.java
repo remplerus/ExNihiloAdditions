@@ -18,6 +18,6 @@ public class AbstractSieveBlock extends SieveBlock implements EntityBlock {
 
     @Nullable
     public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
-        return new SieveBlockEntity(EXABlockEntities.SIEVE_ENTITY.getType(), pos, state);
+        return new SieveBlockEntity(EXABlockEntities.SIEVE_ENTITY.get(), pos, state);
     }
 }

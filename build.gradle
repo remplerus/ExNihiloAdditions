@@ -18,7 +18,7 @@ plugins {
 
 boolean enableJEI = true
 boolean enableEMI = true
-boolean enableTFC = false
+boolean enableTFC = true
 boolean enableREI = false
 
 apply plugin: 'org.spongepowered.mixin'
@@ -166,10 +166,19 @@ dependencies {
         runtimeOnly fg.deobf("me.shedaniel:RoughlyEnoughItems-forge:12.1.785")
     }
 
-    runtimeOnly fg.deobf("aether")
-    runtimeOnly fg.deobf("bop")
-    runtimeOnly fg.deobf("blue_skies")
-    runtimeOnly fg.deobf("ars_nouveau")
+    //Aether
+    runtimeOnly fg.deobf("curse.maven:aether-255308:6134920")
+
+    //BOP
+    runtimeOnly fg.deobf("curse.maven:terrablender-563928:6290448")
+    runtimeOnly fg.deobf("curse.maven:glitchcore-955399:5787839")
+    runtimeOnly fg.deobf("curse.maven:bop-220318:6364065")
+
+    //Blue Skies
+    runtimeOnly fg.deobf("curse.maven:structure_gel-378802:5278429")
+    runtimeOnly fg.deobf("curse.maven:blue_skies-312918:5010316")
+
+    runtimeOnly fg.deobf("curse.maven:ars_nouveau-401955:5894609")
 
 }
 

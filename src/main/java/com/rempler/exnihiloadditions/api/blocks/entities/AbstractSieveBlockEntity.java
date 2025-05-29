@@ -7,6 +7,6 @@ import novamachina.exnihilosequentia.world.level.block.entity.SieveBlockEntity;
 
 public class AbstractSieveBlockEntity extends SieveBlockEntity {
     public AbstractSieveBlockEntity(BlockPos pos, BlockState state) {
-        super(EXABlockEntities.SIEVE_ENTITY.getType(), pos, state);
+        super(EXABlockEntities.SIEVE_ENTITY.get(), pos, state);
     }
 }

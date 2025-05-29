@@ -7,6 +7,6 @@ import novamachina.exnihilosequentia.world.level.block.entity.StoneBarrelBlockEn
 
 public class AbstractStoneBarrelBlockEntity extends StoneBarrelBlockEntity {
     public AbstractStoneBarrelBlockEntity(BlockPos pos, BlockState state) {
-        super(EXABlockEntities.STONE_BARREL_ENTITY.getType(), pos, state);
+        super(EXABlockEntities.STONE_BARREL_ENTITY.get(), pos, state);
     }
 }

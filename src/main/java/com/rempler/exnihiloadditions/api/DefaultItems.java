@@ -13,11 +13,11 @@ import net.minecraft.world.level.block.SoundType;
 
 @SuppressWarnings("unused")
 public class DefaultItems {
-    public static final EXARegistry<AbstractCrucibles> CRUCIBLES = new EXARegistry<>("crucibles", "water");
-    public static final EXARegistry<AbstractCrucibles> FIRED_CRUCIBLES = new EXARegistry<>("crucibles", "fired");
-    public static final EXARegistry<AbstractSieves> SIEVES = new EXARegistry<>("sieves");
-    public static final EXARegistry<AbstractBarrels> BARRELS = new EXARegistry<>("barrels");
-    public static final EXARegistry<AbstractBarrels> STONE_BARRELS = new EXARegistry<>("stone_barrels");
+    public static final EXARegistry<AbstractCrucibles> CRUCIBLES = new EXARegistry<>("wooden_crucible");
+    public static final EXARegistry<AbstractCrucibles> FIRED_CRUCIBLES = new EXARegistry<>("fired_crucible");
+    public static final EXARegistry<AbstractSieves> SIEVES = new EXARegistry<>("sieve");
+    public static final EXARegistry<AbstractBarrels> BARRELS = new EXARegistry<>("barrel");
+    public static final EXARegistry<AbstractBarrels> STONE_BARRELS = new EXARegistry<>("stone_barrel");
 
     // BOP
     public static final AbstractWoodBarrels FIR_BARREL = addDefaultWoodBarrel("fir", SoundType.WOOD, ExNihiloAdditions.ModIds.BIOMES_O_PLENTY, false);
@@ -107,13 +107,13 @@ public class DefaultItems {
 
     private static AbstractWoodBarrels addDefaultWoodBarrel(String name, SoundType soundType, String requiredModId, boolean transparent) {
         var material = new AbstractWoodBarrels(soundType, 2.0f, false, requiredModId, transparent);
-        BARRELS.register(name, material);
+        BARRELS.register(name, material, requiredModId);
         return material;
     }
 
     private static AbstractStoneBarrels addDefaultStoneBarrel(String name, SoundType soundType, float strength, boolean requiredCorrectTool, String requiredModId, boolean transparent) {
         var material = new AbstractStoneBarrels(soundType, strength, requiredCorrectTool, requiredModId, transparent);
-        STONE_BARRELS.register(name, material);
+        STONE_BARRELS.register(name, material, requiredModId);
         return material;
     }
 
@@ -123,19 +123,19 @@ public class DefaultItems {
 
     private static AbstractSieves addDefaultSieve(String name, SoundType soundType, boolean requiredCorrectTool, String requiredModID, boolean fireproof) {
         var material = new AbstractSieves(soundType, 2.0f, requiredCorrectTool, requiredModID, fireproof);
-        SIEVES.register(name, material);
+        SIEVES.register(name, material, requiredModID);
         return material;
     }
 
     private static AbstractFiredCrucibles addDefaultLavaCrucible(String name, SoundType soundType, float strength, boolean requiredCorrectTool, String requiredModId, boolean transparent) {
         var material = new AbstractFiredCrucibles(soundType, strength, requiredCorrectTool, requiredModId, transparent);
-        FIRED_CRUCIBLES.register(name, material);
+        FIRED_CRUCIBLES.register(name, material, requiredModId);
         return material;
     }
 
     private static AbstractWoodCrucibles addDefaultWaterCrucible(String name, SoundType soundType, String requiredModId, boolean transparent) {
         var material = new AbstractWoodCrucibles(soundType, 1.5f, false, requiredModId, transparent);
-        CRUCIBLES.register(name, material);
+        CRUCIBLES.register(name, material, requiredModId);
         return material;
     }
 

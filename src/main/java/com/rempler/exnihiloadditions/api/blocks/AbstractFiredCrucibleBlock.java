@@ -21,7 +21,7 @@ public class AbstractFiredCrucibleBlock extends CrucibleBlock implements EntityB
 
     @Nullable
     public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
-        return new FiredCrucibleBlockBlockEntity(EXABlockEntities.FIRED_CRUCIBLE_ENTITY.getType(), pos, state);
+        return new FiredCrucibleBlockBlockEntity(EXABlockEntities.FIRED_CRUCIBLE_ENTITY.get(), pos, state);
     }
 
     @Nullable

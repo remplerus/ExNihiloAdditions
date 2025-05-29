@@ -21,7 +21,7 @@ public class AbstractWoodCrucibleBlock extends CrucibleBlock implements EntityBl
 
     @Nullable
     public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
-        return new WoodCrucibleBlockEntity(EXABlockEntities.WOODEN_CRUCIBLE_ENTITY.getType(), pos, state);
+        return new WoodCrucibleBlockEntity(EXABlockEntities.WOODEN_CRUCIBLE_ENTITY.get(), pos, state);
     }
 
     @Nullable
