@@ -31,9 +31,9 @@ public class DefaultItems {
     public static final AbstractWoodBarrels UMBRAN_BARREL = addDefaultWoodBarrel("umbran", SoundType.WOOD, ExNihiloAdditions.ModIds.BIOMES_O_PLENTY, false);
     // Ars Nouveau
     public static final AbstractWoodBarrels ARCHWOOD_BARREL = addDefaultWoodBarrel("archwood", SoundType.WOOD, ExNihiloAdditions.ModIds.ARS_NOUVEAU, false);
-    // Aeth, falseer
+    // Aether
     public static final AbstractWoodBarrels SKYROOT_BARREL = addDefaultWoodBarrel("skyroot", SoundType.WOOD, ExNihiloAdditions.ModIds.AETHER, false);
-    // Blue Ski, falsees
+    // Blue Skies
     public static final AbstractWoodBarrels BLUEBRIGHT_BARREL = addDefaultWoodBarrel("bluebright", SoundType.WOOD, ExNihiloAdditions.ModIds.BLUE_SKIES, false);
     public static final AbstractWoodBarrels STARLIT_BARREL = addDefaultWoodBarrel("starlit", SoundType.WOOD, ExNihiloAdditions.ModIds.BLUE_SKIES, false);
     public static final AbstractWoodBarrels FROSTBRIGHT_BARREL = addDefaultWoodBarrel("frostbright", SoundType.WOOD, ExNihiloAdditions.ModIds.BLUE_SKIES, false);
@@ -59,11 +59,11 @@ public class DefaultItems {
     public static final AbstractSieves MAGIC_SIEVE = addDefaultSieve("magic", SoundType.WOOD, ExNihiloAdditions.ModIds.BIOMES_O_PLENTY, false);
     public static final AbstractSieves UMBRAN_SIEVE = addDefaultSieve("umbran", SoundType.WOOD, ExNihiloAdditions.ModIds.BIOMES_O_PLENTY, false);
     public static final AbstractSieves HELLBARK_SIEVE = addDefaultSieve("hellbark", SoundType.WOOD, ExNihiloAdditions.ModIds.BIOMES_O_PLENTY, false);
-    // Ars Nouve, falseau
+    // Ars Nouveau
     public static final AbstractSieves ARCHWOOD_SIEVE = addDefaultSieve("archwood", SoundType.WOOD, ExNihiloAdditions.ModIds.ARS_NOUVEAU, false);
-    // Aeth, falseer
+    // Aether
     public static final AbstractSieves SKYROOT_SIEVE = addDefaultSieve("skyroot", SoundType.WOOD, ExNihiloAdditions.ModIds.AETHER, false);
-    // Blue Ski, falsees
+    // Blue Skies
     public static final AbstractSieves BLUEBRIGHT_SIEVE = addDefaultSieve("bluebright", SoundType.WOOD, ExNihiloAdditions.ModIds.BLUE_SKIES, false);
     public static final AbstractSieves STARLIT_SIEVE = addDefaultSieve("starlit", SoundType.WOOD, ExNihiloAdditions.ModIds.BLUE_SKIES, false);
     public static final AbstractSieves FROSTBRIGHT_SIEVE = addDefaultSieve("frostbright", SoundType.WOOD, ExNihiloAdditions.ModIds.BLUE_SKIES, false);
@@ -88,15 +88,15 @@ public class DefaultItems {
     public static final AbstractWoodCrucibles DEAD_CRUCIBLE = addDefaultWaterCrucible("dead", SoundType.WOOD, ExNihiloAdditions.ModIds.BIOMES_O_PLENTY, false);
     public static final AbstractWoodCrucibles MAGIC_CRUCIBLE = addDefaultWaterCrucible("magic", SoundType.WOOD, ExNihiloAdditions.ModIds.BIOMES_O_PLENTY, false);
     public static final AbstractWoodCrucibles UMBRAN_CRUCIBLE = addDefaultWaterCrucible("umbran", SoundType.WOOD, ExNihiloAdditions.ModIds.BIOMES_O_PLENTY, false);
-    // Ars Nouve, falseau
+    // Ars Nouveau
     public static final AbstractWoodCrucibles CASCADING_ARCHWOOD_CRUCIBLE = addDefaultWaterCrucible("blue_archwood", SoundType.WOOD, ExNihiloAdditions.ModIds.ARS_NOUVEAU, false);
     public static final AbstractWoodCrucibles BLAZING_ARCHWOOD_CRUCIBLE = addDefaultWaterCrucible("red_archwood", SoundType.WOOD, ExNihiloAdditions.ModIds.ARS_NOUVEAU, false);
     public static final AbstractWoodCrucibles VEXING_ARCHWOOD_CRUCIBLE = addDefaultWaterCrucible("purple_archwood", SoundType.WOOD, ExNihiloAdditions.ModIds.ARS_NOUVEAU, false);
     public static final AbstractWoodCrucibles FLOURISHING_ARCHWOOD_CRUCIBLE = addDefaultWaterCrucible("green_archwood", SoundType.WOOD, ExNihiloAdditions.ModIds.ARS_NOUVEAU, false);
-    // Aeth, falseer
+    // Aether
     public static final AbstractWoodCrucibles SKYROOT_CRUCIBLE = addDefaultWaterCrucible("skyroot", SoundType.WOOD, ExNihiloAdditions.ModIds.AETHER, false);
     public static final AbstractWoodCrucibles GOLDEN_OAK_CRUCIBLE = addDefaultWaterCrucible("golden_oak", SoundType.WOOD, ExNihiloAdditions.ModIds.AETHER, false);
-    // Blue Ski, falsees
+    // Blue Skies
     public static final AbstractWoodCrucibles BLUEBRIGHT_CRUCIBLE = addDefaultWaterCrucible("bluebright", SoundType.WOOD, ExNihiloAdditions.ModIds.BLUE_SKIES, false);
     public static final AbstractWoodCrucibles STARLIT_CRUCIBLE = addDefaultWaterCrucible("starlit", SoundType.WOOD, ExNihiloAdditions.ModIds.BLUE_SKIES, false);
     public static final AbstractWoodCrucibles FROSTBRIGHT_CRUCIBLE = addDefaultWaterCrucible("frostbright", SoundType.WOOD, ExNihiloAdditions.ModIds.BLUE_SKIES, false);

@@ -15,6 +15,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.GameData;
 import net.minecraftforge.registries.RegisterEvent;
 import novamachina.novacore.bootstrap.ForgeBlockEntityTypeRegistry;
 import novamachina.novacore.bootstrap.ForgeBlockRegistry;
@@ -38,6 +39,7 @@ public class ExNihiloAdditions {
     }
 
     public ExNihiloAdditions() {
+        GameData.unfreezeData();
         DefaultItems.registerItems();
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         if (isTFCLoaded) {
@@ -98,6 +100,7 @@ public class ExNihiloAdditions {
                         }
                     }
                 });
+        GameData.freezeData();
     }
 
     public static class ModIds {
