@@ -1,24 +1,37 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "key": {
-    "l": {
-      "item": "tfc:wood/planks/maple_slab"
-    },
-    "p": {
-      "item": "tfc:wood/planks/maple"
-    },
-    "s": {
-      "tag": "forge:rods/wooden"
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "tfc"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "misc",
+        "key": {
+          "l": {
+            "item": "tfc:wood/planks/maple_slab"
+          },
+          "p": {
+            "item": "tfc:wood/planks/maple"
+          },
+          "s": {
+            "tag": "forge:rods/wooden"
+          }
+        },
+        "pattern": [
+          "p p",
+          "plp",
+          "s s"
+        ],
+        "result": {
+          "item": "exnihiloadditions:maple_sieve"
+        },
+        "show_notification": true
+      }
     }
-  },
-  "pattern": [
-    "p p",
-    "plp",
-    "s s"
-  ],
-  "result": {
-    "item": "exnihiloadditions:maple_sieve"
-  },
-  "show_notification": true
+  ]
 }

@@ -1,22 +1,35 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "group": "exnihilosequentia",
-  "key": {
-    "-": {
-      "item": "tfc:wood/planks/sequoia_slab"
-    },
-    "x": {
-      "item": "tfc:wood/planks/sequoia"
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "tfc"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "misc",
+        "group": "exnihilosequentia",
+        "key": {
+          "-": {
+            "item": "tfc:wood/planks/sequoia_slab"
+          },
+          "x": {
+            "item": "tfc:wood/planks/sequoia"
+          }
+        },
+        "pattern": [
+          "x x",
+          "x x",
+          "x-x"
+        ],
+        "result": {
+          "item": "exnihiloadditions:sequoia_barrel"
+        },
+        "show_notification": true
+      }
     }
-  },
-  "pattern": [
-    "x x",
-    "x x",
-    "x-x"
-  ],
-  "result": {
-    "item": "exnihiloadditions:sequoia_barrel"
-  },
-  "show_notification": true
+  ]
 }

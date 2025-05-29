@@ -1,25 +1,38 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "group": "exnihilosequentia",
-  "key": {
-    "c": {
-      "item": "tfc:wood/lumber/oak"
-    },
-    "l": {
-      "item": "tfc:wood/planks/oak_slab"
-    },
-    "s": {
-      "tag": "forge:rods/wooden"
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "tfc"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "misc",
+        "group": "exnihilosequentia",
+        "key": {
+          "c": {
+            "item": "tfc:wood/lumber/oak"
+          },
+          "l": {
+            "item": "tfc:wood/planks/oak_slab"
+          },
+          "s": {
+            "tag": "forge:rods/wooden"
+          }
+        },
+        "pattern": [
+          "c c",
+          "clc",
+          "s s"
+        ],
+        "result": {
+          "item": "exnihiloadditions:oak_crucible"
+        },
+        "show_notification": true
+      }
     }
-  },
-  "pattern": [
-    "c c",
-    "clc",
-    "s s"
-  ],
-  "result": {
-    "item": "exnihiloadditions:oak_crucible"
-  },
-  "show_notification": true
+  ]
 }
