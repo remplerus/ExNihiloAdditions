@@ -102,6 +102,6 @@ public class EXNATFCRecipes {
                 .requires(item)
                 .requires(TFCItems.SANDPAPER.get())
                 .unlockedBy("has_sandpaper", InventoryChangeTrigger.TriggerInstance.hasItems(TFCItems.SANDPAPER.get()))
-                .save(consumer, new ResourceLocation(ExNihiloAdditions.ModIds.MODID, modid+"/sandpaper/vanilla_to_tfc_"+ore.name().toLowerCase()));
+                .save(consumer, new ResourceLocation(ExNihiloAdditions.MODID, modid+"/sandpaper/vanilla_to_tfc_"+ore.name().toLowerCase()));
     }
 }

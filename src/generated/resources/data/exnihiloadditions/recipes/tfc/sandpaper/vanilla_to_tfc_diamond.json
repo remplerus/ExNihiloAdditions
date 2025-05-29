@@ -1,15 +1,28 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "category": "misc",
-  "ingredients": [
+  "type": "forge:conditional",
+  "recipes": [
     {
-      "item": "minecraft:diamond"
-    },
-    {
-      "item": "tfc:sandpaper"
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "tfc"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "category": "misc",
+        "ingredients": [
+          {
+            "item": "minecraft:diamond"
+          },
+          {
+            "item": "tfc:sandpaper"
+          }
+        ],
+        "result": {
+          "item": "tfc:gem/diamond"
+        }
+      }
     }
-  ],
-  "result": {
-    "item": "tfc:gem/diamond"
-  }
+  ]
 }
