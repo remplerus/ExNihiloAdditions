@@ -1,12 +1,13 @@
 package com.rempler.exnihiloadditions.compat.tfc.jei;
 
 import com.rempler.exnihiloadditions.ExNihiloAdditions;
+import com.rempler.exnihiloadditions.compat.jei.RecipeTypes;
 import com.rempler.exnihiloadditions.compat.tfc.EXNATFCBlocks;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import net.minecraft.resources.ResourceLocation;
-import novamachina.exnihilosequentia.common.compat.jei.RecipeTypes;
+import net.neoforged.fml.ModList;
 
 import javax.annotation.Nonnull;
 
@@ -21,7 +22,7 @@ public class JEIPlugin implements IModPlugin {
 
      @Override
      public void registerRecipeCatalysts(@Nonnull final IRecipeCatalystRegistration registration) {
-         if (!ExNihiloAdditions.isEMILoaded) {
+         if (!ExNihiloAdditions.isEMILoaded && ModList.get().isLoaded("exnjei")) {
              EXNATFCBlocks.TFC_CRUCIBLES.values().stream().forEach(blockDefinition -> {
                  registration.addRecipeCatalyst(blockDefinition.itemStack(), RecipeTypes.MELTING, RecipeTypes.HEAT);
              });
@@ -36,7 +37,7 @@ public class JEIPlugin implements IModPlugin {
              });
 
              EXNATFCBlocks.TFC_SIEVES.values().stream().forEach(blockDefinition -> {
-                 registration.addRecipeCatalyst(blockDefinition.itemStack(), RecipeTypes.DRY_SIFTING, RecipeTypes.WET_SIFTING);
+                 registration.addRecipeCatalyst(blockDefinition.itemStack(), RecipeTypes.WET_SIFTING, RecipeTypes.DRY_SIFTING);
              });
          }
     }

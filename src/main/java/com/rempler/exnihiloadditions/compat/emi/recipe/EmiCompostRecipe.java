@@ -14,7 +14,7 @@ import novamachina.exnihilosequentia.world.item.crafting.CompostRecipe;
 public class EmiCompostRecipe extends BasicEmiRecipe {
     private final int solidAmount;
     public EmiCompostRecipe(CompostRecipe recipe) {
-        super(EXNEMIPlugin.COMPOSTING, recipe.getId(), 70, 18);
+        super(EXNEMIPlugin.COMPOSTING, EXNEMIPlugin.getPluginIdFromRecipe(recipe), 70, 18);
         this.inputs.add(EmiIngredient.of(recipe.getInput()).setAmount(Config.getBarrelMaxSolidAmount() / recipe.getAmount()));
         this.outputs.add(EmiStack.of(Items.DIRT));
         this.solidAmount = recipe.getAmount();

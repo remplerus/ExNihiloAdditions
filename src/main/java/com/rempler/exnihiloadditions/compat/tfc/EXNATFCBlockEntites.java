@@ -6,16 +6,17 @@ import novamachina.exnihilosequentia.world.level.block.entity.BarrelBlockEntity;
 import novamachina.exnihilosequentia.world.level.block.entity.SieveBlockEntity;
 import novamachina.exnihilosequentia.world.level.block.entity.WoodBarrelBlockEntity;
 import novamachina.exnihilosequentia.world.level.block.entity.WoodCrucibleBlockEntity;
+import novamachina.novacore.NovaCore;
 import novamachina.novacore.core.registries.BlockEntityTypeRegistry;
 import novamachina.novacore.world.level.block.BlockDefinition;
-import novamachina.novacore.world.level.block.BlockEntityTypeDefinition;
+import novamachina.novacore.world.level.block.entity.BlockEntityTypeDefinition;
 
 import javax.annotation.Nonnull;
 
 import java.util.List;
 
 public class EXNATFCBlockEntites {
-    public static final BlockEntityTypeRegistry BLOCK_ENTITY_TYPES = new BlockEntityTypeRegistry(ExNihiloAdditions.MODID);
+    public static final BlockEntityTypeRegistry BLOCK_ENTITY_TYPES = new BlockEntityTypeRegistry(ExNihiloAdditions.MODID, NovaCore.SERVICE_PROVIDER);
 
     private EXNATFCBlockEntites() {
     }

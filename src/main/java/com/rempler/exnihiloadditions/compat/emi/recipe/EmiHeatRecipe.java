@@ -19,12 +19,13 @@ import novamachina.exnihilosequentia.world.level.block.EXNBlocks;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class EmiHeatRecipe extends BasicEmiRecipe {
-    private StatePropertiesPredicate properties = StatePropertiesPredicate.ANY;
+    private Optional<StatePropertiesPredicate> properties = Optional.empty();
     private final List<BlockState> inputStates;
     public EmiHeatRecipe(HeatRecipe recipe) {
-        super(EXNEMIPlugin.HEATING, recipe.getId(), 70, 40);
+        super(EXNEMIPlugin.HEATING, EXNEMIPlugin.getPluginIdFromRecipe(recipe), 70, 40);
         this.inputs.add(EmiStack.of(recipe.getInputBlock()).setAmount(recipe.getAmount()));
         List<BlockState> states = new ArrayList<>();
         states.add(EXNBlocks.FIRED_CRUCIBLE.block().defaultBlockState());

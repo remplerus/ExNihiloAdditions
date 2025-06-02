@@ -23,10 +23,10 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
 import novamachina.exnihilosequentia.tags.ExNihiloTags;
 import novamachina.exnihilosequentia.world.item.EXNItems;
@@ -54,7 +54,7 @@ import java.util.function.Supplier;
 public class EXNEMIPlugin implements EmiPlugin {
     public static final List<Component> BARRELS = List.of(Component.translatable(ExNihiloTags.BARREL.location().toLanguageKey()));
     public static final ResourceLocation COMPOSTING_MODEL = ExNihiloAdditions.rl("item/barrel_composting");
-    public static final ResourceLocation PRECIPITATING_SHEET = new ResourceLocation("exnihilosequentia", "textures/gui/jei_fluid_block_transform.png");
+    public static final ResourceLocation PRECIPITATING_SHEET = ResourceLocation.fromNamespaceAndPath("exnihilosequentia", "textures/gui/jei_fluid_block_transform.png");
 
     public static final EmiIngredient CRUCIBLE = EmiStack.of(EXNBlocks.ACACIA_CRUCIBLE);
     public static final EmiIngredient BARREL = EmiStack.of(EXNBlocks.ACACIA_BARREL);
@@ -172,15 +172,15 @@ public class EXNEMIPlugin implements EmiPlugin {
         }
     }
 
-    private static <C extends Container, T extends Recipe<C>> Iterable<T> getRecipes(EmiRegistry registry, RecipeType<T> type) {
-        return registry.getRecipeManager().getAllRecipesFor(type).stream()::iterator;
+    private static <C extends RecipeInput, T extends Recipe<C>> Iterable<T> getRecipes(EmiRegistry registry, RecipeType<T> type) {
+        return registry.getRecipeManager().getAllRecipesFor(type).stream().map(e -> e.value())::iterator;
     }
 
     private static void addRecipeSafe(EmiRegistry registry, Supplier<EmiRecipe> supplier, Recipe<?> recipe) {
         try {
             registry.addRecipe(supplier.get());
         } catch (Throwable e) {
-            ExNihiloAdditions.LOGGER.warn("Exception thrown when parsing modded recipe {}", recipe.getId(), e);
+            ExNihiloAdditions.LOGGER.warn("Exception thrown when parsing modded recipe {}", recipe, e);
         }
     }
 
@@ -190,11 +190,16 @@ public class EXNEMIPlugin implements EmiPlugin {
                 .flatMap(HolderSet.ListBacked::stream)
                 .toList();
         for (Holder<Item> item : collection) {
-            EmiStack stack = EmiStack.of(item.get());
+            EmiStack stack = EmiStack.of(item.value());
             if (stack != null) {
                 list.add(stack);
             }
         }
         return list;
+    }
+
+    public static ResourceLocation getPluginIdFromRecipe(Recipe<?> recipe) {
+        return ResourceLocation.fromNamespaceAndPath(BuiltInRegistries.RECIPE_TYPE.getKey(recipe.getType()).getNamespace(),
+                BuiltInRegistries.RECIPE_TYPE.getKey(recipe.getType()).getPath() + recipe);
     }
 }

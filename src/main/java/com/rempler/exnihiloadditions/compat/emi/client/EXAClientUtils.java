@@ -3,6 +3,8 @@ package com.rempler.exnihiloadditions.compat.emi.client;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.BufferUploader;
+import com.mojang.blaze3d.vertex.MeshData;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.math.Axis;
@@ -18,6 +20,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -33,11 +36,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.lighting.LevelLightEngine;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.client.RenderTypeHelper;
-import net.minecraftforge.client.model.data.ModelData;
+import net.neoforged.neoforge.client.RenderTypeHelper;
+import net.neoforged.neoforge.client.model.data.ModelData;
 import novamachina.exnihilosequentia.world.level.block.EXNBlocks;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
+import org.joml.Matrix4fStack;
 import org.joml.Vector3f;
 
 public class EXAClientUtils {
@@ -52,7 +56,7 @@ public class EXAClientUtils {
         RenderSystem.enableDepthTest();
 
         Minecraft mc = Minecraft.getInstance();
-        BakedModel model = mc.getModelManager().getModel(EXNEMIPlugin.COMPOSTING_MODEL);
+        BakedModel model = mc.getModelManager().getModel(ModelResourceLocation.inventory(EXNEMIPlugin.COMPOSTING_MODEL));
         ItemStack stack = new ItemStack(EXNBlocks.OAK_BARREL);
         renderCustomItem(mc, graphics, model, stack, x, y);
 
@@ -65,7 +69,7 @@ public class EXAClientUtils {
         pose.translate(x + 8, y + 8, 150);
 
         try {
-            pose.mulPoseMatrix((new Matrix4f()).scaling(1.0F, -1.0F, 1.0F));
+            pose.mulPose((new Matrix4f()).scaling(1.0F, -1.0F, 1.0F));
             pose.scale(16.0F, 16.0F, 16.0F);
             boolean flag = !model.usesBlockLight();
             if (flag) {
@@ -126,15 +130,14 @@ public class EXAClientUtils {
             buffers.endBatch();
         } else {
             RenderType renderType = ItemBlockRenderTypes.getRenderLayer(fluidState);
-            PoseStack modelView = RenderSystem.getModelViewStack();
+            Matrix4fStack modelView = RenderSystem.getModelViewStack();
             Tesselator tesselator = Tesselator.getInstance();
-            BufferBuilder builder = tesselator.getBuilder();
             renderType.setupRenderState();
-            modelView.pushPose();
-            modelView.mulPoseMatrix(poseStack.last().pose());
+            modelView.pushMatrix();
+            modelView.mul(poseStack.last().pose());
             RenderSystem.applyModelViewMatrix();
 
-            builder.begin(renderType.mode(), renderType.format());
+            BufferBuilder builder = tesselator.begin(renderType.mode(), renderType.format());
 
             Dummy.tempState = state;
             Dummy.tempFluid = fluidState;
@@ -142,12 +145,13 @@ public class EXAClientUtils {
             Dummy.tempFluid = EMPTY;
             Dummy.tempState = AIR;
 
-            if (builder.building()) {
-                tesselator.end();
+            MeshData build = builder.build();
+            if (build != null) {
+                BufferUploader.drawWithShader(build);
             }
 
             renderType.clearRenderState();
-            modelView.popPose();
+            modelView.popMatrix();
             RenderSystem.applyModelViewMatrix();
         }
 

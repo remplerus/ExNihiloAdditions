@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 public class BlockRenderWidget extends Widget {
@@ -25,10 +26,10 @@ public class BlockRenderWidget extends Widget {
     private final int y;
     private final float scale;
     private final Bounds bounds;
-    private final StatePropertiesPredicate properties;
+    private final Optional<StatePropertiesPredicate> properties;
     private boolean catalyst = false;
 
-    public BlockRenderWidget(int x, int y, List<BlockState> states, List<Component> tooltips, float scale, StatePropertiesPredicate properties) {
+    public BlockRenderWidget(int x, int y, List<BlockState> states, List<Component> tooltips, float scale, Optional<StatePropertiesPredicate> properties) {
         this.x = x;
         this.y = y;
         this.states = states;
@@ -64,7 +65,7 @@ public class BlockRenderWidget extends Widget {
         }
         int index = (int) (System.currentTimeMillis() / 1000 % states.size());
         BlockState current = this.states.get(index);
-        if (!(properties == StatePropertiesPredicate.ANY) && current.getBlock() instanceof AbstractFurnaceBlock) {
+        if (properties.isPresent() && current.getBlock() instanceof AbstractFurnaceBlock) {
             current = current.setValue(BlockStateProperties.LIT, true);
         }
         if (catalyst) {

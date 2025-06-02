@@ -13,7 +13,7 @@ public class EmiPrecipitateRecipe extends BasicEmiRecipe {
     private final EmiTexture PRECIPITATE_ARROW = new EmiTexture(EXNEMIPlugin.PRECIPITATING_SHEET, 71, 34, 24, 18);
 
     public EmiPrecipitateRecipe(PrecipitateRecipe recipe) {
-        super(EXNEMIPlugin.PRECIPITATING, recipe.getId(), 70, 40);
+        super(EXNEMIPlugin.PRECIPITATING, EXNEMIPlugin.getPluginIdFromRecipe(recipe), 70, 40);
         this.inputs.add(EmiIngredient.of(recipe.getInput()));
         this.inputs.add(EmiStack.of(recipe.getFluid().getFluid()).setAmount(Config.getBarrelNumberOfBuckets() * 1000L));
         this.outputs.add(EmiStack.of(recipe.getOutput()));

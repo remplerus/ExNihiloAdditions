@@ -5,18 +5,19 @@ import com.rempler.exnihiloadditions.compat.tfc.EXNATFCBlocks;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import novamachina.exnihilosequentia.data.AbstractBlockStateGenerator;
+import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import novamachina.exnihilosequentia.ExNihiloSequentia;
 import novamachina.exnihilosequentia.world.level.block.BarrelBlock;
 import novamachina.exnihilosequentia.world.level.block.CrucibleBlock;
 import novamachina.exnihilosequentia.world.level.block.SieveBlock;
+import novamachina.novacore.client.model.generators.AbstractBlockStateProvider;
 import novamachina.novacore.world.level.block.BlockDefinition;
 
 import javax.annotation.Nonnull;
 
-public class EXNCBlockStateGenerator extends AbstractBlockStateGenerator {
+public class EXNCBlockStateGenerator extends AbstractBlockStateProvider {
 
     public EXNCBlockStateGenerator(@Nonnull final PackOutput output, @Nonnull final ExistingFileHelper exFileHelper) {
         super(output, ExNihiloAdditions.MODID, exFileHelper);
@@ -61,4 +62,7 @@ public class EXNCBlockStateGenerator extends AbstractBlockStateGenerator {
         }
     }
 
+    private ResourceLocation exnihiloLoc(String path) {
+        return ResourceLocation.fromNamespaceAndPath(ExNihiloSequentia.MOD_ID, path);
+    }
 }

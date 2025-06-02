@@ -9,6 +9,7 @@ import net.minecraft.Util;
 import novamachina.exnihilosequentia.world.level.block.BarrelBlock;
 import novamachina.exnihilosequentia.world.level.block.CrucibleBlock;
 import novamachina.exnihilosequentia.world.level.block.SieveBlock;
+import novamachina.novacore.NovaCore;
 import novamachina.novacore.core.registries.BlockRegistry;
 import novamachina.novacore.world.level.block.BlockDefinition;
 
@@ -19,7 +20,7 @@ import com.google.common.collect.ImmutableMap;
 import static com.rempler.exnihiloadditions.EXNABlocksHelper.titleCase;
 
 public class EXNATFCBlocks {
-    public static BlockRegistry BLOCKS = new BlockRegistry(ExNihiloAdditions.MODID);
+    public static BlockRegistry BLOCKS = new BlockRegistry(ExNihiloAdditions.MODID, NovaCore.SERVICE_PROVIDER);
 
     public static final Map<Wood, BlockDefinition<CrucibleBlock>> TFC_CRUCIBLES = Util.make(() -> {
         ImmutableMap.Builder<Wood, BlockDefinition<CrucibleBlock>> builder = ImmutableMap.builder();

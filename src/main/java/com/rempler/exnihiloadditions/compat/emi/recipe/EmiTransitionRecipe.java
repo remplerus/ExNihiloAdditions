@@ -27,7 +27,7 @@ public class EmiTransitionRecipe extends BasicEmiRecipe {
     private final List<BlockState> BARREL_STATES = new ArrayList<>();
 
     public EmiTransitionRecipe(TransitionRecipe recipe) {
-        super(EXNEMIPlugin.TRANSITION, recipe.getId(), 70, 35);
+        super(EXNEMIPlugin.TRANSITION, EXNEMIPlugin.getPluginIdFromRecipe(recipe), 70, 35);
         this.inputs.add(EmiStack.of(recipe.getFluidInTank().getFluid()).setAmount(Config.getBarrelNumberOfBuckets() * 1000L));
         this.catalysts.add(EmiIngredient.of(recipe.getCatalyst()));
         this.outputs.add(EmiStack.of(recipe.getResult().getFluid()).setAmount(Config.getBarrelNumberOfBuckets() * 1000L));
@@ -42,7 +42,7 @@ public class EmiTransitionRecipe extends BasicEmiRecipe {
 
         for (HolderSet.Named<Item> block : BuiltInRegistries.ITEM.getTag(ExNihiloTags.BARREL).stream().toList()) {
             for (Holder<Item> item : block) {
-                if (item.get() instanceof BlockItem blockItem) {
+                if (item.value() instanceof BlockItem blockItem) {
                     BARREL_STATES.add(blockItem.getBlock().defaultBlockState());
                 }
             }

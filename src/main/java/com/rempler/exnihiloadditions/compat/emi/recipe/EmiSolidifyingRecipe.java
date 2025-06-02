@@ -9,7 +9,7 @@ import novamachina.exnihilosequentia.world.item.crafting.SolidifyingRecipe;
 
 public class EmiSolidifyingRecipe extends BasicEmiRecipe {
     public EmiSolidifyingRecipe(SolidifyingRecipe recipe) {
-        super(EXNEMIPlugin.SOLIDIFYING, recipe.getId(), 70, 40);
+        super(EXNEMIPlugin.SOLIDIFYING, EXNEMIPlugin.getPluginIdFromRecipe(recipe), 70, 40);
         this.inputs.add(EmiStack.of(recipe.getFluidInTank().getFluid()).setAmount(recipe.getFluidInTank().getAmount()));
         this.catalysts.add(EmiStack.of(recipe.getFluidOnTop().getFluid()).setAmount(recipe.getFluidOnTop().getAmount()));
         this.outputs.add(EmiStack.of(recipe.getResult()).setAmount(1L));

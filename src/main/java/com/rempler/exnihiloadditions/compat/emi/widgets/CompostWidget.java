@@ -39,7 +39,7 @@ public class CompostWidget extends Widget implements WidgetTooltipHolder<Compost
     }
 
     public CompostWidget renderCompostBarrel() {
-        GuiGraphics graphics = new GuiGraphics(Minecraft.getInstance(), new RenderBuffers().bufferSource());
+        GuiGraphics graphics = new GuiGraphics(Minecraft.getInstance(), new RenderBuffers(256).bufferSource());
         EXAClientUtils.renderCompostBarrel(graphics, x, y);
         this.render(graphics, x, y, 0);
         return this;
