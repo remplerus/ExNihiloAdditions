@@ -25,11 +25,15 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
+import novamachina.exnihilosequentia.common.compat.jei.sifting.JEISieveRecipe;
+import novamachina.exnihilosequentia.common.registries.ExNihiloRegistries;
 import novamachina.exnihilosequentia.tags.ExNihiloTags;
 import novamachina.exnihilosequentia.world.item.EXNItems;
+import novamachina.exnihilosequentia.world.item.MeshItem;
 import novamachina.exnihilosequentia.world.item.MeshType;
 import novamachina.exnihilosequentia.world.item.crafting.CompostRecipe;
 import novamachina.exnihilosequentia.world.item.crafting.CrushingRecipe;
@@ -37,18 +41,23 @@ import novamachina.exnihilosequentia.world.item.crafting.EXNRecipeTypes;
 import novamachina.exnihilosequentia.world.item.crafting.HarvestRecipe;
 import novamachina.exnihilosequentia.world.item.crafting.HeatRecipe;
 import novamachina.exnihilosequentia.world.item.crafting.MeltingRecipe;
-import novamachina.exnihilosequentia.world.item.crafting.MeshWithChance;
 import novamachina.exnihilosequentia.world.item.crafting.PrecipitateRecipe;
 import novamachina.exnihilosequentia.world.item.crafting.SiftingRecipe;
 import novamachina.exnihilosequentia.world.item.crafting.SolidifyingRecipe;
 import novamachina.exnihilosequentia.world.item.crafting.TransitionRecipe;
 import novamachina.exnihilosequentia.world.level.block.EXNBlocks;
+import novamachina.novacore.util.IngredientUtils;
 
+import javax.annotation.Nonnull;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 @EmiEntrypoint
 public class EXNEMIPlugin implements EmiPlugin {
@@ -144,26 +153,18 @@ public class EXNEMIPlugin implements EmiPlugin {
         for (PrecipitateRecipe recipe : getRecipes(emiRegistry, EXNRecipeTypes.PRECIPITATE)) {
             addRecipeSafe(emiRegistry, () -> new EmiPrecipitateRecipe(recipe), recipe);
         }
-        Iterable<SiftingRecipe> allRecipes = getRecipes(emiRegistry, EXNRecipeTypes.SIFTING);
 
-        Map<Ingredient, List<SiftingRecipe>> groupedRecipes = new HashMap<>();
-        for (SiftingRecipe recipe : allRecipes) {
-            Ingredient key = recipe.getInput();
-            groupedRecipes.computeIfAbsent(key, k -> new ArrayList<>()).add(recipe);
+        List<JEISieveRecipe> drySieveRecipes = getRecipeList(emiRegistry, false);
+        List<JEISieveRecipe> wetSieveRecipes = getRecipeList(emiRegistry, true);
+        int index = 0;
+        for (JEISieveRecipe recipe : drySieveRecipes) {
+            emiRegistry.addRecipe(new EmiSiftingRecipe(generateRecipeId(recipe.getInputs().get(0), recipe.getMesh(), false, recipe.getInputs().get(1).get(0), index++), recipe, false));
+        }
+        index = 0;
+        for (JEISieveRecipe recipe : wetSieveRecipes) {
+            emiRegistry.addRecipe(new EmiSiftingRecipe(generateRecipeId(recipe.getInputs().get(0), recipe.getMesh(), true, recipe.getInputs().get(1).get(0), index++), recipe, true));
         }
 
-        for (Map.Entry<Ingredient, List<SiftingRecipe>> entry : groupedRecipes.entrySet()) {
-            List<SiftingRecipe> recipes = entry.getValue();
-            SiftingRecipe baseRecipe = recipes.get(0);
-
-            Map<MeshType, List<MeshWithChance>> aggregatedDrops = new HashMap<>();
-            for (SiftingRecipe rec : recipes) {
-                for (MeshWithChance drop : rec.getRolls()) {
-                    aggregatedDrops.computeIfAbsent(drop.getMesh(), m -> new ArrayList<>()).add(drop);
-                }
-            }
-            addRecipeSafe(emiRegistry, () -> new EmiSiftingRecipe(baseRecipe), baseRecipe);
-        }
         for (SolidifyingRecipe recipe : getRecipes(emiRegistry, EXNRecipeTypes.SOLIDIFYING)) {
             addRecipeSafe(emiRegistry, () -> new EmiSolidifyingRecipe(recipe), recipe);
         }
@@ -196,5 +197,35 @@ public class EXNEMIPlugin implements EmiPlugin {
             }
         }
         return list;
+    }
+
+    private ResourceLocation generateRecipeId(List<ItemStack> itemStacks, ItemStack mesh, boolean isWaterlogged, ItemStack itemStack, int index) {
+        String baseId = "/emi_sifting/" + itemStacks.get(0).getItem() + "/" + mesh.getItem().toString().toLowerCase() + (isWaterlogged ? "_waterlogged" : "") + "_" + itemStack.getItem() + "_" + index;
+        return new ResourceLocation(ExNihiloAdditions.MODID, baseId);
+    }
+
+    @Nonnull
+    private List<JEISieveRecipe> getRecipeList(EmiRegistry emiRegistry, boolean isWaterLogged) {
+        Iterable<SiftingRecipe> recipeList = getRecipes(emiRegistry, EXNRecipeTypes.SIFTING);
+        Set<Ingredient> ingredients = new HashSet<>();
+        recipeList.forEach((recipe) -> {
+            Ingredient recipeIngredient = recipe.getInput();
+            if (ingredients.stream().noneMatch((ingredient) -> IngredientUtils.areIngredientsEqual(ingredient, recipeIngredient))) {
+                ingredients.add(recipeIngredient);
+            }
+
+        });
+        return Arrays.stream(MeshType.values()).filter((enumMesh) -> enumMesh != MeshType.NONE).flatMap((enumMesh) -> {
+            ItemStack mesh = new ItemStack(MeshItem.getMesh(enumMesh));
+            return ingredients.stream().flatMap((ingredient) -> {
+                List<SiftingRecipe> drops = ExNihiloRegistries.SIEVE_REGISTRY.getDrops(ingredient.getItems()[0].getItem(), enumMesh, isWaterLogged);
+                if (drops.isEmpty()) {
+                    return null;
+                } else {
+                    List<List<ItemStack>> input = new ArrayList<>(Arrays.asList(Collections.singletonList(mesh), Arrays.asList(ingredient.getItems())));
+                    return List.of(drops).stream().map((results) -> new JEISieveRecipe(input, results));
+                }
+            });
+        }).collect(Collectors.toList());
     }
 }
