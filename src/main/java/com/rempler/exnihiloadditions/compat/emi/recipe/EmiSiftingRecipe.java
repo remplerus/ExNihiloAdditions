@@ -1,53 +1,46 @@
 package com.rempler.exnihiloadditions.compat.emi.recipe;
 
 import com.rempler.exnihiloadditions.compat.emi.EXNEMIPlugin;
+import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
-import novamachina.exnihilosequentia.common.Config;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import novamachina.exnihilosequentia.common.compat.jei.sifting.JEISieveRecipe;
+import novamachina.exnihilosequentia.common.registries.ExNihiloRegistries;
 import novamachina.exnihilosequentia.world.item.MeshItem;
-import novamachina.exnihilosequentia.world.item.MeshType;
 import novamachina.exnihilosequentia.world.item.crafting.MeshWithChance;
 import novamachina.exnihilosequentia.world.item.crafting.SiftingRecipe;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
-public class EmiSiftingRecipe extends AbstractEmiRecipe {
+public class EmiSiftingRecipe implements EmiRecipe {
     private final boolean isWaterlogged;
     private final List<EmiIngredient> inputs = new ArrayList<>();
-    private final List<EmiStack> outputs = new ArrayList<>();
-    private final List<MeshType> meshOrder;
-    private final List<MeshType> meshTypes = new ArrayList<>();
+    private List<EmiStack> outputs = new ArrayList<>();
+    private final EmiStack meshType;
     private final int displayWidth;
     private final int displayHeight;
+    private final ResourceLocation id;
 
-    public EmiSiftingRecipe(SiftingRecipe recipe) {
-        super(recipe);
-        this.inputs.add(EmiIngredient.of(recipe.getInput()));
-            this.isWaterlogged = recipe.isWaterlogged();
+    public EmiSiftingRecipe(ResourceLocation rl, JEISieveRecipe recipe, boolean isWaterlogged) {
+        this.id = rl;
+        this.inputs.add(EmiStack.of(recipe.getInputs().get(1).get(0)));
+        this.meshType = EmiStack.of(recipe.getMesh());
+        this.isWaterlogged = isWaterlogged;
 
-            this.meshOrder = List.of(
-                    MeshType.STRING, MeshType.FLINT, MeshType.IRON,
-                    MeshType.DIAMOND, MeshType.EMERALD, MeshType.NETHERITE
-            );
-
-        Map<MeshType, List<MeshWithChance>> groupedDrops = recipe.getRolls()
-                .stream().collect(Collectors.groupingBy(MeshWithChance::getMesh));
-
-        for (MeshType mesh : meshOrder) {
-            if (groupedDrops.containsKey(mesh)) {
-                float chance = 0f;
-                for (MeshWithChance drop : groupedDrops.get(mesh)) {
-                    chance += drop.getChance();
-                }
-                outputs.add(EmiStack.of(recipe.getDrop()).setChance(chance));
-                meshTypes.add(mesh);
+        for(SiftingRecipe entry : ExNihiloRegistries.SIEVE_REGISTRY.getDrops(((ItemStack)((List)recipe.getInputs().get(1)).get(0)).getItem(), ((MeshItem)((ItemStack)((List)recipe.getInputs().get(0)).get(0)).getItem()).getType(), this.isWaterlogged)) {
+            ItemStack drop = entry.getDrop();
+            float chance = 0;
+            for(MeshWithChance meshWithChance : entry.getRolls()) {
+                chance += meshWithChance.getChance();
             }
+            this.outputs.add(EmiStack.of(drop).setChance(chance));
         }
 
         int x = 187;
@@ -71,6 +64,8 @@ public class EmiSiftingRecipe extends AbstractEmiRecipe {
                 y += 2 * 18;
             } else if (outputs.size() <= 28) {
                 y += 3 * 18;
+            } else if (outputs.size() <= 35) {
+                y += 4 * 18;
             }
         }
         this.displayHeight = y;
@@ -79,6 +74,11 @@ public class EmiSiftingRecipe extends AbstractEmiRecipe {
     @Override
     public EmiRecipeCategory getCategory() {
         return isWaterlogged ? EXNEMIPlugin.WATER_SIFTING : EXNEMIPlugin.SIFTING;
+    }
+
+    @Override
+    public @Nullable ResourceLocation getId() {
+        return id;
     }
 
     @Override
@@ -104,35 +104,15 @@ public class EmiSiftingRecipe extends AbstractEmiRecipe {
     @Override
     public void addWidgets(WidgetHolder widgetHolder) {
         int y = getDisplayHeight() - 18;
-        widgetHolder.addSlot(inputs.get(0), 0, y / 2);
+        widgetHolder.addSlot(inputs.get(0), 0, 0);
         widgetHolder.addTexture(EmiTexture.EMPTY_ARROW, 19, y / 2 + 1);
 
         for (int i = 0; i < outputs.size(); i++) {
             int slotX = 43 + (i % 7) * 18;
             int slotY = (i / 7) * 18;
             widgetHolder.addSlot(outputs.get(i), slotX, slotY).recipeContext(this);
-
-            MeshType meshForOutput = (meshTypes.size() == outputs.size())
-                    ? meshTypes.get(i)
-                    : meshTypes.get(i % meshTypes.size());
-
-            if (Config.flattenSieveRecipes()) {
-                int startIndex = 0;
-                for (int z = 0; z < meshOrder.size(); z++) {
-                    if (meshOrder.get(z).getMeshName().equals(meshForOutput.getMeshName())) {
-                        startIndex = z;
-                        break;
-                    }
-                }
-                List<EmiIngredient> meshItems = meshOrder.subList(startIndex, meshOrder.size())
-                        .stream()
-                        .map(mesh -> EmiStack.of(MeshItem.getMesh(mesh)))
-                        .collect(Collectors.toList());
-
-                widgetHolder.addSlot(EmiIngredient.of(meshItems), slotX, slotY + 20).catalyst(true);
-            } else {
-                widgetHolder.addSlot(EmiStack.of(MeshItem.getMesh(meshForOutput)), slotX, slotY + 20).catalyst(true);
-            }
         }
+
+        widgetHolder.addSlot(meshType, 0, y-1).catalyst(true);
     }
 }
