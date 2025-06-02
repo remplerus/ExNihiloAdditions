@@ -207,7 +207,7 @@ publishMods {
     type = STABLE
     modLoaders.add("forge")
     displayName = "${mod_name} ${mod_version}"
-    changelog = ""
+    changelog = "Check the changelog on GitHub for details."
 
     modrinth {
         projectId = "DkBT4izI"
