@@ -48,9 +48,9 @@ public class EXNARecipeGenerator extends RecipeProvider {
         easySiftingRecipe(consumer, EXNBlocks.CRUSHED_DEEPSLATE.block(), EXNItems.PEBBLE_DEEPSLATE.asItem(), true);
         easySiftingRecipe(consumer, EXNBlocks.CRUSHED_DIORITE.block(), EXNItems.PEBBLE_DIORITE.asItem(), true);
         easySiftingRecipe(consumer, EXNBlocks.CRUSHED_DRIPSTONE.block(), EXNItems.PEBBLE_DRIPSTONE.asItem(), true);
-        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_END_STONE.block(), EXNItems.PEBBLE_END_STONE.asItem(), true);
+        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_END_STONE.block(), EXNItems.PEBBLE_END_STONE.asItem(), ExNihiloSequentia.makeId("sifting/ens_pebble_end_stone"), true);
         easySiftingRecipe(consumer, EXNBlocks.CRUSHED_GRANITE.block(), EXNItems.PEBBLE_GRANITE.asItem(), true);
-        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_NETHERRACK.block(), EXNItems.PEBBLE_NETHERRACK.asItem(), true);
+        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_NETHERRACK.block(), EXNItems.PEBBLE_NETHERRACK.asItem(), ExNihiloSequentia.makeId("sifting/ens_pebble_netherrack"), true);
         easySiftingRecipe(consumer, EXNBlocks.CRUSHED_NETHERRACK.block(), EXNItems.PEBBLE_BASALT.asItem(), ExNihiloSequentia.makeId("sifting/ens_pebble_basalt"), false);
         easySiftingRecipe(consumer, EXNBlocks.CRUSHED_NETHERRACK.block(), EXNItems.PEBBLE_BLACKSTONE.asItem(), ExNihiloSequentia.makeId("sifting/ens_pebble_blackstone"), false);
         easySiftingRecipe(consumer, EXNBlocks.CRUSHED_TUFF.block(), EXNItems.PEBBLE_TUFF.asItem(), true);

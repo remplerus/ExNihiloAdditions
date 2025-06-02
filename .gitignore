@@ -119,5 +119,5 @@ run-data/
 !gradle-wrapper.jar
 /libs/
 /src/generated/resources/.cache/
-/.env
+/runs/
 /.env
