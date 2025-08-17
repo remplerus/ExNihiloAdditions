@@ -6,7 +6,7 @@ import novamachina.novacore.world.item.ItemDefinition;
 
 import java.util.List;
 
-public class EXNATFCItems {
+public class EXATFCItems {
     public static ItemRegistry ITEMS = new ItemRegistry(ExNihiloAdditions.MODID);
 
     public static List<ItemDefinition<?>> getDefinitions() {

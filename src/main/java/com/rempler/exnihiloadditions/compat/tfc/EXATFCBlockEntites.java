@@ -14,29 +14,29 @@ import javax.annotation.Nonnull;
 
 import java.util.List;
 
-public class EXNATFCBlockEntites {
+public class EXATFCBlockEntites {
     public static final BlockEntityTypeRegistry BLOCK_ENTITY_TYPES = new BlockEntityTypeRegistry(ExNihiloAdditions.MODID);
 
-    private EXNATFCBlockEntites() {
+    private EXATFCBlockEntites() {
     }
 
     @Nonnull
     public static BlockEntityTypeDefinition<? extends WoodCrucibleBlockEntity> WOODEN_CRUCIBLE_ENTITY = BLOCK_ENTITY_TYPES.create(
                     "crucibles",
                     WoodCrucibleBlockEntity::new,
-                    EXNATFCBlocks.TFC_CRUCIBLES.values().toArray(BlockDefinition[]::new));
+                    EXATFCBlocks.TFC_CRUCIBLES.values().toArray(BlockDefinition[]::new));
     @Nonnull
     public static BlockEntityTypeDefinition<? extends BarrelBlockEntity> WOODEN_BARREL_ENTITY =
             BLOCK_ENTITY_TYPES.create(
                     "barrels",
                     WoodBarrelBlockEntity::new,
-                    EXNATFCBlocks.TFC_BARRELS.values().toArray(BlockDefinition[]::new));
+                    EXATFCBlocks.TFC_BARRELS.values().toArray(BlockDefinition[]::new));
     @Nonnull
     public static BlockEntityTypeDefinition<? extends SieveBlockEntity> WOODEN_SIEVE_ENTITY =
             BLOCK_ENTITY_TYPES.create(
                     "sieves",
                     SieveBlockEntity::new,
-                    EXNATFCBlocks.TFC_SIEVES.values().toArray(BlockDefinition[]::new));
+                    EXATFCBlocks.TFC_SIEVES.values().toArray(BlockDefinition[]::new));
 
 
     public static List<BlockEntityTypeDefinition<? extends BlockEntity>> getDefinitions() {

@@ -1,7 +1,7 @@
 package com.rempler.exnihiloadditions.compat.tfc.jei;
 
 import com.rempler.exnihiloadditions.ExNihiloAdditions;
-import com.rempler.exnihiloadditions.compat.tfc.EXNATFCBlocks;
+import com.rempler.exnihiloadditions.compat.tfc.EXATFCBlocks;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
@@ -22,11 +22,11 @@ public class JEIPlugin implements IModPlugin {
      @Override
      public void registerRecipeCatalysts(@Nonnull final IRecipeCatalystRegistration registration) {
          if (!ExNihiloAdditions.isEMILoaded) {
-             EXNATFCBlocks.TFC_CRUCIBLES.values().stream().forEach(blockDefinition -> {
+             EXATFCBlocks.TFC_CRUCIBLES.values().stream().forEach(blockDefinition -> {
                  registration.addRecipeCatalyst(blockDefinition.itemStack(), RecipeTypes.MELTING, RecipeTypes.HEAT);
              });
 
-             EXNATFCBlocks.TFC_BARRELS.values().stream().forEach(blockDefinition -> {
+             EXATFCBlocks.TFC_BARRELS.values().stream().forEach(blockDefinition -> {
                  registration.addRecipeCatalyst(
                          blockDefinition.itemStack(),
                          RecipeTypes.SOLIDIFYING,
@@ -35,7 +35,7 @@ public class JEIPlugin implements IModPlugin {
                          RecipeTypes.COMPOST);
              });
 
-             EXNATFCBlocks.TFC_SIEVES.values().stream().forEach(blockDefinition -> {
+             EXATFCBlocks.TFC_SIEVES.values().stream().forEach(blockDefinition -> {
                  registration.addRecipeCatalyst(blockDefinition.itemStack(), RecipeTypes.DRY_SIFTING, RecipeTypes.WET_SIFTING);
              });
          }

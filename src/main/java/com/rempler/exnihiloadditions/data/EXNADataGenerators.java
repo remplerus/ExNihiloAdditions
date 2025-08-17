@@ -1,6 +1,6 @@
 package com.rempler.exnihiloadditions.data;
 
-import com.rempler.exnihiloadditions.data.loot.EXNCLootProvider;
+import com.rempler.exnihiloadditions.data.loot.EXALootProvider;
 import com.rempler.exnihiloadditions.data.recipe.EXNARecipeGenerator;
 import com.rempler.exnihiloadditions.data.tags.EXNCTagProvider;
 import net.minecraft.core.HolderLookup;
@@ -23,7 +23,7 @@ public class EXNADataGenerators {
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
-        generator.addProvider(event.includeServer(), new EXNCLootProvider(output));
+        generator.addProvider(event.includeServer(), new EXALootProvider(output));
         generator.addProvider(event.includeServer(), new EXNCTagProvider(output, lookupProvider, existingFileHelper));
         generator.addProvider(event.includeServer(), new EXNARecipeGenerator(output, existingFileHelper));
 

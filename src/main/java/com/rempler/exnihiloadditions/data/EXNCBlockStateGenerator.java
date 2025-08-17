@@ -1,7 +1,7 @@
 package com.rempler.exnihiloadditions.data;
 
 import com.rempler.exnihiloadditions.ExNihiloAdditions;
-import com.rempler.exnihiloadditions.compat.tfc.EXNATFCBlocks;
+import com.rempler.exnihiloadditions.compat.tfc.EXATFCBlocks;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
@@ -40,7 +40,7 @@ public class EXNCBlockStateGenerator extends AbstractBlockStateGenerator {
     @Override
     protected void registerStatesAndModels() {
         if (ExNihiloAdditions.isTFCLoaded) {
-            EXNATFCBlocks.getDefinitions().forEach(this::registerTFCBlocks);
+            EXATFCBlocks.getDefinitions().forEach(this::registerTFCBlocks);
         }
     }
 

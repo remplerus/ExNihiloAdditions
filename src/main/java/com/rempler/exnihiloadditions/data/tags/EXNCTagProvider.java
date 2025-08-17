@@ -1,7 +1,7 @@
 package com.rempler.exnihiloadditions.data.tags;
 
 import com.rempler.exnihiloadditions.ExNihiloAdditions;
-import com.rempler.exnihiloadditions.compat.tfc.EXNATFCBlocks;
+import com.rempler.exnihiloadditions.compat.tfc.EXATFCBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
@@ -25,10 +25,10 @@ public class EXNCTagProvider extends TagProvider {
     @Override
     protected void registerTags() {
         if (ExNihiloAdditions.isTFCLoaded) {
-            addToTag(ExNihiloTags.CRUCIBLE, EXNATFCBlocks.getDefinitions().stream().map(BlockDefinition::block).filter(block -> block instanceof CrucibleBlock).toArray(Block[]::new));
-            addToTag(ExNihiloTags.BARREL, EXNATFCBlocks.getDefinitions().stream().map(BlockDefinition::block).filter(block -> block instanceof BarrelBlock).toArray(Block[]::new));
-            addToTag(ExNihiloTags.SIEVE, EXNATFCBlocks.getDefinitions().stream().map(BlockDefinition::block).filter(block -> block instanceof SieveBlock).toArray(Block[]::new));
-            addToTag(BlockTags.MINEABLE_WITH_AXE, EXNATFCBlocks.getDefinitions().stream().map(BlockDefinition::block).toArray(Block[]::new));
+            addToTag(ExNihiloTags.CRUCIBLE, EXATFCBlocks.getDefinitions().stream().map(BlockDefinition::block).filter(block -> block instanceof CrucibleBlock).toArray(Block[]::new));
+            addToTag(ExNihiloTags.BARREL, EXATFCBlocks.getDefinitions().stream().map(BlockDefinition::block).filter(block -> block instanceof BarrelBlock).toArray(Block[]::new));
+            addToTag(ExNihiloTags.SIEVE, EXATFCBlocks.getDefinitions().stream().map(BlockDefinition::block).filter(block -> block instanceof SieveBlock).toArray(Block[]::new));
+            addToTag(BlockTags.MINEABLE_WITH_AXE, EXATFCBlocks.getDefinitions().stream().map(BlockDefinition::block).toArray(Block[]::new));
         }
         addToTag(ExNihiloTags.CRUCIBLE, EXNBlocks.getDefinitions().stream().map(BlockDefinition::block).filter(block -> block instanceof CrucibleBlock).toArray(Block[]::new));
         addToTag(ExNihiloTags.BARREL, EXNBlocks.getDefinitions().stream().map(BlockDefinition::block).filter(block -> block instanceof BarrelBlock).toArray(Block[]::new));

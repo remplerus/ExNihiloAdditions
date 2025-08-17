@@ -14,12 +14,14 @@ plugins {
     id 'idea'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
     id "me.modmuss50.mod-publish-plugin" version "0.8.4"
+    id 'maven-publish'
 }
 
 boolean enableJEI = true
 boolean enableEMI = true
 boolean enableTFC = false
 boolean enableREI = false
+boolean enableTetra = false
 
 apply plugin: 'org.spongepowered.mixin'
 
@@ -69,6 +71,7 @@ minecraft {
 
         data {
             workingDirectory project.file('run-data')
+            //enableTFC = true
 
             args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
         }
@@ -163,6 +166,13 @@ dependencies {
         runtimeOnly fg.deobf("dev.architectury:architectury-forge:9.2.14")
         runtimeOnly fg.deobf("me.shedaniel:RoughlyEnoughItems-forge:12.1.785")
     }
+
+    compileOnly fg.deobf("se.mickelus.mutil:mutil:${minecraft_version}-6.2.0")
+    compileOnly fg.deobf("curse.maven:tetra-289712:6855614")
+    if (enableTetra) {
+        runtimeOnly fg.deobf("se.mickelus.mutil:mutil:${minecraft_version}-6.2.0")
+        runtimeOnly fg.deobf("curse.maven:tetra-289712:6855614")
+    }
 }
 
 tasks.named('processResources', ProcessResources).configure {
@@ -180,6 +190,9 @@ tasks.named('processResources', ProcessResources).configure {
     filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
         expand replaceProperties + [project: project]
     }
+
+    enableTFC = true
+    enableTetra = false
 }
 
 tasks.named('jar', Jar).configure {
@@ -200,6 +213,27 @@ tasks.named('jar', Jar).configure {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+publishing {
+    publications {
+        register('mavenJava', MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url "file://${project.projectDir}/repo"
+        }
+        maven {
+            name = "RemplersRepo"
+            url = "https://maven.rempler.com:42069/releases/"
+            credentials(PasswordCredentials)
+            authentication {
+                basic(BasicAuthentication)
+            }
+        }
+    }
 }
 
 publishMods {

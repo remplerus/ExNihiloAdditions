@@ -1,7 +1,7 @@
 package com.rempler.exnihiloadditions.data;
 
 import com.rempler.exnihiloadditions.ExNihiloAdditions;
-import com.rempler.exnihiloadditions.compat.tfc.EXNATFCBlocks;
+import com.rempler.exnihiloadditions.compat.tfc.EXATFCBlocks;
 import net.minecraft.data.PackOutput;
 import novamachina.novacore.data.AbstractLangGenerator;
 
@@ -27,7 +27,7 @@ public class EXNALangProvider extends AbstractLangGenerator {
         add("emi.category.exnihiloadditions.transition", "Transition");
         add("exnihilosequentia.barrels", "Barrels");
         if (ExNihiloAdditions.isTFCLoaded) {
-            EXNATFCBlocks.getDefinitions().forEach(this::addBlockName);
+            EXATFCBlocks.getDefinitions().forEach(this::addBlockName);
         }
     }
 

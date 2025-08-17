@@ -1,7 +1,7 @@
 package com.rempler.exnihiloadditions.data.recipe.tfc;
 
 import com.rempler.exnihiloadditions.ExNihiloAdditions;
-import com.rempler.exnihiloadditions.compat.tfc.EXNATFCBlocks;
+import com.rempler.exnihiloadditions.compat.tfc.EXATFCBlocks;
 import com.rempler.exnihiloadditions.data.recipe.EXNARecipeHelper;
 import net.dries007.tfc.common.blocks.rock.Ore;
 import net.dries007.tfc.common.items.TFCItems;
@@ -14,7 +14,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
-import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 import novamachina.exnihilosequentia.data.recipes.SiftingRecipeBuilder;
 import novamachina.exnihilosequentia.world.item.MeshType;
 import novamachina.exnihilosequentia.world.item.crafting.MeshWithChance;
@@ -33,7 +32,7 @@ public class EXNATFCRecipes {
 
     public static void init(Consumer<FinishedRecipe> consumer) {
         createOreRecipes(consumer);
-        for (BlockDefinition<?> blockDefinition : EXNATFCBlocks.getDefinitions()) {
+        for (BlockDefinition<?> blockDefinition : EXATFCBlocks.getDefinitions()) {
             String blockName1 = blockDefinition.getEnglishName().replace(" ", "_").toLowerCase();
             String blockName;
             if (blockName1.contains("_crucible")) {
