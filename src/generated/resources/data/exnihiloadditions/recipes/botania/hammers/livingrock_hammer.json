@@ -1,0 +1,35 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "botania"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "equipment",
+        "group": "exnihilosequentia",
+        "key": {
+          "s": {
+            "tag": "forge:rods/wooden"
+          },
+          "x": {
+            "item": "botania:livingrock"
+          }
+        },
+        "pattern": [
+          " x ",
+          " sx",
+          "s  "
+        ],
+        "result": {
+          "item": "exnihiloadditions:livingrock_hammer"
+        },
+        "show_notification": true
+      }
+    }
+  ]
+}

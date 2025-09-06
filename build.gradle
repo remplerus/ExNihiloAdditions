@@ -19,9 +19,10 @@ plugins {
 
 boolean enableJEI = true
 boolean enableEMI = true
-boolean enableTFC = false
+boolean enableTFC = true
 boolean enableREI = false
 boolean enableTetra = false
+boolean enableBotania = true
 
 apply plugin: 'org.spongepowered.mixin'
 
@@ -71,7 +72,6 @@ minecraft {
 
         data {
             workingDirectory project.file('run-data')
-            //enableTFC = true
 
             args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
         }
@@ -83,6 +83,10 @@ mixin {
     config "${mod_id}.mixins.json"
 }
 
+jar {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
@@ -91,6 +95,9 @@ repositories {
     }
     maven {
         url 'https://maven.blamejared.com'
+    }
+    maven {
+        url 'https://maven.theillusivec4.top/'
     }
     exclusiveContent {
         forRepository {
@@ -173,6 +180,13 @@ dependencies {
         runtimeOnly fg.deobf("se.mickelus.mutil:mutil:${minecraft_version}-6.2.0")
         runtimeOnly fg.deobf("curse.maven:tetra-289712:6855614")
     }
+
+    compileOnly fg.deobf("vazkii.botania:Botania:${minecraft_version}-450-FORGE")
+    if (enableBotania) {
+        runtimeOnly fg.deobf("vazkii.botania:Botania:${minecraft_version}-450-FORGE")
+        runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.14.1+${minecraft_version}")
+        runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-84.1-FORGE")
+    }
 }
 
 tasks.named('processResources', ProcessResources).configure {
@@ -190,12 +204,10 @@ tasks.named('processResources', ProcessResources).configure {
     filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
         expand replaceProperties + [project: project]
     }
-
-    enableTFC = true
-    enableTetra = false
 }
 
 tasks.named('jar', Jar).configure {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     manifest {
         attributes([
                 "Specification-Title"     : mod_id,

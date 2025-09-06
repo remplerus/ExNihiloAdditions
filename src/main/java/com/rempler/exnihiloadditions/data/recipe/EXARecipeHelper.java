@@ -11,31 +11,49 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
+import novamachina.exnihilosequentia.world.item.CrookItem;
+import novamachina.exnihilosequentia.world.item.HammerItem;
 import novamachina.exnihilosequentia.world.level.block.BarrelBlock;
 import novamachina.exnihilosequentia.world.level.block.CrucibleBlock;
 import novamachina.exnihilosequentia.world.level.block.SieveBlock;
+import novamachina.novacore.world.item.ItemDefinition;
 import novamachina.novacore.world.level.block.BlockDefinition;
 
 import java.util.Objects;
 import java.util.function.Consumer;
 
-public class EXNARecipeHelper {
-    public static void createCrook(Consumer<FinishedRecipe> consumer, Item result, Item input, String modid) {
+public class EXARecipeHelper {
+    public static void createCrook(Consumer<FinishedRecipe> consumer, ItemDefinition<CrookItem> result, Item input, String modid) {
         ConditionalRecipe.builder().addCondition(modLoaded(modid))
-            .addRecipe(recipe ->
-                ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, result)
-                    .pattern("xx")
-                    .pattern(" x")
-                    .pattern(" x")
-                    .define('x', input)
-                    .group("exnihilosequentia")
-                    .unlockedBy("has_pebble", InventoryChangeTrigger.TriggerInstance.hasItems(input))
-                    .save(recipe, new ResourceLocation(Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(result)).getNamespace(),
-                        modid+"/crooks/"+Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(result)).getPath()))
-            )
-            .generateAdvancement()
-            .build(consumer, new ResourceLocation(Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(result)).getNamespace(),
-                    modid+"/crooks/"+Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(result)).getPath()));
+                .addRecipe(recipe ->
+                        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, result)
+                                .pattern("xx")
+                                .pattern(" x")
+                                .pattern(" x")
+                                .define('x', input)
+                                .group("exnihilosequentia")
+                                .unlockedBy("has_pebble", InventoryChangeTrigger.TriggerInstance.hasItems(input))
+                                .save(recipe, new ResourceLocation(result.getId().getNamespace(), modid+"/crooks/"+result.getId().getPath()))
+                )
+                .generateAdvancement()
+                .build(consumer, new ResourceLocation(result.getId().getNamespace(), modid+"/crooks/"+result.getId().getPath()));
+    }
+
+    public static void createHammer(Consumer<FinishedRecipe> consumer, ItemDefinition<HammerItem> result, Item input, String modid) {
+        ConditionalRecipe.builder().addCondition(modLoaded(modid))
+                .addRecipe(recipe ->
+                        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, result)
+                                .pattern(" x ")
+                                .pattern(" sx")
+                                .pattern("s  ")
+                                .define('x', input)
+                                .define('s', Tags.Items.RODS_WOODEN)
+                                .group("exnihilosequentia")
+                                .unlockedBy("has_pebble", InventoryChangeTrigger.TriggerInstance.hasItems(input))
+                                .save(recipe, new ResourceLocation(result.getId().getNamespace(), modid+"/hammers/"+result.getId().getPath()))
+                )
+                .generateAdvancement()
+                .build(consumer, new ResourceLocation(result.getId().getNamespace(), modid+"/hammers/"+result.getId().getPath()));
     }
 
     public static void createBarrel(Consumer<FinishedRecipe> consumer, BlockDefinition<BarrelBlock> barrel, Item block, Item slab, String modid) {

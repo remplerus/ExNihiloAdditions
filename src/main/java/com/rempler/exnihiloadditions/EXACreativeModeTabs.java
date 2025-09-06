@@ -1,5 +1,7 @@
 package com.rempler.exnihiloadditions;
 
+import com.rempler.exnihiloadditions.compat.botania.EXABotaniaBlocks;
+import com.rempler.exnihiloadditions.compat.botania.EXABotaniaItems;
 import com.rempler.exnihiloadditions.compat.tfc.EXATFCBlocks;
 import com.rempler.exnihiloadditions.compat.tfc.EXATFCItems;
 import net.minecraft.network.chat.Component;
@@ -22,9 +24,13 @@ public class EXACreativeModeTabs {
 
     @Nonnull
     public static final CreativeModeTabDefinition EXN = CREATIVE_MODE_TABS.creativeModeTab("creative_tab", CreativeModeTab.builder().icon(EXNItems.HAMMER_NETHERITE::itemStack).title(Component.literal("Ex Nihilo: Additions")).displayItems((parameters, output) -> {
-        if (ModList.get().isLoaded("tfc")) {
+        if (ExNihiloAdditions.isTFCLoaded) {
             EXATFCBlocks.getDefinitions().forEach(output::accept);
             EXATFCItems.getDefinitions().forEach(output::accept);
+        }
+        if (ExNihiloAdditions.isBotaniaLoaded) {
+            EXABotaniaItems.getDefinitions().forEach(output::accept);
+            EXABotaniaBlocks.getDefinitions().forEach(output::accept);
         }
     }).build());
 }

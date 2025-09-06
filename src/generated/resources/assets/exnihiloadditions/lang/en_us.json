@@ -71,5 +71,17 @@
   "emi.category.exnihiloadditions.transition": "Transition",
   "emi.category.exnihiloadditions.water_sifting": "Water Sifting",
   "exnihilosequentia.barrels": "Barrels",
+  "item.exnihiloadditions.dreamwood_crook": "Dreamwood Crook",
+  "item.exnihiloadditions.dreamwood_hammer": "Dreamwood Hammer",
+  "item.exnihiloadditions.elementium_crook": "Elementium Crook",
+  "item.exnihiloadditions.elementium_hammer": "Elementium Hammer",
+  "item.exnihiloadditions.livingrock_crook": "Livingrock Crook",
+  "item.exnihiloadditions.livingrock_hammer": "Livingrock Hammer",
+  "item.exnihiloadditions.livingwood_crook": "Livingwood Crook",
+  "item.exnihiloadditions.livingwood_hammer": "Livingwood Hammer",
+  "item.exnihiloadditions.manasteel_crook": "Manasteel Crook",
+  "item.exnihiloadditions.manasteel_hammer": "Manasteel Hammer",
+  "item.exnihiloadditions.terrasteel_crook": "Terrasteel Crook",
+  "item.exnihiloadditions.terrasteel_hammer": "Terrasteel Hammer",
   "itemGroup.exnihiloadditions": "Ex Nihilo: Additions"
 }

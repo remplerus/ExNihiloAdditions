@@ -2,7 +2,7 @@ package com.rempler.exnihiloadditions.data.recipe.tfc;
 
 import com.rempler.exnihiloadditions.ExNihiloAdditions;
 import com.rempler.exnihiloadditions.compat.tfc.EXATFCBlocks;
-import com.rempler.exnihiloadditions.data.recipe.EXNARecipeHelper;
+import com.rempler.exnihiloadditions.data.recipe.EXARecipeHelper;
 import net.dries007.tfc.common.blocks.rock.Ore;
 import net.dries007.tfc.common.items.TFCItems;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
@@ -25,9 +25,9 @@ import novamachina.novacore.world.level.block.BlockDefinition;
 
 import java.util.function.Consumer;
 
-import static com.rempler.exnihiloadditions.data.recipe.EXNARecipeHelper.modLoaded;
+import static com.rempler.exnihiloadditions.data.recipe.EXARecipeHelper.modLoaded;
 
-public class EXNATFCRecipes {
+public class EXATFCRecipes {
     private static final String modid = "tfc";
 
     public static void init(Consumer<FinishedRecipe> consumer) {
@@ -46,19 +46,19 @@ public class EXNATFCRecipes {
             }
             if (blockDefinition.block() instanceof CrucibleBlock) {
                 BlockDefinition<CrucibleBlock> crucible = (BlockDefinition<CrucibleBlock>) blockDefinition;
-                EXNARecipeHelper.createCrucible(consumer, crucible,
+                EXARecipeHelper.createCrucible(consumer, crucible,
                         BuiltInRegistries.ITEM.get(new ResourceLocation(modid, "wood/lumber/"+blockName)),
                         BuiltInRegistries.ITEM.get(new ResourceLocation(modid, "wood/planks/"+blockName+"_slab")),
                         modid);
             } else if (blockDefinition.block() instanceof BarrelBlock) {
                 BlockDefinition<BarrelBlock> barrel = (BlockDefinition<BarrelBlock>) blockDefinition;
-                EXNARecipeHelper.createBarrel(consumer, barrel,
+                EXARecipeHelper.createBarrel(consumer, barrel,
                         BuiltInRegistries.ITEM.get(new ResourceLocation(modid, "wood/planks/"+blockName)),
                         BuiltInRegistries.ITEM.get(new ResourceLocation(modid, "wood/planks/"+blockName+"_slab")),
                         modid);
             } else if (blockDefinition.block() instanceof SieveBlock) {
                 BlockDefinition<SieveBlock> sieve = (BlockDefinition<SieveBlock>) blockDefinition;
-                EXNARecipeHelper.createSieve(consumer, sieve,
+                EXARecipeHelper.createSieve(consumer, sieve,
                         BuiltInRegistries.ITEM.get(new ResourceLocation(modid, "wood/planks/"+blockName)),
                         BuiltInRegistries.ITEM.get(new ResourceLocation(modid, "wood/planks/"+blockName+"_slab")),
                         modid);

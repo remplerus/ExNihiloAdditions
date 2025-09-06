@@ -1,13 +1,14 @@
 package com.rempler.exnihiloadditions.data;
 
 import com.rempler.exnihiloadditions.ExNihiloAdditions;
+import com.rempler.exnihiloadditions.compat.botania.EXABotaniaItems;
 import com.rempler.exnihiloadditions.compat.tfc.EXATFCBlocks;
 import net.minecraft.data.PackOutput;
 import novamachina.novacore.data.AbstractLangGenerator;
 
-public class EXNALangProvider extends AbstractLangGenerator {
+public class EXALangProvider extends AbstractLangGenerator {
 
-    public EXNALangProvider(PackOutput output, String locale) {
+    public EXALangProvider(PackOutput output, String locale) {
         super(output, ExNihiloAdditions.MODID, locale);
     }
 
@@ -28,6 +29,9 @@ public class EXNALangProvider extends AbstractLangGenerator {
         add("exnihilosequentia.barrels", "Barrels");
         if (ExNihiloAdditions.isTFCLoaded) {
             EXATFCBlocks.getDefinitions().forEach(this::addBlockName);
+        }
+        if (ExNihiloAdditions.isBotaniaLoaded) {
+            EXABotaniaItems.getDefinitions().forEach(this::addItemName);
         }
     }
 

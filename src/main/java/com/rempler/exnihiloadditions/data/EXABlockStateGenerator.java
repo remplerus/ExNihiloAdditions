@@ -16,9 +16,9 @@ import novamachina.novacore.world.level.block.BlockDefinition;
 
 import javax.annotation.Nonnull;
 
-public class EXNCBlockStateGenerator extends AbstractBlockStateGenerator {
+public class EXABlockStateGenerator extends AbstractBlockStateGenerator {
 
-    public EXNCBlockStateGenerator(@Nonnull final PackOutput output, @Nonnull final ExistingFileHelper exFileHelper) {
+    public EXABlockStateGenerator(@Nonnull final PackOutput output, @Nonnull final ExistingFileHelper exFileHelper) {
         super(output, ExNihiloAdditions.MODID, exFileHelper);
     }
 
