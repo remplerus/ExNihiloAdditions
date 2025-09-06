@@ -18,7 +18,7 @@ plugins {
 
 boolean enableJEI = true
 boolean enableEMI = true
-boolean enableTFC = false
+boolean enableTFC = true
 boolean enableREI = false
 
 apply plugin: 'org.spongepowered.mixin'
