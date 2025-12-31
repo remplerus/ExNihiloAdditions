@@ -1,0 +1,44 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "thermal"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "misc",
+        "group": "exnihilosequentia",
+        "key": {
+          "v": {
+            "tag": "forge:dusts/redstone"
+          },
+          "w": {
+            "tag": "forge:crops/nether_wart"
+          },
+          "x": {
+            "tag": "forge:dusts/obsidian"
+          },
+          "y": {
+            "item": "exnihilosequentia:porcelain_doll"
+          },
+          "z": {
+            "tag": "forge:dusts/glowstone"
+          }
+        },
+        "pattern": [
+          "xvx",
+          "zyz",
+          "xwx"
+        ],
+        "result": {
+          "item": "exnihiloadditions:basalz_doll"
+        },
+        "show_notification": true
+      }
+    }
+  ]
+}

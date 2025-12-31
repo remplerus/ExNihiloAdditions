@@ -1,0 +1,13 @@
+{
+  "type": "exnihiloadditions:from_hammer",
+  "conditions": [
+    {
+      "condition": "minecraft:match_tool",
+      "predicate": {
+        "items": [
+          "tetra:modular_double"
+        ]
+      }
+    }
+  ]
+}

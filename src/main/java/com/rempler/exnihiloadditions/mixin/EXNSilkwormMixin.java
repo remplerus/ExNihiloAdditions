@@ -18,7 +18,7 @@ public class EXNSilkwormMixin {
     @Inject(method = "useOn(Lnet/minecraft/world/item/context/UseOnContext;)Lnet/minecraft/world/InteractionResult;", at = @At("HEAD"), cancellable = true)
     private void exna$useOn(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
         BlockState state = context.getLevel().getBlockState(context.getClickedPos());
-        // Checks agains TFC leaves
+        // Checks against TFC leaves
         if (state.is(TagKey.create(BuiltInRegistries.BLOCK.key(), new ResourceLocation("tfc", "fruit_tree_leaves")))) {
             cir.setReturnValue(doOnUse(context));
         } else if (state.is(BlockTags.LEAVES)) {
@@ -27,7 +27,7 @@ public class EXNSilkwormMixin {
     }
 
     private InteractionResult doOnUse(UseOnContext context) {
-        if (!context.getPlayer().isCreative()) {
+        if (context.getPlayer() != null && !context.getPlayer().isCreative()) {
             context.getItemInHand().shrink(1);
         }
         InfestingLeavesBlock.normalToInfesting(context.getLevel(), context.getClickedPos());

@@ -71,5 +71,19 @@
   "emi.category.exnihiloadditions.transition": "Transition",
   "emi.category.exnihiloadditions.water_sifting": "Water Sifting",
   "exnihilosequentia.barrels": "Barrels",
-  "itemGroup.exnihiloadditions": "Ex Nihilo: Additions"
+  "item.exnihiloadditions.basalz_doll": "Basalz Doll",
+  "item.exnihiloadditions.blitz_doll": "Blitz Doll",
+  "item.exnihiloadditions.blizz_doll": "Blizz Doll",
+  "item.exnihiloadditions.dreamwood_crook": "Dreamwood Crook",
+  "item.exnihiloadditions.elementium_hammer": "Elementium Hammer",
+  "item.exnihiloadditions.livingrock_hammer": "Livingrock Hammer",
+  "item.exnihiloadditions.livingwood_crook": "Livingwood Crook",
+  "item.exnihiloadditions.livingwood_hammer": "Livingwood Hammer",
+  "item.exnihiloadditions.manasteel_hammer": "Manasteel Hammer",
+  "item.exnihiloadditions.obsidian_dust": "Obsidian Dust",
+  "item.exnihiloadditions.terrasteel_hammer": "Terrasteel Hammer",
+  "itemGroup.exnihiloadditions": "Ex Nihilo: Additions",
+  "tooltip.doll.basalz": "Add to a barrel of lava to spawn a Basalz",
+  "tooltip.doll.blitz": "Add to a barrel of lava to spawn a Blitz",
+  "tooltip.doll.blizz": "Add to a barrel of water to spawn a Blizz"
 }

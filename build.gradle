@@ -14,12 +14,16 @@ plugins {
     id 'idea'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
     id "me.modmuss50.mod-publish-plugin" version "0.8.4"
+    id 'maven-publish'
 }
 
 boolean enableJEI = true
 boolean enableEMI = true
 boolean enableTFC = true
 boolean enableREI = false
+boolean enableTetra = false
+boolean enableBotania = true
+boolean enableThermal = true
 
 apply plugin: 'org.spongepowered.mixin'
 
@@ -80,6 +84,10 @@ mixin {
     config "${mod_id}.mixins.json"
 }
 
+jar {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
@@ -88,6 +96,16 @@ repositories {
     }
     maven {
         url 'https://maven.blamejared.com'
+    }
+    maven {
+        url 'https://maven.theillusivec4.top/'
+    }
+    maven {
+        name 'CoFH'
+        url 'https://nexus.covers1624.net/repository/cofh-releases/'
+        content {
+            includeGroup 'com.teamcofh'
+        }
     }
     exclusiveContent {
         forRepository {
@@ -127,6 +145,10 @@ repositories {
         name = "REI"
         url = "https://maven.architectury.dev/"
     }
+    maven {
+        name = 'Neoforge'
+        url = 'https://maven.neoforged.net/'
+    }
 }
 
 dependencies {
@@ -163,6 +185,30 @@ dependencies {
         runtimeOnly fg.deobf("dev.architectury:architectury-forge:9.2.14")
         runtimeOnly fg.deobf("me.shedaniel:RoughlyEnoughItems-forge:12.1.785")
     }
+
+    compileOnly fg.deobf("se.mickelus.mutil:mutil:${minecraft_version}-6.2.0")
+    compileOnly fg.deobf("curse.maven:tetra-289712:6912921")
+    if (enableTetra) {
+        runtimeOnly fg.deobf("se.mickelus.mutil:mutil:${minecraft_version}-6.2.0")
+        runtimeOnly fg.deobf("curse.maven:tetra-289712:6912921")
+    }
+
+    compileOnly fg.deobf("vazkii.botania:Botania:${minecraft_version}-450-FORGE")
+    if (enableBotania) {
+        runtimeOnly fg.deobf("vazkii.botania:Botania:${minecraft_version}-450-FORGE")
+        runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.14.1+${minecraft_version}")
+        runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-84.1-FORGE")
+    }
+
+    if(project.hasProperty("thermal_core_version")) {
+        compileOnly fg.deobf("com.teamcofh:cofh_core:${minecraft_version}-${cofh_core_version}")
+        compileOnly fg.deobf("com.teamcofh:thermal_core:${minecraft_version}-${thermal_core_version}")
+    }
+    if (enableThermal) {
+        runtimeOnly fg.deobf("com.teamcofh:thermal_core:${minecraft_version}-${thermal_core_version}")
+        runtimeOnly fg.deobf("com.teamcofh:thermal_foundation:${minecraft_version}-${thermal_foundation_version}")
+        runtimeOnly fg.deobf("com.teamcofh:cofh_core:${minecraft_version}-${cofh_core_version}")
+    }
 }
 
 tasks.named('processResources', ProcessResources).configure {
@@ -183,6 +229,7 @@ tasks.named('processResources', ProcessResources).configure {
 }
 
 tasks.named('jar', Jar).configure {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     manifest {
         attributes([
                 "Specification-Title"     : mod_id,
@@ -202,6 +249,27 @@ tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }
 
+publishing {
+    publications {
+        register('mavenJava', MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url "file://${project.projectDir}/repo"
+        }
+        maven {
+            name = "RemplersRepo"
+            url = "https://maven.rempler.com/releases/"
+            credentials(PasswordCredentials)
+            authentication {
+                basic(BasicAuthentication)
+            }
+        }
+    }
+}
+
 publishMods {
     file = jar.archiveFile
     type = STABLE
@@ -211,7 +279,7 @@ publishMods {
 
     modrinth {
         projectId = "DkBT4izI"
-        accessToken = System.getenv("MODRINTH_KEY")
+        accessToken = providers.gradleProperty("MODRINTH_TOKEN")
         minecraftVersions.add("1.20.1")
         requires{
             id = "WhVa4xyw"
@@ -225,7 +293,7 @@ publishMods {
 
     curseforge {
         projectId = "1263595"
-        accessToken = System.getenv("CURSEFORGE_KEY")
+        accessToken = providers.gradleProperty("CURSEFORGE_TOKEN")
         minecraftVersions.add("1.20.1")
         clientRequired = true
         serverRequired = true
