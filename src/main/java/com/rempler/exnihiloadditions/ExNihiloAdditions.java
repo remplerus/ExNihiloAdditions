@@ -9,9 +9,13 @@ import com.rempler.exnihiloadditions.compat.tfc.EXATFCBlockEntites;
 import com.rempler.exnihiloadditions.compat.tfc.EXATFCBlocks;
 import com.rempler.exnihiloadditions.compat.tfc.EXATFCItems;
 import com.rempler.exnihiloadditions.compat.tfc.client.EXATFCClientSetup;
+import com.rempler.exnihiloadditions.compat.thermal.EXAThermalConfig;
+import com.rempler.exnihiloadditions.compat.thermal.EXAThermalItems;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -38,14 +42,20 @@ public class ExNihiloAdditions {
     public static boolean isEMILoaded = ModList.get().isLoaded("emi");
     public static boolean isTetraLoaded = ModList.get().isLoaded("tetra");
     public static boolean isBotaniaLoaded = ModList.get().isLoaded("botania");
+    public static boolean isThermalLoaded = ModList.get().isLoaded("thermal");
 
     public static ResourceLocation rl(String path) {
         return new ResourceLocation(MODID, path);
     }
 
     public ExNihiloAdditions() {
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, EXABotaniaConfig.COMMON_CONFIG);
-        EXABotaniaConfig.loadConfig(EXABotaniaConfig.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve(MODID+"-common.toml"));
+        if (isBotaniaLoaded) {
+            ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, EXABotaniaConfig.COMMON_CONFIG);
+            EXABotaniaConfig.loadConfig(EXABotaniaConfig.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve(MODID + "-common.toml"));
+        }
+        if (isThermalLoaded) {
+            EXAThermalConfig.loadConfig(EXAThermalConfig.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve(MODID + "-common.toml"));
+        }
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         if (isTFCLoaded) {
             LOGGER.info("TFC is loaded, registering TFC compat");
@@ -60,6 +70,7 @@ public class ExNihiloAdditions {
             new EXATetra(eventBus);
         }
         if (isBotaniaLoaded) {
+            LOGGER.info("Botania is loaded, registering Botania compat");
             EXABotaniaLootModifiers.LOOT_MODIFIERS.register(eventBus);
         }
 
@@ -95,6 +106,11 @@ public class ExNihiloAdditions {
                                 registry.register(definition);
                             }
                         }
+                        if (isThermalLoaded) {
+                            for (ItemDefinition<?> definition : EXAThermalItems.getDefinitions()) {
+                                registry.register(definition);
+                            }
+                        }
                     }
                     if (event.getRegistryKey().equals(BuiltInRegistries.CREATIVE_MODE_TAB.key())) {
                         ForgeCreativeModeTabRegistry registry = new ForgeCreativeModeTabRegistry();
@@ -103,5 +119,12 @@ public class ExNihiloAdditions {
                         }
                     }
                 });
+    }
+
+    @SubscribeEvent
+    public static void onServerStart(ServerStartingEvent event) {
+        if (isThermalLoaded) {
+            EXAThermalItems.enableOres();
+        }
     }
 }

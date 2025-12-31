@@ -3,6 +3,8 @@ package com.rempler.exnihiloadditions.data.tags;
 import com.rempler.exnihiloadditions.ExNihiloAdditions;
 import com.rempler.exnihiloadditions.compat.botania.EXABotaniaItems;
 import com.rempler.exnihiloadditions.compat.tfc.EXATFCBlocks;
+import com.rempler.exnihiloadditions.compat.thermal.EXAThermalItems;
+import com.rempler.exnihiloadditions.data.recipe.thermal.EXAThermalTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
@@ -43,6 +45,9 @@ public class EXATagProvider extends TagProvider {
         if (ExNihiloAdditions.isBotaniaLoaded) {
             addToTag(ExNihiloTags.CROOK, EXABotaniaItems.getDefinitions().stream().map(ItemDefinition::asItem).filter(item -> item instanceof CrookItem).toArray(Item[]::new));
             addToTag(ExNihiloTags.HAMMER, EXABotaniaItems.getDefinitions().stream().map(ItemDefinition::asItem).filter(item -> item instanceof HammerItem).toArray(Item[]::new));
+        }
+        if (ExNihiloAdditions.isThermalLoaded) {
+            addToTag(EXAThermalTags.OBSIDIAN_DUST, EXAThermalItems.OBSIDIAN_DUST);
         }
     }
 

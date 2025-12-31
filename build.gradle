@@ -23,6 +23,7 @@ boolean enableTFC = true
 boolean enableREI = false
 boolean enableTetra = false
 boolean enableBotania = true
+boolean enableThermal = true
 
 apply plugin: 'org.spongepowered.mixin'
 
@@ -99,6 +100,13 @@ repositories {
     maven {
         url 'https://maven.theillusivec4.top/'
     }
+    maven {
+        name 'CoFH'
+        url 'https://nexus.covers1624.net/repository/cofh-releases/'
+        content {
+            includeGroup 'com.teamcofh'
+        }
+    }
     exclusiveContent {
         forRepository {
             maven {
@@ -136,6 +144,10 @@ repositories {
     maven {
         name = "REI"
         url = "https://maven.architectury.dev/"
+    }
+    maven {
+        name = 'Neoforge'
+        url = 'https://maven.neoforged.net/'
     }
 }
 
@@ -175,10 +187,10 @@ dependencies {
     }
 
     compileOnly fg.deobf("se.mickelus.mutil:mutil:${minecraft_version}-6.2.0")
-    compileOnly fg.deobf("curse.maven:tetra-289712:6855614")
+    compileOnly fg.deobf("curse.maven:tetra-289712:6912921")
     if (enableTetra) {
         runtimeOnly fg.deobf("se.mickelus.mutil:mutil:${minecraft_version}-6.2.0")
-        runtimeOnly fg.deobf("curse.maven:tetra-289712:6855614")
+        runtimeOnly fg.deobf("curse.maven:tetra-289712:6912921")
     }
 
     compileOnly fg.deobf("vazkii.botania:Botania:${minecraft_version}-450-FORGE")
@@ -186,6 +198,16 @@ dependencies {
         runtimeOnly fg.deobf("vazkii.botania:Botania:${minecraft_version}-450-FORGE")
         runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.14.1+${minecraft_version}")
         runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-84.1-FORGE")
+    }
+
+    if(project.hasProperty("thermal_core_version")) {
+        compileOnly fg.deobf("com.teamcofh:cofh_core:${minecraft_version}-${cofh_core_version}")
+        compileOnly fg.deobf("com.teamcofh:thermal_core:${minecraft_version}-${thermal_core_version}")
+    }
+    if (enableThermal) {
+        runtimeOnly fg.deobf("com.teamcofh:thermal_core:${minecraft_version}-${thermal_core_version}")
+        runtimeOnly fg.deobf("com.teamcofh:thermal_foundation:${minecraft_version}-${thermal_foundation_version}")
+        runtimeOnly fg.deobf("com.teamcofh:cofh_core:${minecraft_version}-${cofh_core_version}")
     }
 }
 
@@ -239,7 +261,7 @@ publishing {
         }
         maven {
             name = "RemplersRepo"
-            url = "https://maven.rempler.com:42069/releases/"
+            url = "https://maven.rempler.com/releases/"
             credentials(PasswordCredentials)
             authentication {
                 basic(BasicAuthentication)

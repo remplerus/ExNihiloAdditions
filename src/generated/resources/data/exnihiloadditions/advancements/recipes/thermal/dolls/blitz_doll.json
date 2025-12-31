@@ -4,12 +4,12 @@
       "advancement": {
         "parent": "minecraft:recipes/root",
         "criteria": {
-          "has_pebble": {
+          "has_plank": {
             "conditions": {
               "items": [
                 {
                   "items": [
-                    "botania:livingrock"
+                    "thermal:niter_dust"
                   ]
                 }
               ]
@@ -18,20 +18,20 @@
           },
           "has_the_recipe": {
             "conditions": {
-              "recipe": "exnihiloadditions:botania/crooks/livingrock_crook"
+              "recipe": "exnihiloadditions:thermal/dolls/blitz_doll"
             },
             "trigger": "minecraft:recipe_unlocked"
           }
         },
         "requirements": [
           [
-            "has_pebble",
+            "has_plank",
             "has_the_recipe"
           ]
         ],
         "rewards": {
           "recipes": [
-            "exnihiloadditions:botania/crooks/livingrock_crook"
+            "exnihiloadditions:thermal/dolls/blitz_doll"
           ]
         },
         "sends_telemetry_event": false
@@ -39,7 +39,7 @@
       "conditions": [
         {
           "type": "forge:mod_loaded",
-          "modid": "botania"
+          "modid": "thermal"
         }
       ]
     }

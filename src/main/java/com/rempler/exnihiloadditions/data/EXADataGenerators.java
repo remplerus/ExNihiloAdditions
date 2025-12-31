@@ -3,7 +3,7 @@ package com.rempler.exnihiloadditions.data;
 import com.rempler.exnihiloadditions.ExNihiloAdditions;
 import com.rempler.exnihiloadditions.data.loot.EXALootProvider;
 import com.rempler.exnihiloadditions.data.loot.botania.EXABotaniaLootModifierGenerator;
-import com.rempler.exnihiloadditions.data.models.EXABotaniaItemModelGenerator;
+import com.rempler.exnihiloadditions.data.models.EXAItemModelGenerator;
 import com.rempler.exnihiloadditions.data.recipe.EXARecipeGenerator;
 import com.rempler.exnihiloadditions.data.tags.EXATagProvider;
 import net.minecraft.core.HolderLookup;
@@ -34,7 +34,7 @@ public class EXADataGenerators {
         generator.addProvider(event.includeClient(), new EXABlockStateGenerator(output, existingFileHelper));
         if (ExNihiloAdditions.isBotaniaLoaded) {
             generator.addProvider(event.includeServer(), new EXABotaniaLootModifierGenerator(output));
-            generator.addProvider(event.includeClient(), new EXABotaniaItemModelGenerator(output, existingFileHelper));
+            generator.addProvider(event.includeClient(), new EXAItemModelGenerator(output, existingFileHelper));
         }
     }
 }

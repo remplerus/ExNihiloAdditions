@@ -4,6 +4,7 @@ import com.rempler.exnihiloadditions.compat.botania.EXABotaniaBlocks;
 import com.rempler.exnihiloadditions.compat.botania.EXABotaniaItems;
 import com.rempler.exnihiloadditions.compat.tfc.EXATFCBlocks;
 import com.rempler.exnihiloadditions.compat.tfc.EXATFCItems;
+import com.rempler.exnihiloadditions.compat.thermal.EXAThermalItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.fml.ModList;
@@ -31,6 +32,9 @@ public class EXACreativeModeTabs {
         if (ExNihiloAdditions.isBotaniaLoaded) {
             EXABotaniaItems.getDefinitions().forEach(output::accept);
             EXABotaniaBlocks.getDefinitions().forEach(output::accept);
+        }
+        if (ExNihiloAdditions.isThermalLoaded) {
+            EXAThermalItems.getDefinitions().forEach(output::accept);
         }
     }).build());
 }

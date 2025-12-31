@@ -3,6 +3,7 @@ package com.rempler.exnihiloadditions.data.recipe;
 import com.rempler.exnihiloadditions.ExNihiloAdditions;
 import com.rempler.exnihiloadditions.data.recipe.botania.EXABotaniaRecipes;
 import com.rempler.exnihiloadditions.data.recipe.tfc.EXATFCRecipes;
+import com.rempler.exnihiloadditions.data.recipe.thermal.EXAThermalRecipes;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -35,6 +36,9 @@ public class EXARecipeGenerator extends RecipeProvider {
         }
         if (ExNihiloAdditions.isBotaniaLoaded) {
             EXABotaniaRecipes.init(consumer);
+        }
+        if (ExNihiloAdditions.isThermalLoaded) {
+            EXAThermalRecipes.init(consumer);
         }
         createEXNRecipes(consumer);
     }
