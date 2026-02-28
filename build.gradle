@@ -7,10 +7,10 @@ plugins {
     id "me.modmuss50.mod-publish-plugin" version "0.8.4"
 }
 
-boolean enableJEI = true
+boolean enableJEI = false
 boolean enableEMI = false
 boolean enableTFC = false
-boolean enableREI = false
+boolean enableREI = true
 
 group = mod_group_id
 version = mod_version
@@ -114,8 +114,8 @@ dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    implementation "novamachina.novacore:NovaCore:3.0.1"
-    implementation "novamachina.exnihilosequentia:ExNihiloSequentia:7.1.0"
+    implementation "novamachina.novacore:NovaCore:${nova_version}"
+    implementation "novamachina.exnihilosequentia:ExNihiloSequentia:${exnihilo_version}"
 
     compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
     compileOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
@@ -134,11 +134,12 @@ dependencies {
         localRuntime "dev.emi:emi-neoforge:${emi_version}+${minecraft_version}"
     }
 
-    compileOnly "dev.architectury:architectury-forge:9.2.14"
-    compileOnly "me.shedaniel:RoughlyEnoughItems-forge:12.1.785"
+    compileOnly "dev.architectury:architectury-neoforge:${arch_version}"
+    compileOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
     if (enableREI) {
-        localRuntime "dev.architectury:architectury-forge:9.2.14"
-        localRuntime "me.shedaniel:RoughlyEnoughItems-forge:12.1.785"
+        localRuntime "dev.architectury:architectury-neoforge:${arch_version}"
+        localRuntime "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
+        localRuntime "me.shedaniel.cloth:cloth-config-neoforge:${cloth_version}"
     }
 }
 
