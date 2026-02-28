@@ -7,12 +7,14 @@ import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.state.BlockState;
 import novamachina.exnihilosequentia.common.Config;
 import novamachina.exnihilosequentia.tags.ExNihiloTags;
@@ -26,8 +28,9 @@ public class EmiTransitionRecipe extends BasicEmiRecipe {
     private final List<Component> blockComponents = new ArrayList<>();
     private final List<BlockState> BARREL_STATES = new ArrayList<>();
 
-    public EmiTransitionRecipe(TransitionRecipe recipe) {
-        super(EXNEMIPlugin.TRANSITION, EXNEMIPlugin.getPluginIdFromRecipe(recipe), 70, 35);
+    public EmiTransitionRecipe(RecipeHolder<TransitionRecipe> recipeHolder) {
+        super(EXNEMIPlugin.TRANSITION, recipeHolder.id(), 70, 35);
+        TransitionRecipe recipe = recipeHolder.value();
         this.inputs.add(EmiStack.of(recipe.getFluidInTank().getFluid()).setAmount(Config.getBarrelNumberOfBuckets() * 1000L));
         this.catalysts.add(EmiIngredient.of(recipe.getCatalyst()));
         this.outputs.add(EmiStack.of(recipe.getResult().getFluid()).setAmount(Config.getBarrelNumberOfBuckets() * 1000L));
@@ -51,11 +54,11 @@ public class EmiTransitionRecipe extends BasicEmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgetHolder) {
-        widgetHolder.addTank(inputs.get(0), 0, 0, 18, 18, 1000);
+        widgetHolder.addTank(inputs.getFirst(), 0, 0, 18, 18, 1000);
         widgetHolder.addTexture(EmiTexture.EMPTY_ARROW, 18, 1);
         widgetHolder.addTexture(EmiTexture.EMPTY_ARROW, 27, 1);
-        widgetHolder.addTank(outputs.get(0), 51, 0, 18, 18, 1000).recipeContext(this);
-        widgetHolder.add(new BlockRenderWidget(32, 6, BARREL_STATES, EXNEMIPlugin.BARRELS, 13f, null));
-        widgetHolder.add(new BlockRenderWidget(32, 21, blockStates, blockComponents, 13f, null));
+        widgetHolder.addTank(outputs.getFirst(), 51, 0, 18, 18, 1000).recipeContext(this);
+        widgetHolder.add(new BlockRenderWidget(32, 6, BARREL_STATES, EXNEMIPlugin.BARRELS, 13f, StatePropertiesPredicate.Builder.properties().build()));
+        widgetHolder.add(new BlockRenderWidget(32, 21, blockStates, blockComponents, 13f, StatePropertiesPredicate.Builder.properties().build()));
     }
 }

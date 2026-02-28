@@ -8,7 +8,7 @@ plugins {
 }
 
 boolean enableJEI = true
-boolean enableEMI = true
+boolean enableEMI = false
 boolean enableTFC = false
 boolean enableREI = false
 
@@ -77,15 +77,23 @@ repositories {
             includeGroup 'curse.maven'
         }
     }
+    //maven {
+    //    name 'NovaMachina Mods - Release'
+    //    url 'https://dl.cloudsmith.io/public/novamachina-mods/release/maven/'
+    //    content {
+    //        includeGroup 'novamachina.novacore'
+    //        includeGroup 'novamachina.exnihilosequentia'
+    //    }
+    //    mavenContent {
+    //        releasesOnly()
+    //    }
+    //}
     maven {
-        name 'NovaMachina Mods - Release'
-        url 'https://dl.cloudsmith.io/public/novamachina-mods/release/maven/'
+        name 'Remplers Repo'
+        url 'https://maven.rempler.com/releases/'
         content {
             includeGroup 'novamachina.novacore'
             includeGroup 'novamachina.exnihilosequentia'
-        }
-        mavenContent {
-            releasesOnly()
         }
     }
     maven {
@@ -106,8 +114,8 @@ dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    implementation "novamachina.novacore:novacore:1.21.0-3.0.0-build.1"
-    implementation "novamachina.exnihilosequentia:exnihilosequentia:1.21-7.0.0-build.1-beta"
+    implementation "novamachina.novacore:NovaCore:3.0.1"
+    implementation "novamachina.exnihilosequentia:ExNihiloSequentia:7.1.0"
 
     compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
     compileOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
@@ -121,9 +129,9 @@ dependencies {
         localRuntime "vazkii.patchouli:Patchouli:${minecraft_version}-84.1-FORGE"
     }
 
-    compileOnly "dev.emi:emi-neoforge:1.1.22+${minecraft_version}:api"
+    compileOnly "dev.emi:emi-neoforge:${emi_version}+${minecraft_version}:api"
     if (enableEMI) {
-        localRuntime "dev.emi:emi-neoforge:1.1.22+${minecraft_version}"
+        localRuntime "dev.emi:emi-neoforge:${emi_version}+${minecraft_version}"
     }
 
     compileOnly "dev.architectury:architectury-forge:9.2.14"
@@ -153,6 +161,27 @@ tasks.named('processResources', ProcessResources).configure {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+publishing {
+    publications {
+        register('mavenJava', MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url "file://${project.projectDir}/repo"
+        }
+        maven {
+            name = "RemplersRepo"
+            url = "https://maven.rempler.com/releases/"
+            credentials(PasswordCredentials)
+            authentication {
+                basic(BasicAuthentication)
+            }
+        }
+    }
 }
 
 publishMods {

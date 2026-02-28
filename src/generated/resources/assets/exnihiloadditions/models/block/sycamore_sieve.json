@@ -1,8 +1,0 @@
-{
-  "parent": "exnihilosequentia:block/sieve_base",
-  "render_type": "minecraft:cutout_mipped",
-  "textures": {
-    "particle": "exnihiloadditions:block/tfc/sycamore_sieve",
-    "texture": "exnihiloadditions:block/tfc/sycamore_sieve"
-  }
-}

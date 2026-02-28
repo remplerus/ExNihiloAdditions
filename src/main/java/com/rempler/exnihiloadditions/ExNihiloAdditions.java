@@ -46,24 +46,24 @@ public class ExNihiloAdditions {
 
         eventBus.addListener((RegisterEvent event) -> {
                     if (event.getRegistryKey().equals(BuiltInRegistries.BLOCK.key())) {
-                        NeoforgeBlockRegistry registry = new NeoforgeBlockRegistry();
                         if (isTFCLoaded) {
+                            NeoforgeBlockRegistry registry = new NeoforgeBlockRegistry();
                             for (BlockDefinition<?> definition : EXNATFCBlocks.getDefinitions()) {
                                 registry.register(definition);
                             }
                         }
                     }
                     if (event.getRegistryKey().equals(BuiltInRegistries.BLOCK_ENTITY_TYPE.key())) {
-                        NeoforgeBlockEntityTypeRegistry registry = new NeoforgeBlockEntityTypeRegistry();
                         if (isTFCLoaded) {
+                            NeoforgeBlockEntityTypeRegistry registry = new NeoforgeBlockEntityTypeRegistry();
                             for (BlockEntityTypeDefinition<?> definition : EXNATFCBlockEntites.getDefinitions()) {
                                 registry.register(definition);
                             }
                         }
                     }
                     if (event.getRegistryKey().equals(BuiltInRegistries.ITEM.key())) {
-                        NeoforgeItemRegistry registry = new NeoforgeItemRegistry();
                         if (isTFCLoaded) {
+                            NeoforgeItemRegistry registry = new NeoforgeItemRegistry();
                             for (BlockDefinition<?> definition : EXNATFCBlocks.getDefinitions()) {
                                 registry.register(definition);
                             }

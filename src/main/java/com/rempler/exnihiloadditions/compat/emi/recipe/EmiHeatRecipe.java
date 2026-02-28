@@ -11,6 +11,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
@@ -24,8 +25,9 @@ import java.util.Optional;
 public class EmiHeatRecipe extends BasicEmiRecipe {
     private Optional<StatePropertiesPredicate> properties = Optional.empty();
     private final List<BlockState> inputStates;
-    public EmiHeatRecipe(HeatRecipe recipe) {
-        super(EXNEMIPlugin.HEATING, EXNEMIPlugin.getPluginIdFromRecipe(recipe), 70, 40);
+    public EmiHeatRecipe(RecipeHolder<HeatRecipe> recipeHolder) {
+        super(EXNEMIPlugin.HEATING, recipeHolder.id(), 70, 40);
+        HeatRecipe recipe = recipeHolder.value();
         this.inputs.add(EmiStack.of(recipe.getInputBlock()).setAmount(recipe.getAmount()));
         List<BlockState> states = new ArrayList<>();
         states.add(EXNBlocks.FIRED_CRUCIBLE.block().defaultBlockState());
@@ -39,7 +41,7 @@ public class EmiHeatRecipe extends BasicEmiRecipe {
     @Override
     public void addWidgets(WidgetHolder widgetHolder) {
         boolean isFluid = false;
-        EmiIngredient input = inputs.get(0);
+        EmiIngredient input = inputs.getFirst();
         long amount = input.getAmount();
         List<Component> tooltips = new ArrayList<>();
         if (inputStates.get(1).getBlock() == Blocks.FIRE || inputStates.get(1).getBlock() == Blocks.SOUL_FIRE) {

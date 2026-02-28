@@ -11,7 +11,9 @@ import org.jetbrains.annotations.Nullable;
 
 public class EXNATFCCrucibleBlock extends WoodCrucibleBlock {
 
-    public EXNATFCCrucibleBlock() {}
+    public EXNATFCCrucibleBlock(Properties properties) {
+        super(properties);
+    }
 
     @Nullable
     @Override

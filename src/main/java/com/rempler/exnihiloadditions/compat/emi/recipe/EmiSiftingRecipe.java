@@ -6,6 +6,7 @@ import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import novamachina.exnihilosequentia.common.Config;
 import novamachina.exnihilosequentia.world.item.MeshItem;
 import novamachina.exnihilosequentia.world.item.MeshType;
@@ -26,8 +27,9 @@ public class EmiSiftingRecipe extends AbstractEmiRecipe {
     private final int displayWidth;
     private final int displayHeight;
 
-    public EmiSiftingRecipe(SiftingRecipe recipe) {
-        super(recipe);
+    public EmiSiftingRecipe(RecipeHolder<SiftingRecipe> recipeHolder) {
+        super(recipeHolder.id());
+        SiftingRecipe recipe = recipeHolder.value();
         this.inputs.add(EmiIngredient.of(recipe.getInput()));
             this.isWaterlogged = recipe.isWaterlogged();
 
@@ -104,7 +106,7 @@ public class EmiSiftingRecipe extends AbstractEmiRecipe {
     @Override
     public void addWidgets(WidgetHolder widgetHolder) {
         int y = getDisplayHeight() - 18;
-        widgetHolder.addSlot(inputs.get(0), 0, y / 2);
+        widgetHolder.addSlot(inputs.getFirst(), 0, y / 2);
         widgetHolder.addTexture(EmiTexture.EMPTY_ARROW, 19, y / 2 + 1);
 
         for (int i = 0; i < outputs.size(); i++) {

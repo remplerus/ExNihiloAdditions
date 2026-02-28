@@ -11,7 +11,9 @@ import org.jetbrains.annotations.Nullable;
 
 public class EXNATFCBarrelBlock extends WoodBarrelBlock {
 
-    public EXNATFCBarrelBlock() {}
+    public EXNATFCBarrelBlock(Properties properties) {
+        super(properties);
+    }
 
     @Nullable
     @Override

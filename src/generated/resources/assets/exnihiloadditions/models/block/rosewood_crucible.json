@@ -1,8 +1,0 @@
-{
-  "parent": "exnihilosequentia:block/crucible_base",
-  "render_type": "minecraft:cutout_mipped",
-  "textures": {
-    "particle": "exnihiloadditions:block/tfc/rosewood_crucible",
-    "texture": "exnihiloadditions:block/tfc/rosewood_crucible"
-  }
-}

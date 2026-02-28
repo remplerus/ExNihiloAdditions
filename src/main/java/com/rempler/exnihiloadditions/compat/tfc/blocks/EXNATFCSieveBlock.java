@@ -10,7 +10,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class EXNATFCSieveBlock extends WoodSieveBlock {
-    public EXNATFCSieveBlock() { }
+    public EXNATFCSieveBlock(Properties properties) {
+        super(properties);
+    }
 
     @Override
     public @Nullable BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {

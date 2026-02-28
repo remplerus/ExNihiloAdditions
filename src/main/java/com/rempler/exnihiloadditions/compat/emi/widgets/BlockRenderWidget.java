@@ -1,6 +1,6 @@
 package com.rempler.exnihiloadditions.compat.emi.widgets;
 
-import com.rempler.exnihiloadditions.compat.emi.client.EXAClientUtils;
+import com.rempler.exnihiloadditions.utils.EXAClientUtils;
 import dev.emi.emi.api.render.EmiRender;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.Bounds;

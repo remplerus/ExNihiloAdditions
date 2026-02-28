@@ -6,6 +6,7 @@ import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import novamachina.exnihilosequentia.world.item.crafting.MeltingRecipe;
 import novamachina.exnihilosequentia.world.level.block.entity.CrucibleBlockEntity;
 
@@ -16,11 +17,12 @@ public class EmiMeltingRecipe extends AbstractEmiRecipe {
     private final List<EmiIngredient> inputs = new ArrayList<>();
     private final List<EmiStack> outputs = new ArrayList<>();
     private final CrucibleBlockEntity.CrucibleType crucibleType;
-    public EmiMeltingRecipe(MeltingRecipe recipe, CrucibleBlockEntity.CrucibleType crucibleType) {
-        super(recipe);
+    public EmiMeltingRecipe(RecipeHolder<MeltingRecipe> recipeHolder) {
+        super(recipeHolder.id());
+        MeltingRecipe recipe = recipeHolder.value();
         this.inputs.add(EmiIngredient.of(recipe.getInput()));
         this.outputs.add(EmiStack.of(recipe.getResultFluid().getFluid()).setAmount(recipe.getResultFluid().getAmount()));
-        this.crucibleType = crucibleType;
+        this.crucibleType = recipe.getCrucibleType();
     }
 
     @Override
@@ -59,8 +61,8 @@ public class EmiMeltingRecipe extends AbstractEmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgetHolder) {
-        widgetHolder.addSlot(inputs.get(0), 0, 0);
+        widgetHolder.addSlot(inputs.getFirst(), 0, 0);
         widgetHolder.addTexture(EmiTexture.EMPTY_ARROW, 19, 1);
-        widgetHolder.addTank(outputs.get(0), 43, 0, 18, 18, 1000).recipeContext(this);
+        widgetHolder.addTank(outputs.getFirst(), 43, 0, 18, 18, 1000).recipeContext(this);
     }
 }

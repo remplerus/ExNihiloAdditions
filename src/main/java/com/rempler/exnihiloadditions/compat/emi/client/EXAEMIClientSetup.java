@@ -12,7 +12,7 @@ public class EXAEMIClientSetup {
     }
 
     private static void registerAdditionalModels(ModelEvent.RegisterAdditional event) {
-        event.register(ModelResourceLocation.inventory(ExNihiloAdditions.rl("block/barrel_composting")));
-        event.register(ModelResourceLocation.inventory(EXNEMIPlugin.COMPOSTING_MODEL));
+        event.register(ModelResourceLocation.standalone(ExNihiloAdditions.rl("block/barrel_composting")));
+        event.register(ModelResourceLocation.standalone(ExNihiloAdditions.rl("item/barrel_composting")));
     }
 }

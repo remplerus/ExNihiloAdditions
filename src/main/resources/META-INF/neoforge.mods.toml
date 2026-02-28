@@ -21,7 +21,7 @@ side = "BOTH"# Here's another dependency
 [[dependencies.${mod_id}]]
 modId = "exnihilosequentia"
 type = "required"
-versionRange = "[5,)"
+versionRange = "[7.1,)"
 ordering = "NONE"
 side = "BOTH"
 [[dependencies.${mod_id}]]
@@ -40,5 +40,11 @@ side = "BOTH"
 modId = "emi"
 type = "optional"
 versionRange = "[1.1.22,)"
+ordering = "NONE"
+side = "BOTH"
+[[dependencies.${mod_id}]]
+modId = "jei"
+type = "optional"
+versionRange = "[19.21,)"
 ordering = "NONE"
 side = "BOTH"

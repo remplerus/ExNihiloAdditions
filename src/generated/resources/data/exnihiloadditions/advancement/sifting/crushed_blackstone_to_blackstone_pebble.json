@@ -1,0 +1,21 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "exnihiloadditions:sifting/crushed_blackstone_to_blackstone_pebble"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "exnihiloadditions:sifting/crushed_blackstone_to_blackstone_pebble"
+    ]
+  }
+}

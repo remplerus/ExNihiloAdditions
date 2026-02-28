@@ -4,9 +4,7 @@
   "package": "com.rempler.exnihiloadditions.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "EXNSilkwormMixin",
-    "EXNConfigMixin",
-    "EXNMainMixin"
+    "EXNSilkwormMixin"
   ],
   "client": [ ],
   "injectors": {

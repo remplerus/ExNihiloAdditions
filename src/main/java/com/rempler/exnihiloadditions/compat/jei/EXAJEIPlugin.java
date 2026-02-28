@@ -31,6 +31,7 @@ import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.neoforged.fml.ModList;
 import novamachina.exnihilosequentia.common.registries.ExNihiloRegistries;
 import novamachina.exnihilosequentia.common.utility.ExNihiloConstants;
 import novamachina.exnihilosequentia.world.item.CrookItem;
@@ -60,7 +61,6 @@ import org.slf4j.LoggerFactory;
 @JeiPlugin
 @SuppressWarnings("unused")
 public class EXAJEIPlugin implements IModPlugin {
-
     private static final Logger log = LoggerFactory.getLogger(EXAJEIPlugin.class);
 
     @Nonnull
@@ -82,28 +82,32 @@ public class EXAJEIPlugin implements IModPlugin {
 
     @Override
     public void registerCategories(@Nonnull final IRecipeCategoryRegistration registration) {
-        IGuiHelper guiHelper = registration.getJeiHelpers().getGuiHelper();
+        if (ModList.get().isLoaded("jei") && !ModList.get().isLoaded("emi")) {
+            IGuiHelper guiHelper = registration.getJeiHelpers().getGuiHelper();
 
-        registration.addRecipeCategories(new HarvestRecipeCategory(guiHelper));
-        registration.addRecipeCategories(new DrySieveRecipeCategory(guiHelper));
-        registration.addRecipeCategories(new WetSiftingRecipeCategory(guiHelper));
-        registration.addRecipeCategories(new CrushingRecipeCategory(guiHelper));
-        registration.addRecipeCategories(new SolidifyingRecipeCategory(guiHelper));
-        registration.addRecipeCategories(new TransitionRecipeCategory(guiHelper));
-        registration.addRecipeCategories(new PrecipitateRecipeCategory(guiHelper));
-        registration.addRecipeCategories(new CompostRecipeCategory(guiHelper));
-        registration.addRecipeCategories(new MeltingRecipeCategory(guiHelper, "melting"));
-        registration.addRecipeCategories(new MeltingRecipeCategory(guiHelper, "fired_melting"));
-        registration.addRecipeCategories(new HeatRecipeCategory(guiHelper));
+            registration.addRecipeCategories(new HarvestRecipeCategory(guiHelper));
+            registration.addRecipeCategories(new DrySieveRecipeCategory(guiHelper));
+            registration.addRecipeCategories(new WetSiftingRecipeCategory(guiHelper));
+            registration.addRecipeCategories(new CrushingRecipeCategory(guiHelper));
+            registration.addRecipeCategories(new SolidifyingRecipeCategory(guiHelper));
+            registration.addRecipeCategories(new TransitionRecipeCategory(guiHelper));
+            registration.addRecipeCategories(new PrecipitateRecipeCategory(guiHelper));
+            registration.addRecipeCategories(new CompostRecipeCategory(guiHelper));
+            registration.addRecipeCategories(new MeltingRecipeCategory(guiHelper, ExNihiloConstants.Blocks.CRUCIBLES));
+            registration.addRecipeCategories(new MeltingRecipeCategory(guiHelper, ExNihiloConstants.Blocks.FIRED_CRUCIBLE));
+            registration.addRecipeCategories(new HeatRecipeCategory(guiHelper));
+        }
     }
 
     @Override
     public void registerRecipeCatalysts(@Nonnull final IRecipeCatalystRegistration registration) {
-        registerCrushingCatalyst(registration);
-        registerHarvestCatalyst(registration);
-        registerCrucibles(registration);
-        registerBarrels(registration);
-        registerSieves(registration);
+        if (ModList.get().isLoaded("jei") && !ModList.get().isLoaded("emi")) {
+            registerCrushingCatalyst(registration);
+            registerHarvestCatalyst(registration);
+            registerCrucibles(registration);
+            registerBarrels(registration);
+            registerSieves(registration);
+        }
     }
 
     private void registerHarvestCatalyst(@Nonnull final IRecipeCatalystRegistration registration) {
@@ -243,16 +247,18 @@ public class EXAJEIPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(@Nonnull final IRecipeRegistration registration) {
-        registerHarvest(registration);
-        registerSifting(registration);
-        registerCrushing(registration);
-        registerSolidifying(registration);
-        registerTransition(registration);
-        registerPrecipitate(registration);
-        registerCompost(registration);
-        registerFiredMelting(registration);
-        registerMelting(registration);
-        registerHeat(registration);
+        if (ModList.get().isLoaded("jei") && !ModList.get().isLoaded("emi")) {
+            registerHarvest(registration);
+            registerSifting(registration);
+            registerCrushing(registration);
+            registerSolidifying(registration);
+            registerTransition(registration);
+            registerPrecipitate(registration);
+            registerCompost(registration);
+            registerFiredMelting(registration);
+            registerMelting(registration);
+            registerHeat(registration);
+        }
     }
 
     private void registerCompost(@Nonnull final IRecipeRegistration registration) {
@@ -321,7 +327,7 @@ public class EXAJEIPlugin implements IModPlugin {
                             if (ingredients.stream()
                                     .noneMatch(
                                             ingredient ->
-                                                    IngredientUtils.areIngredientsEqual(ingredient, recipeIngredient))) {
+                                                    IngredientUtils.isIngredientIn(ingredient, recipeIngredient))) {
                                 ingredients.add(recipeIngredient);
                             }
                         });

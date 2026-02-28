@@ -24,10 +24,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeInput;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.*;
 import novamachina.exnihilosequentia.tags.ExNihiloTags;
 import novamachina.exnihilosequentia.world.item.EXNItems;
 import novamachina.exnihilosequentia.world.item.MeshType;
@@ -53,7 +50,6 @@ import java.util.function.Supplier;
 @EmiEntrypoint
 public class EXNEMIPlugin implements EmiPlugin {
     public static final List<Component> BARRELS = List.of(Component.translatable(ExNihiloTags.BARREL.location().toLanguageKey()));
-    public static final ResourceLocation COMPOSTING_MODEL = ExNihiloAdditions.rl("item/barrel_composting");
     public static final ResourceLocation PRECIPITATING_SHEET = ResourceLocation.fromNamespaceAndPath("exnihilosequentia", "textures/gui/jei_fluid_block_transform.png");
 
     public static final EmiIngredient CRUCIBLE = EmiStack.of(EXNBlocks.ACACIA_CRUCIBLE);
@@ -126,54 +122,54 @@ public class EXNEMIPlugin implements EmiPlugin {
     }
 
     private void registerRecipeManagers(EmiRegistry emiRegistry) {
-        for (CompostRecipe recipe : getRecipes(emiRegistry, EXNRecipeTypes.COMPOST)) {
-            addRecipeSafe(emiRegistry, () -> new EmiCompostRecipe(recipe), recipe);
+        for (RecipeHolder<CompostRecipe> recipe : getRecipes(emiRegistry, EXNRecipeTypes.COMPOST)) {
+            addRecipeSafe(emiRegistry, () -> new EmiCompostRecipe(recipe), recipe.value());
         }
-        for (CrushingRecipe recipe : getRecipes(emiRegistry, EXNRecipeTypes.CRUSHING)) {
-            addRecipeSafe(emiRegistry, () -> new EmiCrushingRecipe(recipe), recipe);
+        for (RecipeHolder<CrushingRecipe> recipe : getRecipes(emiRegistry, EXNRecipeTypes.CRUSHING)) {
+            addRecipeSafe(emiRegistry, () -> new EmiCrushingRecipe(recipe), recipe.value());
         }
-        for (HarvestRecipe recipe : getRecipes(emiRegistry, EXNRecipeTypes.HARVEST)) {
-            addRecipeSafe(emiRegistry, () -> new EmiHarvestingRecipe(recipe), recipe);
+        for (RecipeHolder<HarvestRecipe> recipe : getRecipes(emiRegistry, EXNRecipeTypes.HARVEST)) {
+            addRecipeSafe(emiRegistry, () -> new EmiHarvestingRecipe(recipe), recipe.value());
         }
-        for (HeatRecipe recipe : getRecipes(emiRegistry, EXNRecipeTypes.HEAT)) {
-            addRecipeSafe(emiRegistry, () -> new EmiHeatRecipe(recipe), recipe);
+        for (RecipeHolder<HeatRecipe> recipe : getRecipes(emiRegistry, EXNRecipeTypes.HEAT)) {
+            addRecipeSafe(emiRegistry, () -> new EmiHeatRecipe(recipe), recipe.value());
         }
-        for (MeltingRecipe recipe : getRecipes(emiRegistry, EXNRecipeTypes.MELTING)) {
-            addRecipeSafe(emiRegistry, () -> new EmiMeltingRecipe(recipe, recipe.getCrucibleType()), recipe);
+        for (RecipeHolder<MeltingRecipe> recipe : getRecipes(emiRegistry, EXNRecipeTypes.MELTING)) {
+            addRecipeSafe(emiRegistry, () -> new EmiMeltingRecipe(recipe), recipe.value());
         }
-        for (PrecipitateRecipe recipe : getRecipes(emiRegistry, EXNRecipeTypes.PRECIPITATE)) {
-            addRecipeSafe(emiRegistry, () -> new EmiPrecipitateRecipe(recipe), recipe);
+        for (RecipeHolder<PrecipitateRecipe> recipe : getRecipes(emiRegistry, EXNRecipeTypes.PRECIPITATE)) {
+            addRecipeSafe(emiRegistry, () -> new EmiPrecipitateRecipe(recipe), recipe.value());
         }
-        Iterable<SiftingRecipe> allRecipes = getRecipes(emiRegistry, EXNRecipeTypes.SIFTING);
+        List<RecipeHolder<SiftingRecipe>> allRecipes = getRecipes(emiRegistry, EXNRecipeTypes.SIFTING);
 
-        Map<Ingredient, List<SiftingRecipe>> groupedRecipes = new HashMap<>();
-        for (SiftingRecipe recipe : allRecipes) {
-            Ingredient key = recipe.getInput();
+        Map<Ingredient, List<RecipeHolder<SiftingRecipe>>> groupedRecipes = new HashMap<>();
+        for (RecipeHolder<SiftingRecipe> recipe : allRecipes) {
+            Ingredient key = recipe.value().getInput();
             groupedRecipes.computeIfAbsent(key, k -> new ArrayList<>()).add(recipe);
         }
 
-        for (Map.Entry<Ingredient, List<SiftingRecipe>> entry : groupedRecipes.entrySet()) {
-            List<SiftingRecipe> recipes = entry.getValue();
-            SiftingRecipe baseRecipe = recipes.get(0);
+        for (Map.Entry<Ingredient, List<RecipeHolder<SiftingRecipe>>> entry : groupedRecipes.entrySet()) {
+            List<RecipeHolder<SiftingRecipe>> recipes = entry.getValue();
+            RecipeHolder<SiftingRecipe> baseRecipe = recipes.getFirst();
 
             Map<MeshType, List<MeshWithChance>> aggregatedDrops = new HashMap<>();
-            for (SiftingRecipe rec : recipes) {
-                for (MeshWithChance drop : rec.getRolls()) {
+            for (RecipeHolder<SiftingRecipe> rec : recipes) {
+                for (MeshWithChance drop : rec.value().getRolls()) {
                     aggregatedDrops.computeIfAbsent(drop.getMesh(), m -> new ArrayList<>()).add(drop);
                 }
             }
-            addRecipeSafe(emiRegistry, () -> new EmiSiftingRecipe(baseRecipe), baseRecipe);
+            addRecipeSafe(emiRegistry, () -> new EmiSiftingRecipe(baseRecipe), baseRecipe.value());
         }
-        for (SolidifyingRecipe recipe : getRecipes(emiRegistry, EXNRecipeTypes.SOLIDIFYING)) {
-            addRecipeSafe(emiRegistry, () -> new EmiSolidifyingRecipe(recipe), recipe);
+        for (RecipeHolder<SolidifyingRecipe> recipe : getRecipes(emiRegistry, EXNRecipeTypes.SOLIDIFYING)) {
+            addRecipeSafe(emiRegistry, () -> new EmiSolidifyingRecipe(recipe), recipe.value());
         }
-        for (TransitionRecipe recipe : getRecipes(emiRegistry, EXNRecipeTypes.TRANSITION)) {
-            addRecipeSafe(emiRegistry, () -> new EmiTransitionRecipe(recipe), recipe);
+        for (RecipeHolder<TransitionRecipe> recipe : getRecipes(emiRegistry, EXNRecipeTypes.TRANSITION)) {
+            addRecipeSafe(emiRegistry, () -> new EmiTransitionRecipe(recipe), recipe.value());
         }
     }
 
-    private static <C extends RecipeInput, T extends Recipe<C>> Iterable<T> getRecipes(EmiRegistry registry, RecipeType<T> type) {
-        return registry.getRecipeManager().getAllRecipesFor(type).stream().map(e -> e.value())::iterator;
+    private static <C extends RecipeInput, T extends Recipe<C>> List<RecipeHolder<T>> getRecipes(EmiRegistry registry, RecipeType<T> type) {
+        return registry.getRecipeManager().getAllRecipesFor(type);
     }
 
     private static void addRecipeSafe(EmiRegistry registry, Supplier<EmiRecipe> supplier, Recipe<?> recipe) {
@@ -196,10 +192,5 @@ public class EXNEMIPlugin implements EmiPlugin {
             }
         }
         return list;
-    }
-
-    public static ResourceLocation getPluginIdFromRecipe(Recipe<?> recipe) {
-        return ResourceLocation.fromNamespaceAndPath(BuiltInRegistries.RECIPE_TYPE.getKey(recipe.getType()).getNamespace(),
-                BuiltInRegistries.RECIPE_TYPE.getKey(recipe.getType()).getPath() + recipe);
     }
 }

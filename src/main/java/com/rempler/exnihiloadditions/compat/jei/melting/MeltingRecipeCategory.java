@@ -56,7 +56,7 @@ public class MeltingRecipeCategory implements IRecipeCategory<JEICrucibleRecipe>
     @Override
     public Component getTitle() {
         if (uid.equals(
-                ResourceLocation.fromNamespaceAndPath(ExNihiloConstants.ModIds.EX_NIHILO_SEQUENTIA, "crucible_fired"))) {
+                ResourceLocation.fromNamespaceAndPath(ExNihiloConstants.ModIds.EX_NIHILO_SEQUENTIA, ExNihiloConstants.Blocks.FIRED_CRUCIBLE))) {
             return Component.translatable("jei.category.fired_melting");
         } else {
             return Component.translatable("jei.category.melting");
