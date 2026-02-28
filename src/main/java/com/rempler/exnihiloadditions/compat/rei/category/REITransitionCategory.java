@@ -2,6 +2,7 @@ package com.rempler.exnihiloadditions.compat.rei.category;
 
 import com.rempler.exnihiloadditions.compat.rei.EXAREIPlugin;
 import com.rempler.exnihiloadditions.compat.rei.display.REITransitionDisplay;
+import com.rempler.exnihiloadditions.compat.shared.RecipeLayoutConstants;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
@@ -17,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class REITransitionCategory implements DisplayCategory<REITransitionDisplay> {
-
     @Override
     public CategoryIdentifier<? extends REITransitionDisplay> getCategoryIdentifier() {
         return EXAREIPlugin.TRANSITION;
@@ -35,36 +35,46 @@ public class REITransitionCategory implements DisplayCategory<REITransitionDispl
 
     @Override
     public int getDisplayWidth(REITransitionDisplay display) {
-        return 150;
+        return RecipeLayoutConstants.TRANSITION_WIDTH + 10;
     }
 
     @Override
     public int getDisplayHeight() {
-        return 50;
+        return RecipeLayoutConstants.TRANSITION_HEIGHT + 10;
     }
 
     @Override
     public List<Widget> setupDisplay(REITransitionDisplay display, Rectangle bounds) {
         List<Widget> widgets = new ArrayList<>();
-        Point startPoint = new Point(bounds.getCenterX() - 50, bounds.y + 5);
-
+        Point sp = new Point(bounds.x + 5, bounds.y + 5);
         widgets.add(Widgets.createRecipeBase(bounds));
 
         // Fluid in tank
-        widgets.add(Widgets.createSlot(new Point(startPoint.x, startPoint.y + 15))
+        widgets.add(Widgets.createSlot(new Point(
+                sp.x + RecipeLayoutConstants.TRANSITION_INPUT_FLUID_X,
+                sp.y + RecipeLayoutConstants.TRANSITION_INPUT_FLUID_Y))
                 .entries(display.getInputEntries().get(0))
                 .markInput());
 
-        // Catalyst
-        widgets.add(Widgets.createSlot(new Point(startPoint.x + 25, startPoint.y))
-                .entries(display.getInputEntries().get(1))
-                .markInput());
+        // Arrow
+        widgets.add(Widgets.createArrow(new Point(
+                sp.x + RecipeLayoutConstants.TRANSITION_ARROW1_X,
+                sp.y + RecipeLayoutConstants.TRANSITION_ARROW1_Y)));
 
-        widgets.add(Widgets.createArrow(new Point(startPoint.x + 45, startPoint.y + 15)));
+        // Catalyst item
+        if (display.getInputEntries().size() > 1) {
+            widgets.add(Widgets.createSlot(new Point(
+                    sp.x + RecipeLayoutConstants.TRANSITION_BLOCK_X,
+                    sp.y + RecipeLayoutConstants.TRANSITION_CATALYST_Y))
+                    .entries(display.getInputEntries().get(1))
+                    .markInput());
+        }
 
         // Result fluid
-        widgets.add(Widgets.createSlot(new Point(startPoint.x + 80, startPoint.y + 15))
-                .entries(display.getOutputEntries().getFirst())
+        widgets.add(Widgets.createSlot(new Point(
+                sp.x + RecipeLayoutConstants.TRANSITION_OUTPUT_FLUID_X,
+                sp.y + RecipeLayoutConstants.TRANSITION_OUTPUT_FLUID_Y))
+                .entries(display.getOutputEntries().get(0))
                 .markOutput());
 
         return widgets;

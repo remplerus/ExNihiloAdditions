@@ -1,6 +1,7 @@
 package com.rempler.exnihiloadditions.compat.emi.recipe;
 
 import com.rempler.exnihiloadditions.compat.emi.EXNEMIPlugin;
+import com.rempler.exnihiloadditions.compat.shared.RecipeLayoutConstants;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
@@ -16,8 +17,8 @@ import java.util.List;
 public class EmiHarvestingRecipe extends AbstractEmiRecipe {
     private final List<EmiIngredient> inputs = new ArrayList<>();
     private final List<EmiStack> outputs = new ArrayList<>();
-    private final int x;
-    private final int y;
+    private final int displayWidth;
+    private final int displayHeight;
 
     public EmiHarvestingRecipe(RecipeHolder<HarvestRecipe> recipeHolder) {
         super(recipeHolder.id());
@@ -26,28 +27,8 @@ public class EmiHarvestingRecipe extends AbstractEmiRecipe {
         for (ItemStackWithChance stack : recipe.getDrops()) {
             this.outputs.add(EmiStack.of(stack.getStack()).setChance(stack.getChance()));
         }
-        int x = 187;
-        switch (recipe.getDrops().size()) {
-            case 1 -> x = x - 7*18;
-            case 2 -> x = x - 6*18;
-            case 3 -> x = x - 5*18;
-            case 4 -> x = x - 4*18;
-            case 5 -> x = x - 3*18;
-            case 6 -> x = x - 2*18;
-            case 7 -> x = x - 18;
-        }
-        this.x = x;
-        int y = 18;
-        if (outputs.size() > 7) {
-            if (outputs.size() <= 14) {
-                y = y + 18;
-            } else if (outputs.size() <= 21) {
-                y = y + 2*18;
-            } else if (outputs.size() <= 28) {
-                y = y + 3*18;
-            }
-        }
-        this.y = y;
+        this.displayWidth = RecipeLayoutConstants.gridDisplayWidth(outputs.size());
+        this.displayHeight = RecipeLayoutConstants.gridDisplayHeight(outputs.size());
     }
 
     @Override
@@ -67,22 +48,22 @@ public class EmiHarvestingRecipe extends AbstractEmiRecipe {
 
     @Override
     public int getDisplayWidth() {
-        return x;
+        return displayWidth;
     }
 
     @Override
     public int getDisplayHeight() {
-        return y;
+        return displayHeight;
     }
 
     @Override
     public void addWidgets(WidgetHolder widgetHolder) {
-        int y = getDisplayHeight() - 18;
-        widgetHolder.addSlot(inputs.getFirst(), 0, y/2);
-        widgetHolder.addTexture(EmiTexture.EMPTY_ARROW, 19, y/2+1);
+        int y = getDisplayHeight() - RecipeLayoutConstants.SLOT_SIZE;
+        widgetHolder.addSlot(inputs.getFirst(), 0, y / 2);
+        widgetHolder.addTexture(EmiTexture.EMPTY_ARROW, RecipeLayoutConstants.ARROW_OFFSET_X, y / 2 + 1);
         for (int i = 0; i < outputs.size(); i++) {
-            int slotX = 43 + i % 7 * 18;
-            int slotY = i / 7 * 18;
+            int slotX = RecipeLayoutConstants.GRID_OUTPUT_START_X + (i % RecipeLayoutConstants.GRID_COLS) * RecipeLayoutConstants.SLOT_SIZE;
+            int slotY = (i / RecipeLayoutConstants.GRID_COLS) * RecipeLayoutConstants.SLOT_SIZE;
             widgetHolder.addSlot(outputs.get(i), slotX, slotY).recipeContext(this);
         }
     }

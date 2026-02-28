@@ -2,6 +2,7 @@ package com.rempler.exnihiloadditions.compat.rei.category;
 
 import com.rempler.exnihiloadditions.compat.rei.EXAREIPlugin;
 import com.rempler.exnihiloadditions.compat.rei.display.REIHeatDisplay;
+import com.rempler.exnihiloadditions.compat.shared.RecipeLayoutConstants;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
@@ -18,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class REIHeatCategory implements DisplayCategory<REIHeatDisplay> {
-
     @Override
     public CategoryIdentifier<? extends REIHeatDisplay> getCategoryIdentifier() {
         return EXAREIPlugin.HEAT;
@@ -36,31 +36,29 @@ public class REIHeatCategory implements DisplayCategory<REIHeatDisplay> {
 
     @Override
     public int getDisplayWidth(REIHeatDisplay display) {
-        return 150;
+        return RecipeLayoutConstants.HEAT_WIDTH + 10;
     }
 
     @Override
     public int getDisplayHeight() {
-        return 40;
+        return RecipeLayoutConstants.HEAT_HEIGHT + 10;
     }
 
     @Override
     public List<Widget> setupDisplay(REIHeatDisplay display, Rectangle bounds) {
         List<Widget> widgets = new ArrayList<>();
-        Point startPoint = new Point(bounds.getCenterX() - 41, bounds.y + 5);
-
+        Point sp = new Point(bounds.x + 5, bounds.y + 5);
         widgets.add(Widgets.createRecipeBase(bounds));
 
-        // Input block
-        widgets.add(Widgets.createSlot(new Point(startPoint.x, startPoint.y + 5))
+        // Heat source input
+        widgets.add(Widgets.createSlot(new Point(
+                sp.x + RecipeLayoutConstants.HEAT_INPUT_X,
+                sp.y + RecipeLayoutConstants.HEAT_INPUT_Y))
                 .entries(display.getInputEntries().getFirst())
                 .markInput());
-
-        // Heat amount label
-        widgets.add(Widgets.createLabel(
-                new Point(startPoint.x + 30, startPoint.y + 10),
-                Component.literal("Heat: " + display.getHeatAmount()).withStyle(ChatFormatting.DARK_RED)
-        ).leftAligned());
+        widgets.add(Widgets.createTooltip(new Rectangle(new Point(sp.x + RecipeLayoutConstants.HEAT_INPUT_X, sp.y + RecipeLayoutConstants.HEAT_INPUT_Y)),
+                Component.literal(String.format("Heat: %d", display.getHeatAmount()))
+                        .withStyle(ChatFormatting.WHITE)));
 
         return widgets;
     }
