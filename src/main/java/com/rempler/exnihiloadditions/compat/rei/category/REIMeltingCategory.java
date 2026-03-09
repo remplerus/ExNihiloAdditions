@@ -2,6 +2,7 @@ package com.rempler.exnihiloadditions.compat.rei.category;
 
 import com.rempler.exnihiloadditions.compat.rei.EXAREIPlugin;
 import com.rempler.exnihiloadditions.compat.rei.display.REIMeltingDisplay;
+import com.rempler.exnihiloadditions.compat.shared.RecipeLayoutConstants;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
@@ -44,39 +45,32 @@ public class REIMeltingCategory implements DisplayCategory<REIMeltingDisplay> {
 
     @Override
     public int getDisplayWidth(REIMeltingDisplay display) {
-        return 166;
+        return RecipeLayoutConstants.MELTING_WIDTH + 10;
     }
 
     @Override
     public int getDisplayHeight() {
-        return 58;
+        return RecipeLayoutConstants.MELTING_HEIGHT + 10;
     }
 
     @Override
     public List<Widget> setupDisplay(REIMeltingDisplay display, Rectangle bounds) {
         List<Widget> widgets = new ArrayList<>();
-        Point startPoint = new Point(bounds.x + 5, bounds.y + 5);
-
+        Point sp = new Point(bounds.x + 5, bounds.y + 5);
         widgets.add(Widgets.createRecipeBase(bounds));
 
-        // Input items in a grid (up to 21 items per display)
-        List<? extends List<?>> inputs = display.getInputEntries();
-        for (int i = 0; i < inputs.size() && i < 21; i++) {
-            int slotX = startPoint.x + (i % 7 * 18);
-            int slotY = startPoint.y + (i / 7 * 18);
-            widgets.add(Widgets.createSlot(new Point(slotX, slotY))
-                    .entries(display.getInputEntries().get(i))
-                    .markInput());
-        }
+        // Input item
+        widgets.add(Widgets.createSlot(new Point(sp.x, sp.y))
+                .entries(display.getInputEntries().get(0))
+                .markInput());
 
         // Arrow
-        int arrowY = startPoint.y + 19;
-        widgets.add(Widgets.createArrow(new Point(startPoint.x + 128, arrowY)));
+        widgets.add(Widgets.createArrow(new Point(sp.x + RecipeLayoutConstants.ARROW_OFFSET_X, sp.y + 1)));
 
         // Fluid output
         if (!display.getOutputEntries().isEmpty()) {
-            widgets.add(Widgets.createSlot(new Point(startPoint.x + 140, startPoint.y + 19))
-                    .entries(display.getOutputEntries().getFirst())
+            widgets.add(Widgets.createSlot(new Point(sp.x + RecipeLayoutConstants.OUTPUT_OFFSET_X, sp.y))
+                    .entries(display.getOutputEntries().get(0))
                     .markOutput());
         }
 

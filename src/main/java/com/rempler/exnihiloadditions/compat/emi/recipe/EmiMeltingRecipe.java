@@ -1,6 +1,7 @@
 package com.rempler.exnihiloadditions.compat.emi.recipe;
 
 import com.rempler.exnihiloadditions.compat.emi.EXNEMIPlugin;
+import com.rempler.exnihiloadditions.compat.shared.RecipeLayoutConstants;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
@@ -17,11 +18,13 @@ public class EmiMeltingRecipe extends AbstractEmiRecipe {
     private final List<EmiIngredient> inputs = new ArrayList<>();
     private final List<EmiStack> outputs = new ArrayList<>();
     private final CrucibleBlockEntity.CrucibleType crucibleType;
+
     public EmiMeltingRecipe(RecipeHolder<MeltingRecipe> recipeHolder) {
         super(recipeHolder.id());
         MeltingRecipe recipe = recipeHolder.value();
         this.inputs.add(EmiIngredient.of(recipe.getInput()));
-        this.outputs.add(EmiStack.of(recipe.getResultFluid().getFluid()).setAmount(recipe.getResultFluid().getAmount()));
+        this.outputs.add(EmiStack.of(recipe.getResultFluid().getFluid())
+                .setAmount(recipe.getResultFluid().getAmount()));
         this.crucibleType = recipe.getCrucibleType();
     }
 
@@ -51,18 +54,20 @@ public class EmiMeltingRecipe extends AbstractEmiRecipe {
 
     @Override
     public int getDisplayWidth() {
-        return 70;
+        return RecipeLayoutConstants.MELTING_WIDTH;
     }
 
     @Override
     public int getDisplayHeight() {
-        return 20;
+        return RecipeLayoutConstants.MELTING_HEIGHT;
     }
 
     @Override
     public void addWidgets(WidgetHolder widgetHolder) {
         widgetHolder.addSlot(inputs.getFirst(), 0, 0);
-        widgetHolder.addTexture(EmiTexture.EMPTY_ARROW, 19, 1);
-        widgetHolder.addTank(outputs.getFirst(), 43, 0, 18, 18, 1000).recipeContext(this);
+        widgetHolder.addTexture(EmiTexture.EMPTY_ARROW, RecipeLayoutConstants.ARROW_OFFSET_X, 1);
+        widgetHolder.addTank(outputs.getFirst(), RecipeLayoutConstants.OUTPUT_OFFSET_X, 0,
+                RecipeLayoutConstants.TANK_WIDTH, RecipeLayoutConstants.TANK_HEIGHT,
+                RecipeLayoutConstants.TANK_CAPACITY).recipeContext(this);
     }
 }
