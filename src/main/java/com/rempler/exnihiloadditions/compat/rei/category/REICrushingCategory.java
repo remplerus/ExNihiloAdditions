@@ -2,6 +2,7 @@ package com.rempler.exnihiloadditions.compat.rei.category;
 
 import com.rempler.exnihiloadditions.compat.rei.EXAREIPlugin;
 import com.rempler.exnihiloadditions.compat.rei.display.REICrushingDisplay;
+import com.rempler.exnihiloadditions.compat.shared.RecipeLayoutConstants;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
@@ -17,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class REICrushingCategory implements DisplayCategory<REICrushingDisplay> {
-
     @Override
     public CategoryIdentifier<? extends REICrushingDisplay> getCategoryIdentifier() {
         return EXAREIPlugin.CRUSHING;
@@ -35,33 +35,37 @@ public class REICrushingCategory implements DisplayCategory<REICrushingDisplay> 
 
     @Override
     public int getDisplayWidth(REICrushingDisplay display) {
-        return 166;
+        int outputCount = display.getOutputEntries().size();
+        return RecipeLayoutConstants.gridDisplayWidth(outputCount) + 10;
     }
 
     @Override
     public int getDisplayHeight() {
-        return 58;
+        return RecipeLayoutConstants.gridDisplayHeight(7) + 10; // Default for max single row
     }
 
     @Override
     public List<Widget> setupDisplay(REICrushingDisplay display, Rectangle bounds) {
         List<Widget> widgets = new ArrayList<>();
-        Point startPoint = new Point(bounds.x + 5, bounds.y + 5);
-
+        Point sp = new Point(bounds.x + 5, bounds.y + 5);
         widgets.add(Widgets.createRecipeBase(bounds));
 
-        // Input slot
-        widgets.add(Widgets.createSlot(new Point(startPoint.x + 5, startPoint.y + 19))
-                .entries(display.getInputEntries().getFirst())
+        int outputCount = display.getOutputEntries().size();
+        int contentHeight = RecipeLayoutConstants.gridDisplayHeight(outputCount);
+        int y = contentHeight - RecipeLayoutConstants.SLOT_SIZE;
+
+        // Input
+        widgets.add(Widgets.createSlot(new Point(sp.x, sp.y + y / 2))
+                .entries(display.getInputEntries().get(0))
                 .markInput());
 
-        widgets.add(Widgets.createArrow(new Point(startPoint.x + 24, startPoint.y + 19)));
+        // Arrow
+        widgets.add(Widgets.createArrow(new Point(sp.x + RecipeLayoutConstants.ARROW_OFFSET_X, sp.y + y / 2 + 1)));
 
-        // Output slots in a grid
-        List<? extends List<?>> outputs = display.getOutputEntries();
-        for (int i = 0; i < outputs.size() && i < 14; i++) {
-            int slotX = startPoint.x + 55 + (i % 7 * 18);
-            int slotY = startPoint.y + (i / 7 * 18);
+        // Output grid
+        for (int i = 0; i < outputCount; i++) {
+            int slotX = sp.x + RecipeLayoutConstants.GRID_OUTPUT_START_X + (i % RecipeLayoutConstants.GRID_COLS) * RecipeLayoutConstants.SLOT_SIZE;
+            int slotY = sp.y + (i / RecipeLayoutConstants.GRID_COLS) * RecipeLayoutConstants.SLOT_SIZE;
             widgets.add(Widgets.createSlot(new Point(slotX, slotY))
                     .entries(display.getOutputEntries().get(i))
                     .markOutput());

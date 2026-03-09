@@ -1,5 +1,7 @@
 package com.rempler.exnihiloadditions.compat.jei.compost;
+
 import com.google.common.collect.Lists;
+import com.rempler.exnihiloadditions.compat.shared.RecipeLayoutConstants;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -56,7 +58,7 @@ public class CompostRecipeCategory implements IRecipeCategory<CompostRecipe> {
     @Nonnull
     @Override
     public Component getTitle() {
-        return Component.translatable("jei.category.compost");
+        return Component.translatable("emi.category.exnihiloadditions.composting");
     }
 
     @Override
@@ -67,15 +69,15 @@ public class CompostRecipeCategory implements IRecipeCategory<CompostRecipe> {
         ItemStack[] inputArray = recipe.getInput().getItems();
 
         if (inputArray.length > 21) {
-            IRecipeSlotBuilder inputs = builder.addSlot(RecipeIngredientRole.INPUT, 39, 3);
+            IRecipeSlotBuilder inputs = builder.addSlot(RecipeIngredientRole.INPUT,
+                    RecipeLayoutConstants.GRID_OUTPUT_START_X - 4, 3);
             inputs.addItemStacks(Lists.newArrayList(inputArray));
         } else {
             for (int i = 0; i < inputArray.length; i++) {
-                final int slotX = 39 + (i % 7 * 18);
-                final int slotY = 3 + i / 7 * 18;
+                final int slotX = RecipeLayoutConstants.GRID_OUTPUT_START_X - 4 + (i % RecipeLayoutConstants.GRID_COLS * RecipeLayoutConstants.SLOT_SIZE);
+                final int slotY = 3 + i / RecipeLayoutConstants.GRID_COLS * RecipeLayoutConstants.SLOT_SIZE;
 
                 @Nonnull final ItemStack stack = inputArray[i];
-
                 IRecipeSlotBuilder input = builder.addSlot(RecipeIngredientRole.INPUT, slotX, slotY);
                 input.addItemStack(stack);
                 input.addRichTooltipCallback(new CompostTooltipCallback());

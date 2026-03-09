@@ -1,5 +1,6 @@
 package com.rempler.exnihiloadditions.compat.jei.harvest;
 
+import com.rempler.exnihiloadditions.compat.shared.RecipeLayoutConstants;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -55,7 +56,7 @@ public class HarvestRecipeCategory implements IRecipeCategory<HarvestRecipe> {
     @Nonnull
     @Override
     public Component getTitle() {
-        return Component.translatable("jei.category.harvest");
+        return Component.translatable("emi.category.exnihiloadditions.harvesting");
     }
 
     @Override
@@ -63,8 +64,8 @@ public class HarvestRecipeCategory implements IRecipeCategory<HarvestRecipe> {
         builder.addSlot(RecipeIngredientRole.INPUT, 11, 39).addIngredients(recipe.getInput());
 
         for (int i = 0; i < recipe.getOutputsWithoutChance().size(); i++) {
-            final int slotX = 39 + (i % 7 * 18);
-            final int slotY = 3 + i / 7 * 18;
+            final int slotX = RecipeLayoutConstants.GRID_OUTPUT_START_X - 4 + (i % RecipeLayoutConstants.GRID_COLS * RecipeLayoutConstants.SLOT_SIZE);
+            final int slotY = 3 + i / RecipeLayoutConstants.GRID_COLS * RecipeLayoutConstants.SLOT_SIZE;
 
             final ItemStack outputStack = recipe.getOutputsWithoutChance().get(i);
             builder

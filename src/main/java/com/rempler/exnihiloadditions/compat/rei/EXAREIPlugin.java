@@ -1,6 +1,7 @@
 package com.rempler.exnihiloadditions.compat.rei;
 
 import com.rempler.exnihiloadditions.ExNihiloAdditions;
+
 import com.rempler.exnihiloadditions.compat.rei.category.*;
 import com.rempler.exnihiloadditions.compat.rei.display.*;
 import me.shedaniel.math.Rectangle;
@@ -22,7 +23,6 @@ import novamachina.exnihilosequentia.common.registries.ExNihiloRegistries;
 import novamachina.exnihilosequentia.tags.ExNihiloTags;
 import novamachina.exnihilosequentia.world.item.MeshType;
 import novamachina.exnihilosequentia.world.item.crafting.*;
-import novamachina.exnihilosequentia.world.level.block.EXNBlocks;
 import novamachina.exnihilosequentia.world.level.block.entity.CrucibleBlockEntity.CrucibleType;
 
 import java.util.*;
@@ -123,15 +123,8 @@ public class EXAREIPlugin implements REIClientPlugin {
         }
 
         // Sifting
-        List<SiftingRecipe> siftingRecipes = ExNihiloRegistries.SIEVE_REGISTRY.getRecipeList();
-        Map<String, List<SiftingRecipe>> groupedRecipes = new HashMap<>();
-        for (SiftingRecipe recipe : siftingRecipes) {
-            String key = recipe.getInput().toString() + "_" + recipe.isWaterlogged();
-            groupedRecipes.computeIfAbsent(key, k -> new ArrayList<>()).add(recipe);
-        }
-        for (List<SiftingRecipe> recipes : groupedRecipes.values()) {
-            SiftingRecipe baseRecipe = recipes.getFirst();
-            registry.add(new REISiftingDisplay(baseRecipe));
+        for (SiftingRecipe recipe : ExNihiloRegistries.SIEVE_REGISTRY.getRecipeList()) {
+            registry.add(new REISiftingDisplay(recipe));
         }
 
         // Solidifying
@@ -161,9 +154,9 @@ public class EXAREIPlugin implements REIClientPlugin {
             registry.addWorkstations(HEAT, EntryStacks.of(stack));
             registry.addWorkstations(MELTING, EntryStacks.of(stack));
         }
-        registry.addWorkstations(FIRED_MELTING, EntryStacks.of(EXNBlocks.FIRED_CRUCIBLE.itemStack()));
-        registry.addWorkstations(FIRED_MELTING, EntryStacks.of(EXNBlocks.CRIMSON_CRUCIBLE.itemStack()));
-        registry.addWorkstations(FIRED_MELTING, EntryStacks.of(EXNBlocks.WARPED_CRUCIBLE.itemStack()));
+        for (ItemStack stack : getTagItems(ExNihiloAdditions.FIRED_CRUCIBLE)) {
+            registry.addWorkstations(FIRED_MELTING, EntryStacks.of(stack));
+        }
 
         // Sieves
         for (ItemStack stack : getTagItems(ExNihiloTags.SIEVE)) {

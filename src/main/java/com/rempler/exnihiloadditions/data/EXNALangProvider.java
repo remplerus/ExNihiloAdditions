@@ -14,6 +14,8 @@ public class EXNALangProvider extends AbstractLangGenerator {
     @Override
     protected void addTranslations() {
         add("itemGroup." + ExNihiloAdditions.MODID, "Ex Nihilo: Additions");
+
+        // Unified category names - used by EMI, JEI, and REI
         add("emi.category.exnihiloadditions.composting", "Composting");
         add("emi.category.exnihiloadditions.crushing", "Crushing");
         add("emi.category.exnihiloadditions.harvesting", "Harvesting");
@@ -26,9 +28,9 @@ public class EXNALangProvider extends AbstractLangGenerator {
         add("emi.category.exnihiloadditions.solidifying", "Solidifying");
         add("emi.category.exnihiloadditions.transition", "Transition");
         add("exnihilosequentia.barrels", "Barrels");
+
         if (ExNihiloAdditions.isTFCLoaded) {
             EXNATFCBlocks.getDefinitions().forEach(this::addBlockName);
         }
     }
-
 }

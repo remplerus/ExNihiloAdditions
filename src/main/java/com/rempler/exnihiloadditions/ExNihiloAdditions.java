@@ -7,6 +7,9 @@ import com.rempler.exnihiloadditions.compat.tfc.EXNATFCItems;
 import com.rempler.exnihiloadditions.compat.tfc.client.EXNATFCClientSetup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
@@ -29,6 +32,7 @@ public class ExNihiloAdditions {
     public static final String MODID = "exnihiloadditions";
     public static boolean isTFCLoaded = ModList.get().isLoaded("tfc");
     public static boolean isEMILoaded = ModList.get().isLoaded("emi");
+    public static TagKey<Item> FIRED_CRUCIBLE = ItemTags.create(rl("fired_crucible"));
 
     public static ResourceLocation rl(String path) {
         return ResourceLocation.fromNamespaceAndPath(MODID, path);

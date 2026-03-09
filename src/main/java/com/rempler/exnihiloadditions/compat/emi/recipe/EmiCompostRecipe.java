@@ -1,6 +1,7 @@
 package com.rempler.exnihiloadditions.compat.emi.recipe;
 
 import com.rempler.exnihiloadditions.compat.emi.EXNEMIPlugin;
+import com.rempler.exnihiloadditions.compat.shared.RecipeLayoutConstants;
 import dev.emi.emi.api.recipe.BasicEmiRecipe;
 import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
@@ -14,10 +15,13 @@ import novamachina.exnihilosequentia.world.item.crafting.CompostRecipe;
 
 public class EmiCompostRecipe extends BasicEmiRecipe {
     private final int solidAmount;
+
     public EmiCompostRecipe(RecipeHolder<CompostRecipe> recipeHolder) {
-        super(EXNEMIPlugin.COMPOSTING, recipeHolder.id(), 70, 18);
+        super(EXNEMIPlugin.COMPOSTING, recipeHolder.id(),
+                RecipeLayoutConstants.COMPOST_WIDTH, RecipeLayoutConstants.COMPOST_HEIGHT);
         CompostRecipe recipe = recipeHolder.value();
-        this.inputs.add(EmiIngredient.of(recipe.getInput()).setAmount(Config.getBarrelMaxSolidAmount() / recipe.getAmount()));
+        this.inputs.add(EmiIngredient.of(recipe.getInput())
+                .setAmount(Config.getBarrelMaxSolidAmount() / recipe.getAmount()));
         this.outputs.add(EmiStack.of(Items.DIRT));
         this.solidAmount = recipe.getAmount();
     }
@@ -29,9 +33,11 @@ public class EmiCompostRecipe extends BasicEmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgetHolder) {
-        int x = 0;
-        widgetHolder.addSlot(inputs.getFirst(), x, 0).appendTooltip(Component.literal(String.format("Amount: %d / %d", solidAmount, Config.getBarrelMaxSolidAmount())));
-        widgetHolder.addTexture(EmiTexture.EMPTY_ARROW, x + 19, 1);
-        widgetHolder.addSlot(outputs.getFirst(), x + 43, 0).recipeContext(this);
+        widgetHolder.addSlot(inputs.getFirst(), 0, 0)
+                .appendTooltip(Component.literal(String.format("Amount: %d / %d",
+                        solidAmount, Config.getBarrelMaxSolidAmount())));
+        widgetHolder.addTexture(EmiTexture.EMPTY_ARROW, RecipeLayoutConstants.ARROW_OFFSET_X, 1);
+        widgetHolder.addSlot(outputs.getFirst(), RecipeLayoutConstants.OUTPUT_OFFSET_X, 0)
+                .recipeContext(this);
     }
 }

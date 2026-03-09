@@ -7,10 +7,10 @@ plugins {
     id "me.modmuss50.mod-publish-plugin" version "0.8.4"
 }
 
-boolean enableJEI = false
+boolean enableJEI = true
 boolean enableEMI = false
 boolean enableTFC = false
-boolean enableREI = true
+boolean enableREI = false
 
 group = mod_group_id
 version = mod_version
