@@ -1,4 +1,7 @@
 {
+  "block.exnihiloadditions.custom_barrel": "Custom Barrel",
+  "block.exnihiloadditions.custom_crucible": "Custom Crucible",
+  "block.exnihiloadditions.custom_sieve": "Custom Sieve",
   "emi.category.exnihiloadditions.composting": "Composting",
   "emi.category.exnihiloadditions.crushing": "Crushing",
   "emi.category.exnihiloadditions.fired_melting": "Fired Melting",
@@ -11,5 +14,9 @@
   "emi.category.exnihiloadditions.transition": "Transition",
   "emi.category.exnihiloadditions.water_sifting": "Water Sifting",
   "exnihilosequentia.barrels": "Barrels",
+  "item.exnihiloadditions.custom_doll": "Custom Doll",
+  "item.exnihiloadditions.custom_doll.no_variant": "No doll variant configured",
+  "item.exnihiloadditions.custom_doll.not_enough_fluid": "Not enough fluid in barrel (needs 1000 mB)",
+  "item.exnihiloadditions.custom_doll.wrong_fluid": "Wrong fluid in barrel",
   "itemGroup.exnihiloadditions": "Ex Nihilo: Additions"
 }

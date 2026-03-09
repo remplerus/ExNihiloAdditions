@@ -8,9 +8,9 @@ plugins {
 }
 
 boolean enableJEI = false
-boolean enableEMI = false
+boolean enableEMI = true
 boolean enableTFC = false
-boolean enableREI = true
+boolean enableREI = false
 
 group = mod_group_id
 version = mod_version

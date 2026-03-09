@@ -1,14 +1,13 @@
-package com.rempler.exnihiloadditions.compat.emi.client;
+package com.rempler.exnihiloadditions.client;
 
 import com.rempler.exnihiloadditions.ExNihiloAdditions;
-import com.rempler.exnihiloadditions.compat.emi.EXNEMIPlugin;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.ModelEvent;
 
-public class EXAEMIClientSetup {
+public class EXAClientSetup {
     public static void register(IEventBus event) {
-        event.addListener(EXAEMIClientSetup::registerAdditionalModels);
+        event.addListener(EXAClientSetup::registerAdditionalModels);
     }
 
     private static void registerAdditionalModels(ModelEvent.RegisterAdditional event) {

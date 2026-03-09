@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "exnihiloadditions:item/custom_doll"
+  }
+}
