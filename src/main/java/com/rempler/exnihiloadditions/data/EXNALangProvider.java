@@ -28,6 +28,14 @@ public class EXNALangProvider extends AbstractLangGenerator {
         add("emi.category.exnihiloadditions.solidifying", "Solidifying");
         add("emi.category.exnihiloadditions.transition", "Transition");
         add("exnihilosequentia.barrels", "Barrels");
+        add("block.exnihiloadditions.custom_sieve", "Custom Sieve");
+        add("block.exnihiloadditions.custom_barrel", "Custom Barrel");
+        add("block.exnihiloadditions.custom_crucible", "Custom Crucible");
+        add("item.exnihiloadditions.custom_doll", "Custom Doll");
+        add("item.exnihiloadditions.custom_doll.no_variant", "No doll variant configured");
+        add("item.exnihiloadditions.custom_doll.not_enough_fluid", "Not enough fluid in barrel (needs 1000 mB)");
+        add("item.exnihiloadditions.custom_doll.wrong_fluid", "Wrong fluid in barrel");
+        add("item.exnihiloadditions.custom_doll.variant", "Add to a barrel of %s to spawn a %s");
 
         if (ExNihiloAdditions.isTFCLoaded) {
             EXNATFCBlocks.getDefinitions().forEach(this::addBlockName);

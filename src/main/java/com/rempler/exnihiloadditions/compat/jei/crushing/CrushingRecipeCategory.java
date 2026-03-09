@@ -35,6 +35,7 @@ public class CrushingRecipeCategory implements IRecipeCategory<CrushingRecipe> {
         this.slotHighlight = guiHelper.createDrawable(texture, 166, 0, 18, 18);
     }
 
+    @SuppressWarnings("removal")
     @Nonnull
     @Override
     public IDrawable getBackground() {

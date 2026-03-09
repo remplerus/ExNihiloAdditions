@@ -30,6 +30,7 @@ public abstract class AbstractSieveRecipeCategory implements IRecipeCategory<JEI
         this.isWaterlogged = isWaterlogged;
     }
 
+    @SuppressWarnings("removal")
     @Override
     public IDrawable getBackground() {
         return background;

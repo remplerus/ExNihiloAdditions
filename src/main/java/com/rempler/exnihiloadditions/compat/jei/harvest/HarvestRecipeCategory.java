@@ -36,6 +36,7 @@ public class HarvestRecipeCategory implements IRecipeCategory<HarvestRecipe> {
         this.slotHighlight = guiHelper.createDrawable(texture, 166, 0, 18, 18);
     }
 
+    @SuppressWarnings("removal")
     @Nonnull
     @Override
     public IDrawable getBackground() {

@@ -33,6 +33,7 @@ public class SolidifyingRecipeCategory implements IRecipeCategory<SolidifyingRec
         this.background = guiHelper.createDrawable(texture, 0, 0, 166, 63);
     }
 
+    @SuppressWarnings("removal")
     @Nonnull
     @Override
     public IDrawable getBackground() {

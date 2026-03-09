@@ -35,6 +35,7 @@ public class MeltingRecipeCategory implements IRecipeCategory<JEICrucibleRecipe>
         this.uid = ResourceLocation.fromNamespaceAndPath(ExNihiloConstants.ModIds.EX_NIHILO_SEQUENTIA, uid);
     }
 
+    @SuppressWarnings("removal")
     @Nonnull
     @Override
     public IDrawable getBackground() {

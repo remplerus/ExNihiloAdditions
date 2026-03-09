@@ -73,6 +73,7 @@ public class HeatRecipeCategory implements IRecipeCategory<HeatRecipe> {
         //    }
     }
 
+    @SuppressWarnings("removal")
     @Nonnull
     @Override
     public IDrawable getBackground() {

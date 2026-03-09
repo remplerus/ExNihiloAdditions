@@ -42,33 +42,11 @@ public class EXNARecipeGenerator extends RecipeProvider {
     }
 
     private void createSiftingRecipes(RecipeOutput consumer) {
-        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_ANDESITE.block(), EXNItems.PEBBLE_ANDESITE.asItem(), true);
-        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_BASALT.block(), EXNItems.PEBBLE_BASALT.asItem(), true);
-        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_BLACKSTONE.block(), EXNItems.PEBBLE_BLACKSTONE.asItem(), true);
-        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_CALCITE.block(), EXNItems.PEBBLE_CALCITE.asItem(), true);
-        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_DEEPSLATE.block(), EXNItems.PEBBLE_DEEPSLATE.asItem(), true);
-        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_DIORITE.block(), EXNItems.PEBBLE_DIORITE.asItem(), true);
-        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_DRIPSTONE.block(), EXNItems.PEBBLE_DRIPSTONE.asItem(), true);
-        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_END_STONE.block(), EXNItems.PEBBLE_END_STONE.asItem(), true);
-        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_GRANITE.block(), EXNItems.PEBBLE_GRANITE.asItem(), true);
-        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_NETHERRACK.block(), EXNItems.PEBBLE_NETHERRACK.asItem(), true);
-        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_NETHERRACK.block(), EXNItems.PEBBLE_BASALT.asItem(), ExNihiloSequentia.makeId("sifting/ens_pebble_basalt"), false);
-        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_NETHERRACK.block(), EXNItems.PEBBLE_BLACKSTONE.asItem(), ExNihiloSequentia.makeId("sifting/ens_pebble_blackstone"), false);
-        easySiftingRecipe(consumer, EXNBlocks.CRUSHED_TUFF.block(), EXNItems.PEBBLE_TUFF.asItem(), true);
+        //Added in ExNihilo 1.21.1
     }
 
     private void createHeatRecipes(RecipeOutput consumer) {
-        Optional<StatePropertiesPredicate> lit = StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.LIT, true).build();
-        HeatRecipeBuilder.heat(Blocks.SOUL_TORCH, 1, lit)
-                .build(consumer, ExNihiloAdditions.rl("heat/soul_torch"));
-        HeatRecipeBuilder.heat(Blocks.SOUL_WALL_TORCH, 1, lit)
-                .build(consumer, ExNihiloAdditions.rl("heat/soul_wall_torch"));
-        HeatRecipeBuilder.heat(Blocks.LAVA_CAULDRON, 3)
-                .build(consumer, ExNihiloAdditions.rl("heat/lava_cauldron"));
-        HeatRecipeBuilder.heat(Blocks.BLAST_FURNACE, 3, lit)
-                .build(consumer, ExNihiloAdditions.rl("heat/blast_furnace"));
-        HeatRecipeBuilder.heat(Blocks.SMOKER, 3, lit)
-                .build(consumer, ExNihiloAdditions.rl("heat/smoker"));
+        //Added to ExNihilo 1.21.1
     }
 
     private void easySiftingRecipe(RecipeOutput consumer, Block block, Item item, ResourceLocation rl, boolean rich) {

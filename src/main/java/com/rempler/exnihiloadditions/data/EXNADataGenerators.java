@@ -1,5 +1,6 @@
 package com.rempler.exnihiloadditions.data;
 
+import com.rempler.exnihiloadditions.ExNihiloAdditions;
 import com.rempler.exnihiloadditions.data.loot.EXNCLootProvider;
 import com.rempler.exnihiloadditions.data.recipe.EXNARecipeGenerator;
 import com.rempler.exnihiloadditions.data.tags.EXNCTagProvider;
@@ -14,7 +15,7 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import javax.annotation.Nonnull;
 import java.util.concurrent.CompletableFuture;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = ExNihiloAdditions.MODID)
 public class EXNADataGenerators {
     @SubscribeEvent
     public static void gatherData(@Nonnull final GatherDataEvent event) {

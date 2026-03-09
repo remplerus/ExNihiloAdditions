@@ -37,6 +37,7 @@ public class CompostRecipeCategory implements IRecipeCategory<CompostRecipe> {
         this.background = guiHelper.createDrawable(texture, 0, 168, 166, 58);
     }
 
+    @SuppressWarnings("removal")
     @Nonnull
     @Override
     public IDrawable getBackground() {

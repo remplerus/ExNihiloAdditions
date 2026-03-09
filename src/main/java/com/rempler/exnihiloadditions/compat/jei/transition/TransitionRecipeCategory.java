@@ -34,6 +34,7 @@ public class TransitionRecipeCategory implements IRecipeCategory<TransitionRecip
         this.background = guiHelper.createDrawable(texture, 0, 0, 166, 63);
     }
 
+    @SuppressWarnings("removal")
     @Nonnull
     @Override
     public IDrawable getBackground() {
