@@ -19,8 +19,12 @@ import net.minecraft.resources.ResourceLocation;
 public record CustomDollConfig(
     String id,
     @SerializedName("display_name") String displayName,
-    ResourceLocation fluid,
-    ResourceLocation entity,
+    String fluid,
+    String entity,
     int ticks,
-    ResourceLocation texture
-) {}
+    String texture
+) {
+    public ResourceLocation fluidId()   { return ResourceLocation.parse(fluid); }
+    public ResourceLocation entityId()  { return ResourceLocation.parse(entity); }
+    public ResourceLocation textureId() { return texture != null ? ResourceLocation.parse(texture) : null; }
+}

@@ -1,8 +1,0 @@
-{
-  "type": "exnihilosequentia:heat",
-  "amount": 1,
-  "block": "minecraft:soul_wall_torch",
-  "state": {
-    "lit": "true"
-  }
-}

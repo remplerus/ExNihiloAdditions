@@ -44,7 +44,7 @@ public class CustomDollItem extends DollItem {
     public Fluid getSpawnFluid() {
         CustomDollConfig config = PENDING_CONFIG.get();
         if (config == null) return Fluids.EMPTY;
-        return BuiltInRegistries.FLUID.getOptional(config.fluid()).orElse(Fluids.EMPTY);
+        return BuiltInRegistries.FLUID.getOptional(config.fluidId()).orElse(Fluids.EMPTY);
     }
 
     /**
@@ -57,7 +57,7 @@ public class CustomDollItem extends DollItem {
         PENDING_CONFIG.remove();
         if (config == null) return false;
 
-        Optional<EntityType<?>> entityType = BuiltInRegistries.ENTITY_TYPE.getOptional(config.entity());
+        Optional<EntityType<?>> entityType = BuiltInRegistries.ENTITY_TYPE.getOptional(config.entityId());
         if (entityType.isEmpty()) return false;
 
         Entity entity = entityType.get().create(world);
@@ -89,8 +89,9 @@ public class CustomDollItem extends DollItem {
         }
         CustomDollConfig config = CustomVariantLoader.getDoll(dollId);
         if (config != null) {
-            tooltip.add(Component.literal("Fluid: " + config.fluid()));
-            tooltip.add(Component.literal("Entity: " + config.entity()));
+            tooltip.add(Component.translatable("item.exnihiloadditions.custom_doll.variant",
+                Component.translatable("block." + config.fluidId().toLanguageKey()),
+                    Component.translatable("entity." + config.entityId().toLanguageKey())));
         }
     }
 }
