@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 
+import com.rempler.exnihiloadditions.ExNihiloAdditions;
 import com.rempler.exnihiloadditions.compat.jei.compost.CompostRecipeCategory;
 import com.rempler.exnihiloadditions.compat.jei.crushing.CrushingRecipeCategory;
 import com.rempler.exnihiloadditions.compat.jei.harvest.HarvestRecipeCategory;
@@ -25,18 +26,21 @@ import com.rempler.exnihiloadditions.compat.jei.sifting.JEISieveRecipe;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import net.neoforged.fml.ModList;
 import novamachina.exnihilosequentia.common.registries.ExNihiloRegistries;
 import novamachina.exnihilosequentia.common.utility.ExNihiloConstants;
-import novamachina.exnihilosequentia.world.item.CrookItem;
-import novamachina.exnihilosequentia.world.item.EXNItems;
-import novamachina.exnihilosequentia.world.item.HammerItem;
+import novamachina.exnihilosequentia.tags.ExNihiloTags;
 import novamachina.exnihilosequentia.world.item.MeshItem;
 import novamachina.exnihilosequentia.world.item.MeshType;
 import novamachina.exnihilosequentia.world.item.crafting.CompostRecipe;
@@ -47,14 +51,8 @@ import novamachina.exnihilosequentia.world.item.crafting.PrecipitateRecipe;
 import novamachina.exnihilosequentia.world.item.crafting.SiftingRecipe;
 import novamachina.exnihilosequentia.world.item.crafting.SolidifyingRecipe;
 import novamachina.exnihilosequentia.world.item.crafting.TransitionRecipe;
-import novamachina.exnihilosequentia.world.level.block.BarrelBlock;
-import novamachina.exnihilosequentia.world.level.block.CrucibleBlock;
-import novamachina.exnihilosequentia.world.level.block.EXNBlocks;
-import novamachina.exnihilosequentia.world.level.block.SieveBlock;
 import novamachina.exnihilosequentia.world.level.block.entity.CrucibleBlockEntity.CrucibleType;
 import novamachina.novacore.util.IngredientUtils;
-import novamachina.novacore.world.item.ItemDefinition;
-import novamachina.novacore.world.level.block.BlockDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -111,137 +109,34 @@ public class EXAJEIPlugin implements IModPlugin {
     }
 
     private void registerHarvestCatalyst(@Nonnull final IRecipeCatalystRegistration registration) {
-        Set<ItemDefinition<CrookItem>> crooks =
-                Set.of(
-                        EXNItems.CROOK_ANDESITE,
-                        EXNItems.CROOK_BAMBOO,
-                        EXNItems.CROOK_BASALT,
-                        EXNItems.CROOK_BLACKSTONE,
-                        EXNItems.CROOK_BONE,
-                        EXNItems.CROOK_CALCITE,
-                        EXNItems.CROOK_CHERRY,
-                        EXNItems.CROOK_COPPER,
-                        EXNItems.CROOK_DEEPSLATE,
-                        EXNItems.CROOK_DIAMOND,
-                        EXNItems.CROOK_DIORITE,
-                        EXNItems.CROOK_DRIPSTONE,
-                        EXNItems.CROOK_GOLD,
-                        EXNItems.CROOK_GRANITE,
-                        EXNItems.CROOK_IRON,
-                        EXNItems.CROOK_NETHER_BRICK,
-                        EXNItems.CROOK_NETHERITE,
-                        EXNItems.CROOK_RED_NETHER_BRICK,
-                        EXNItems.CROOK_STONE,
-                        EXNItems.CROOK_TERRACOTTA,
-                        EXNItems.CROOK_TUFF,
-                        EXNItems.CROOK_WOOD);
-        for (ItemDefinition<CrookItem> crook : crooks) {
-            registration.addRecipeCatalyst(crook.itemStack(), RecipeTypes.HARVEST);
-        }
+        addTagCatalysts(registration, ExNihiloTags.CROOK, RecipeTypes.HARVEST);
     }
 
     private void registerCrushingCatalyst(@Nonnull final IRecipeCatalystRegistration registration) {
-        Set<ItemDefinition<HammerItem>> hammers =
-                Set.of(
-                        EXNItems.HAMMER_ANDESITE,
-                        EXNItems.HAMMER_BAMBOO,
-                        EXNItems.HAMMER_BASALT,
-                        EXNItems.HAMMER_BLACKSTONE,
-                        EXNItems.HAMMER_BONE,
-                        EXNItems.HAMMER_CALCITE,
-                        EXNItems.HAMMER_CHERRY,
-                        EXNItems.HAMMER_COPPER,
-                        EXNItems.HAMMER_DEEPSLATE,
-                        EXNItems.HAMMER_DIAMOND,
-                        EXNItems.HAMMER_DIORITE,
-                        EXNItems.HAMMER_DRIPSTONE,
-                        EXNItems.HAMMER_GOLD,
-                        EXNItems.HAMMER_GRANITE,
-                        EXNItems.HAMMER_IRON,
-                        EXNItems.HAMMER_NETHER_BRICK,
-                        EXNItems.HAMMER_NETHERITE,
-                        EXNItems.HAMMER_RED_NETHER_BRICK,
-                        EXNItems.HAMMER_STONE,
-                        EXNItems.HAMMER_TERRACOTTA,
-                        EXNItems.HAMMER_TUFF,
-                        EXNItems.HAMMER_WOOD);
-
-        for (ItemDefinition<HammerItem> hammer : hammers) {
-            registration.addRecipeCatalyst(hammer.itemStack(), RecipeTypes.CRUSHING);
-        }
+        addTagCatalysts(registration, ExNihiloTags.HAMMER, RecipeTypes.CRUSHING);
     }
 
     private void registerCrucibles(@Nonnull final IRecipeCatalystRegistration registration) {
-        List<BlockDefinition<CrucibleBlock>> nonFiredCrucibles =
-                List.of(
-                        EXNBlocks.ACACIA_CRUCIBLE,
-                        EXNBlocks.BAMBOO_CRUCIBLE,
-                        EXNBlocks.BIRCH_CRUCIBLE,
-                        EXNBlocks.CHERRY_CRUCIBLE,
-                        EXNBlocks.DARK_OAK_CRUCIBLE,
-                        EXNBlocks.JUNGLE_CRUCIBLE,
-                        EXNBlocks.MANGROVE_CRUCIBLE,
-                        EXNBlocks.OAK_CRUCIBLE,
-                        EXNBlocks.SPRUCE_CRUCIBLE);
-        for (BlockDefinition<CrucibleBlock> blockDefinition : nonFiredCrucibles) {
-            registration.addRecipeCatalyst(
-                    blockDefinition.itemStack(), RecipeTypes.MELTING, RecipeTypes.HEAT);
-        }
-
-        List<BlockDefinition<CrucibleBlock>> firedCrucibles =
-                List.of(EXNBlocks.FIRED_CRUCIBLE, EXNBlocks.CRIMSON_CRUCIBLE, EXNBlocks.WARPED_CRUCIBLE);
-        for (BlockDefinition<CrucibleBlock> blockDefinition : firedCrucibles) {
-            registration.addRecipeCatalyst(
-                    blockDefinition.itemStack(),
-                    RecipeTypes.FIRED_MELTING,
-                    RecipeTypes.MELTING,
-                    RecipeTypes.HEAT);
-        }
+        addTagCatalysts(registration, ExNihiloTags.CRUCIBLE, RecipeTypes.MELTING, RecipeTypes.HEAT);
+        addTagCatalysts(registration, ExNihiloAdditions.FIRED_CRUCIBLE, RecipeTypes.FIRED_MELTING, RecipeTypes.MELTING, RecipeTypes.HEAT);
     }
 
     private void registerBarrels(@Nonnull final IRecipeCatalystRegistration registration) {
-
-        List<BlockDefinition<BarrelBlock>> barrels =
-                List.of(
-                        EXNBlocks.ACACIA_BARREL,
-                        EXNBlocks.BAMBOO_BARREL,
-                        EXNBlocks.BIRCH_BARREL,
-                        EXNBlocks.CHERRY_BARREL,
-                        EXNBlocks.DARK_OAK_BARREL,
-                        EXNBlocks.JUNGLE_BARREL,
-                        EXNBlocks.MANGROVE_BARREL,
-                        EXNBlocks.OAK_BARREL,
-                        EXNBlocks.SPRUCE_BARREL,
-                        EXNBlocks.STONE_BARREL,
-                        EXNBlocks.CRIMSON_BARREL,
-                        EXNBlocks.WARPED_BARREL);
-        for (BlockDefinition<BarrelBlock> blockDefinition : barrels) {
-            registration.addRecipeCatalyst(
-                    blockDefinition.itemStack(),
-                    RecipeTypes.SOLIDIFYING,
-                    RecipeTypes.TRANSITION,
-                    RecipeTypes.PRECIPITATE,
-                    RecipeTypes.COMPOST);
-        }
+        addTagCatalysts(registration, ExNihiloTags.BARREL, RecipeTypes.SOLIDIFYING, RecipeTypes.TRANSITION, RecipeTypes.PRECIPITATE, RecipeTypes.COMPOST);
     }
 
     private void registerSieves(@Nonnull final IRecipeCatalystRegistration registration) {
-        List<BlockDefinition<SieveBlock>> sieves =
-                List.of(
-                        EXNBlocks.ACACIA_SIEVE,
-                        EXNBlocks.BAMBOO_SIEVE,
-                        EXNBlocks.BIRCH_SIEVE,
-                        EXNBlocks.CHERRY_SIEVE,
-                        EXNBlocks.DARK_OAK_SIEVE,
-                        EXNBlocks.JUNGLE_SIEVE,
-                        EXNBlocks.MANGROVE_SIEVE,
-                        EXNBlocks.OAK_SIEVE,
-                        EXNBlocks.SPRUCE_SIEVE,
-                        EXNBlocks.CRIMSON_SIEVE,
-                        EXNBlocks.WARPED_SIEVE);
-        for (BlockDefinition<SieveBlock> blockDefinition : sieves) {
-            registration.addRecipeCatalyst(
-                    blockDefinition.itemStack(), RecipeTypes.DRY_SIFTING, RecipeTypes.WET_SIFTING);
+        addTagCatalysts(registration, ExNihiloTags.SIEVE, RecipeTypes.DRY_SIFTING, RecipeTypes.WET_SIFTING);
+    }
+
+    private static void addTagCatalysts(@Nonnull final IRecipeCatalystRegistration registration, @Nonnull final TagKey<Item> tag, @Nonnull final RecipeType<?>... recipeTypes) {
+        List<Item> items = new ArrayList<>();
+        BuiltInRegistries.ITEM.getTag(tag).ifPresent(holders -> holders.forEach(holder -> items.add(holder.value())));
+        if (!items.isEmpty()) {
+            ItemLike[] itemArray = items.toArray(ItemLike[]::new);
+            for (RecipeType<?> recipeType : recipeTypes) {
+                registration.addRecipeCatalysts(recipeType, itemArray);
+            }
         }
     }
 
